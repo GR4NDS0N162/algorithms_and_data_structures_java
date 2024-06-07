@@ -77,14 +77,14 @@ public final class StdOut {
     static {
         try {
             out = new PrintWriter(new OutputStreamWriter(System.out, CHARSET_NAME), true);
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             System.out.println(e);
         }
     }
 
     // don't instantiate
-    private StdOut() { }
+    private StdOut() {
+    }
 
     /**
      * Terminates the current line by printing the line-separator string.
@@ -310,7 +310,7 @@ public final class StdOut {
         StdOut.println("Test");
         StdOut.println(17);
         StdOut.println(true);
-        StdOut.printf("%.6f\n", 1.0/7.0);
+        StdOut.printf("%.6f\n", 1.0 / 7.0);
     }
 
 }

@@ -98,8 +98,7 @@ public final class In {
             InputStream is = socket.getInputStream();
             scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
             scanner.useLocale(LOCALE);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("Could not open " + socket, ioe);
         }
     }
@@ -115,11 +114,10 @@ public final class In {
         if (url == null) throw new IllegalArgumentException("url argument is null");
         try {
             URLConnection site = url.openConnection();
-            InputStream is     = site.getInputStream();
-            scanner            = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
+            InputStream is = site.getInputStream();
+            scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
             scanner.useLocale(LOCALE);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("Could not open " + url, ioe);
         }
     }
@@ -139,8 +137,7 @@ public final class In {
             FileInputStream fis = new FileInputStream(file);
             scanner = new Scanner(new BufferedInputStream(fis), CHARSET_NAME);
             scanner.useLocale(LOCALE);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("Could not open " + file, ioe);
         }
     }
@@ -188,11 +185,10 @@ public final class In {
             // HttpURLConnection site = (HttpURLConnection) url.openConnection();
             // site.addRequestProperty("User-Agent", "Mozilla/4.76");
 
-            InputStream is     = site.getInputStream();
-            scanner            = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
+            InputStream is = site.getInputStream();
+            scanner = new Scanner(new BufferedInputStream(is), CHARSET_NAME);
             scanner.useLocale(LOCALE);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("Could not open " + name, ioe);
         }
     }
@@ -217,7 +213,7 @@ public final class In {
      *
      * @return {@code true} if this input stream exists; {@code false} otherwise
      */
-    public boolean exists()  {
+    public boolean exists() {
         return scanner != null;
     }
 
@@ -274,8 +270,7 @@ public final class In {
         String line;
         try {
             line = scanner.nextLine();
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             line = null;
         }
         return line;
@@ -295,8 +290,7 @@ public final class In {
                                               + " Please contact the authors.";
             scanner.useDelimiter(WHITESPACE_PATTERN);
             return ch.charAt(0);
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'char' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -328,8 +322,7 @@ public final class In {
     public String readString() {
         try {
             return scanner.next();
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'String' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -346,13 +339,11 @@ public final class In {
     public int readInt() {
         try {
             return scanner.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read an 'int' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read an 'int' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -369,13 +360,11 @@ public final class In {
     public double readDouble() {
         try {
             return scanner.nextDouble();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'double' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read a 'double' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -392,13 +381,11 @@ public final class In {
     public float readFloat() {
         try {
             return scanner.nextFloat();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'float' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read a 'float' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -415,13 +402,11 @@ public final class In {
     public long readLong() {
         try {
             return scanner.nextLong();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'long' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read a 'long' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -438,13 +423,11 @@ public final class In {
     public short readShort() {
         try {
             return scanner.nextShort();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'short' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read a 'short' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -463,13 +446,11 @@ public final class In {
     public byte readByte() {
         try {
             return scanner.nextByte();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'byte' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read a 'byte' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -487,14 +468,13 @@ public final class In {
     public boolean readBoolean() {
         try {
             String token = readString();
-            if ("true".equalsIgnoreCase(token))  return true;
+            if ("true".equalsIgnoreCase(token)) return true;
             if ("false".equalsIgnoreCase(token)) return false;
-            if ("1".equals(token))               return true;
-            if ("0".equals(token))               return false;
+            if ("1".equals(token)) return true;
+            if ("0".equals(token)) return false;
             throw new InputMismatchException("attempts to read a 'boolean' value from the input stream, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'boolean' value from the input stream, "
                                                      + "but no more tokens are available");
         }
@@ -512,9 +492,9 @@ public final class In {
         String[] tokens = WHITESPACE_PATTERN.split(readAll());
         if (tokens.length == 0 || tokens[0].length() > 0)
             return tokens;
-        String[] decapitokens = new String[tokens.length-1];
-        for (int i = 0; i < tokens.length-1; i++)
-            decapitokens[i] = tokens[i+1];
+        String[] decapitokens = new String[tokens.length - 1];
+        for (int i = 0; i < tokens.length - 1; i++)
+            decapitokens[i] = tokens[i + 1];
         return decapitokens;
     }
 
@@ -589,7 +569,7 @@ public final class In {
      * an array of integers.
      *
      * @param      filename the name of the file
-     * @return     the integers in the file
+     * @return the integers in the file
      * @deprecated Replaced by {@code new In(filename)}.{@link #readAllInts()}.
      */
     @Deprecated
@@ -602,7 +582,7 @@ public final class In {
      * an array of doubles.
      *
      * @param      filename the name of the file
-     * @return     the doubles in the file
+     * @return the doubles in the file
      * @deprecated Replaced by {@code new In(filename)}.{@link #readAllDoubles()}.
      */
     @Deprecated
@@ -615,7 +595,7 @@ public final class In {
      * an array of strings.
      *
      * @param      filename the name of the file
-     * @return     the strings in the file
+     * @return the strings in the file
      * @deprecated Replaced by {@code new In(filename)}.{@link #readAllStrings()}.
      */
     @Deprecated
@@ -627,7 +607,7 @@ public final class In {
      * Reads all integers from standard input and returns them
      * an array of integers.
      *
-     * @return     the integers on standard input
+     * @return the integers on standard input
      * @deprecated Replaced by {@link StdIn#readAllInts()}.
      */
     @Deprecated
@@ -639,7 +619,7 @@ public final class In {
      * Reads all doubles from standard input and returns them as
      * an array of doubles.
      *
-     * @return     the doubles on standard input
+     * @return the doubles on standard input
      * @deprecated Replaced by {@link StdIn#readAllDoubles()}.
      */
     @Deprecated
@@ -651,7 +631,7 @@ public final class In {
      * Reads all strings from standard input and returns them as
      *  an array of strings.
      *
-     * @return     the strings on standard input
+     * @return the strings on standard input
      * @deprecated Replaced by {@link StdIn#readAllStrings()}.
      */
     @Deprecated
@@ -674,8 +654,7 @@ public final class In {
         try {
             in = new In(urlName);
             System.out.println(in.readAll());
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -689,8 +668,7 @@ public final class In {
                 String s = in.readLine();
                 System.out.println(s);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -704,8 +682,7 @@ public final class In {
                 String s = in.readString();
                 System.out.println(s);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -720,8 +697,7 @@ public final class In {
                 String s = in.readLine();
                 System.out.println(s);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -736,8 +712,7 @@ public final class In {
                 String s = in.readLine();
                 System.out.println(s);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -751,8 +726,7 @@ public final class In {
                 char c = in.readChar();
                 System.out.print(c);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -767,8 +741,7 @@ public final class In {
                 String s = in.readLine();
                 System.out.println(s);
             }
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();
@@ -784,8 +757,7 @@ public final class In {
                 System.out.println(s);
             }
             System.out.println();
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
         System.out.println();

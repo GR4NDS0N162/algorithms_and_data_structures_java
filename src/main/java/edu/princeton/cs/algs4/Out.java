@@ -49,8 +49,7 @@ public class Out {
         try {
             OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
             out = new PrintWriter(osw, true);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -72,8 +71,7 @@ public class Out {
             OutputStream os = socket.getOutputStream();
             OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
             out = new PrintWriter(osw, true);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -88,8 +86,7 @@ public class Out {
             OutputStream os = new FileOutputStream(filename);
             OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
             out = new PrintWriter(osw, true);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -181,7 +178,6 @@ public class Out {
     public void println(byte x) {
         out.println(x);
     }
-
 
 
     /**
