@@ -5,6 +5,9 @@
     <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\data\largeAllowlist.txt" />
     <option name="REDIRECT_INPUT" value="true" />
     <option name="INPUT_FILE" value="$ProjectFileDir$/data/largeText.txt" />
+    <selectedOptions>
+      <option name="environmentVariables" visible="false" />
+    </selectedOptions>
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.example.*" />
