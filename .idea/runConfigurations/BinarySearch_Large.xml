@@ -1,10 +1,10 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BinarySearch" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="BinarySearch Large" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="org.example.BinarySearch" />
     <module name="algorithms_and_data_structures" />
-    <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\data\tinyAllowlist.txt" />
+    <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\data\largeAllowlist.txt" />
     <option name="REDIRECT_INPUT" value="true" />
-    <option name="INPUT_FILE" value="$ProjectFileDir$/data/tinyText.txt" />
+    <option name="INPUT_FILE" value="$ProjectFileDir$/data/largeText.txt" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.example.*" />
