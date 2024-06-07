@@ -1,5 +1,11 @@
 package org.example;
 
+import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
+import java.util.Arrays;
+
 public class BinarySearch {
     public static int rank(int key, int[] a) {
         int lo = 0;
@@ -18,5 +24,15 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
+        int[] whitelist = new In(args[0]).readAllInts();
+
+        Arrays.sort(whitelist);
+
+        while (!StdIn.isEmpty()) {
+            int key = StdIn.readInt();
+            if (rank(key, whitelist) == -1) {
+                StdOut.println(key);
+            }
+        }
     }
 }
