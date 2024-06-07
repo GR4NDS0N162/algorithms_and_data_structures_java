@@ -235,7 +235,8 @@ public final class StdIn {
     private static Scanner scanner;
 
     // it doesn't make sense to instantiate this class
-    private StdIn() { }
+    private StdIn() {
+    }
 
     //// begin: section (2 of 2) of code duplicated from In to StdIn,
     //// with all methods changed from "public" to "public static"
@@ -291,8 +292,7 @@ public final class StdIn {
         String line;
         try {
             line = scanner.nextLine();
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             line = null;
         }
         return line;
@@ -312,8 +312,7 @@ public final class StdIn {
                                               + " Please contact the authors.";
             scanner.useDelimiter(WHITESPACE_PATTERN);
             return ch.charAt(0);
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'char' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -345,8 +344,7 @@ public final class StdIn {
     public static String readString() {
         try {
             return scanner.next();
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'String' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -362,13 +360,11 @@ public final class StdIn {
     public static int readInt() {
         try {
             return scanner.nextInt();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read an 'int' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attemps to read an 'int' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -385,13 +381,11 @@ public final class StdIn {
     public static double readDouble() {
         try {
             return scanner.nextDouble();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'double' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'double' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -407,13 +401,11 @@ public final class StdIn {
     public static float readFloat() {
         try {
             return scanner.nextFloat();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'float' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'float' value from standard input, "
                                                      + "but there no more tokens are available");
         }
@@ -429,13 +421,11 @@ public final class StdIn {
     public static long readLong() {
         try {
             return scanner.nextLong();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'long' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'long' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -451,13 +441,11 @@ public final class StdIn {
     public static short readShort() {
         try {
             return scanner.nextShort();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'short' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'short' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -473,13 +461,11 @@ public final class StdIn {
     public static byte readByte() {
         try {
             return scanner.nextByte();
-        }
-        catch (InputMismatchException e) {
+        } catch (InputMismatchException e) {
             String token = scanner.next();
             throw new InputMismatchException("attempts to read a 'byte' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'byte' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -498,14 +484,13 @@ public final class StdIn {
     public static boolean readBoolean() {
         try {
             String token = readString();
-            if ("true".equalsIgnoreCase(token))  return true;
+            if ("true".equalsIgnoreCase(token)) return true;
             if ("false".equalsIgnoreCase(token)) return false;
-            if ("1".equals(token))               return true;
-            if ("0".equals(token))               return false;
+            if ("1".equals(token)) return true;
+            if ("0".equals(token)) return false;
             throw new InputMismatchException("attempts to read a 'boolean' value from standard input, "
                                                      + "but the next token is \"" + token + "\"");
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("attempts to read a 'boolean' value from standard input, "
                                                      + "but no more tokens are available");
         }
@@ -525,9 +510,9 @@ public final class StdIn {
             return tokens;
 
         // don't include first token if it is leading whitespace
-        String[] decapitokens = new String[tokens.length-1];
+        String[] decapitokens = new String[tokens.length - 1];
         for (int i = 0; i < tokens.length - 1; i++)
-            decapitokens[i] = tokens[i+1];
+            decapitokens[i] = tokens[i + 1];
         return decapitokens;
     }
 
