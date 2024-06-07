@@ -1,4 +1,4 @@
-/******************************************************************************
+package edu.princeton.cs.algs4; /******************************************************************************
  *  Compilation:  javac BinaryIn.java
  *  Execution:    java BinaryIn input output
  *  Dependencies: none
@@ -8,8 +8,6 @@
  *  % java BinaryIn https://introcs.cs.princeton.edu/java/cover.png output.png
  *
  ******************************************************************************/
-
-package edu.princeton.cs.algs4;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -50,7 +48,7 @@ public final class BinaryIn {
     private int buffer;                  // one character buffer
     private int n;                       // number of bits left in buffer
 
-    /**
+   /**
      * Initializes a binary input stream from standard input.
      */
     public BinaryIn() {
@@ -58,7 +56,7 @@ public final class BinaryIn {
         fillBuffer();
     }
 
-    /**
+   /**
      * Initializes a binary input stream from an {@code InputStream}.
      *
      * @param is the {@code InputStream} object
@@ -68,7 +66,7 @@ public final class BinaryIn {
         fillBuffer();
     }
 
-    /**
+   /**
      * Initializes a binary input stream from a socket.
      *
      * @param socket the socket
@@ -78,12 +76,13 @@ public final class BinaryIn {
             InputStream is = socket.getInputStream();
             in = new BufferedInputStream(is);
             fillBuffer();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe) {
             System.err.println("Could not open " + socket);
         }
     }
 
-    /**
+   /**
      * Initializes a binary input stream from a URL.
      *
      * @param url the URL
@@ -91,15 +90,16 @@ public final class BinaryIn {
     public BinaryIn(URL url) {
         try {
             URLConnection site = url.openConnection();
-            InputStream is = site.getInputStream();
+            InputStream is     = site.getInputStream();
             in = new BufferedInputStream(is);
             fillBuffer();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe) {
             System.err.println("Could not open " + url);
         }
     }
 
-    /**
+   /**
      * Initializes a binary input stream from a filename or URL name.
      *
      * @param name the name of the file or URL
@@ -125,10 +125,11 @@ public final class BinaryIn {
             }
 
             URLConnection site = url.openConnection();
-            InputStream is = site.getInputStream();
+            InputStream is     = site.getInputStream();
             in = new BufferedInputStream(is);
             fillBuffer();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe) {
             System.err.println("Could not open " + name);
         }
     }
@@ -137,7 +138,8 @@ public final class BinaryIn {
         try {
             buffer = in.read();
             n = 8;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.err.println("EOF");
             buffer = EOF;
             n = -1;
@@ -150,11 +152,11 @@ public final class BinaryIn {
      * @return {@code true} if this binary input stream exists;
      *         {@code false} otherwise
      */
-    public boolean exists() {
+    public boolean exists()  {
         return in != null;
     }
 
-    /**
+   /**
      * Returns true if this binary input stream is empty.
      *
      * @return {@code true} if this binary input stream is empty;
@@ -164,7 +166,7 @@ public final class BinaryIn {
         return buffer == EOF;
     }
 
-    /**
+   /**
      * Reads the next bit of data from this binary input stream and return as a boolean.
      *
      * @return the next bit of data from this binary input stream as a {@code boolean}
@@ -178,7 +180,7 @@ public final class BinaryIn {
         return bit;
     }
 
-    /**
+   /**
      * Reads the next 8 bits from this binary input stream and return as an 8-bit char.
      *
      * @return the next 8 bits of data from this binary input stream as a {@code char}
@@ -208,7 +210,7 @@ public final class BinaryIn {
     }
 
 
-    /**
+   /**
      * Reads the next <em>r</em> bits from this binary input stream and return
      * as an <em>r</em>-bit character.
      *
@@ -233,7 +235,7 @@ public final class BinaryIn {
     }
 
 
-    /**
+   /**
      * Reads the remaining bytes of data from this binary input stream and return as a string.
      *
      * @return the remaining bytes of data from this binary input stream as a {@code String}
@@ -252,7 +254,7 @@ public final class BinaryIn {
     }
 
 
-    /**
+   /**
      * Reads the next 16 bits from this binary input stream and return as a 16-bit short.
      *
      * @return the next 16 bits of data from this binary input stream as a {@code short}
@@ -268,7 +270,7 @@ public final class BinaryIn {
         return x;
     }
 
-    /**
+   /**
      * Reads the next 32 bits from this binary input stream and return as a 32-bit int.
      *
      * @return the next 32 bits of data from this binary input stream as a {@code int}
@@ -284,7 +286,7 @@ public final class BinaryIn {
         return x;
     }
 
-    /**
+   /**
      * Reads the next <em>r</em> bits from this binary input stream return
      * as an <em>r</em>-bit int.
      *
@@ -308,7 +310,7 @@ public final class BinaryIn {
         return x;
     }
 
-    /**
+   /**
      * Reads the next 64 bits from this binary input stream and return as a 64-bit long.
      *
      * @return the next 64 bits of data from this binary input stream as a {@code long}
@@ -324,7 +326,7 @@ public final class BinaryIn {
         return x;
     }
 
-    /**
+   /**
      * Reads the next 64 bits from this binary input stream and return as a 64-bit double.
      *
      * @return the next 64 bits of data from this binary input stream as a {@code double}
@@ -334,7 +336,7 @@ public final class BinaryIn {
         return Double.longBitsToDouble(readLong());
     }
 
-    /**
+   /**
      * Reads the next 32 bits from this binary input stream and return as a 32-bit float.
      *
      * @return the next 32 bits of data from this binary input stream as a {@code float}
@@ -345,7 +347,7 @@ public final class BinaryIn {
     }
 
 
-    /**
+   /**
      * Reads the next 8 bits from this binary input stream and return as an 8-bit byte.
      *
      * @return the next 8 bits of data from this binary input stream as a {@code byte}
@@ -356,7 +358,7 @@ public final class BinaryIn {
         return (byte) (c & 0xff);
     }
 
-    /**
+   /**
      * Unit tests the {@code BinaryIn} data type.
      * Reads the name of a file or URL (first command-line argument)
      * and writes it to a file (second command-line argument).
@@ -364,7 +366,7 @@ public final class BinaryIn {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        BinaryIn in = new BinaryIn(args[0]);
+        BinaryIn  in  = new BinaryIn(args[0]);
         BinaryOut out = new BinaryOut(args[1]);
 
         // read one 8-bit char at a time
@@ -375,27 +377,3 @@ public final class BinaryIn {
         out.flush();
     }
 }
-
-/******************************************************************************
- *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
- *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
- *
- *  algs4.jar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  algs4.jar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/

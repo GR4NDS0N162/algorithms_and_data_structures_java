@@ -1,4 +1,4 @@
-/******************************************************************************
+package edu.princeton.cs.algs4; /******************************************************************************
  *  Compilation:  javac Out.java
  *  Execution:    java Out
  *  Dependencies: none
@@ -7,8 +7,6 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4;
-
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +14,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 /**
@@ -33,79 +33,93 @@ import java.util.Locale;
 public class Out {
 
     // force Unicode UTF-8 encoding; otherwise it's system dependent
-    private static final String CHARSET_NAME = "UTF-8";
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
 
     // assume language = English, country = US for consistency with In
     private static final Locale LOCALE = Locale.US;
 
     private PrintWriter out;
 
-    /**
+   /**
      * Initializes an output stream from a {@link OutputStream}.
      *
      * @param  os the {@code OutputStream}
      */
     public Out(OutputStream os) {
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
-            out = new PrintWriter(osw, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET);
+        out = new PrintWriter(osw, true);
     }
 
-    /**
+   /**
      * Initializes an output stream from standard output.
      */
     public Out() {
         this(System.out);
     }
 
-    /**
+   /**
      * Initializes an output stream from a socket.
      *
      * @param  socket the socket
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @throws IllegalArgumentException if cannot create output stream from socket
      */
     public Out(Socket socket) {
+        if (socket == null) {
+            throw new IllegalArgumentException("socket argument is null");
+        }
         try {
             OutputStream os = socket.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
+            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET);
             out = new PrintWriter(osw, true);
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException("could not create output stream from socket", e);
         }
     }
 
-    /**
+   /**
      * Initializes an output stream from a file.
      *
      * @param  filename the name of the file
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @throws IllegalArgumentException if {@code filename} is the empty string
+     * @throws IllegalArgumentException if cannot write the file {@code filename}
      */
     public Out(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException("filename argument is null");
+        }
+
+        if (filename.length() == 0) {
+            throw new IllegalArgumentException("filename argument is the empty string");
+        }
+
         try {
             OutputStream os = new FileOutputStream(filename);
-            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
+            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET);
             out = new PrintWriter(osw, true);
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException("could not create file '" + filename + "' for writing", e);
         }
     }
 
-    /**
+   /**
      * Closes the output stream.
      */
     public void close() {
         out.close();
     }
 
-    /**
+   /**
      * Terminates the current line by printing the line-separator string.
      */
     public void println() {
         out.println();
     }
 
-    /**
+   /**
      * Prints an object to this output stream and then terminates the line.
      *
      * @param x the object to print
@@ -114,7 +128,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a boolean to this output stream and then terminates the line.
      *
      * @param x the boolean to print
@@ -123,7 +137,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a character to this output stream and then terminates the line.
      *
      * @param x the character to print
@@ -132,7 +146,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a double to this output stream and then terminates the line.
      *
      * @param x the double to print
@@ -141,7 +155,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a float to this output stream and then terminates the line.
      *
      * @param x the float to print
@@ -150,7 +164,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints an integer to this output stream and then terminates the line.
      *
      * @param x the integer to print
@@ -159,7 +173,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a long to this output stream and then terminates the line.
      *
      * @param x the long to print
@@ -168,7 +182,7 @@ public class Out {
         out.println(x);
     }
 
-    /**
+   /**
      * Prints a byte to this output stream and then terminates the line.
      * <p>
      * To write binary data, see {@link BinaryOut}.
@@ -180,14 +194,15 @@ public class Out {
     }
 
 
-    /**
+
+   /**
      * Flushes this output stream.
      */
     public void print() {
         out.flush();
     }
 
-    /**
+   /**
      * Prints an object to this output stream and flushes this output stream.
      *
      * @param x the object to print
@@ -197,7 +212,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a boolean to this output stream and flushes this output stream.
      *
      * @param x the boolean to print
@@ -207,7 +222,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a character to this output stream and flushes this output stream.
      *
      * @param x the character to print
@@ -217,7 +232,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a double to this output stream and flushes this output stream.
      *
      * @param x the double to print
@@ -227,7 +242,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a float to this output stream and flushes this output stream.
      *
      * @param x the float to print
@@ -237,7 +252,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints an integer to this output stream and flushes this output stream.
      *
      * @param x the integer to print
@@ -247,7 +262,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a long integer to this output stream and flushes this output stream.
      *
      * @param x the long integer to print
@@ -257,7 +272,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a byte to this output stream and flushes this output stream.
      *
      * @param x the byte to print
@@ -267,7 +282,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a formatted string to this output stream, using the specified format
      * string and arguments, and then flushes this output stream.
      *
@@ -279,7 +294,7 @@ public class Out {
         out.flush();
     }
 
-    /**
+   /**
      * Prints a formatted string to this output stream, using the specified
      * locale, format string, and arguments, and then flushes this output stream.
      *
@@ -293,7 +308,7 @@ public class Out {
     }
 
 
-    /**
+   /**
      * A test client.
      *
      * @param args the command-line arguments
@@ -313,27 +328,3 @@ public class Out {
     }
 
 }
-
-/******************************************************************************
- *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
- *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
- *
- *  algs4.jar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  algs4.jar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
