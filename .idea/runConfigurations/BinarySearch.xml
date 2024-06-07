@@ -2,9 +2,9 @@
   <configuration default="false" name="BinarySearch" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="org.example.BinarySearch" />
     <module name="algorithms_and_data_structures" />
-    <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\largeW.txt" />
+    <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\data\tinyAllowlist.txt" />
     <option name="REDIRECT_INPUT" value="true" />
-    <option name="INPUT_FILE" value="$ProjectFileDir$/largeT.txt" />
+    <option name="INPUT_FILE" value="$ProjectFileDir$/data/tinyText.txt" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.example.*" />
