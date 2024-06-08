@@ -6,7 +6,7 @@ import java.security.InvalidParameterException;
 
 public class Main {
     public static void main(String[] args) {
-        for (long n = Long.MAX_VALUE; n >= 1; n--) {
+        for (long n = 1; n <= 200; n++) {
             StdOut.printf("%d <= log2(%d)\n", log(2, n), n);
         }
     }
