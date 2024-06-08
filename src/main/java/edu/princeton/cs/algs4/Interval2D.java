@@ -119,14 +119,14 @@ public class Interval2D {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        double xmin = Double.parseDouble(args[0]);
-        double xmax = Double.parseDouble(args[1]);
-        double ymin = Double.parseDouble(args[2]);
-        double ymax = Double.parseDouble(args[3]);
+        double xMin = Double.parseDouble(args[0]);
+        double xMax = Double.parseDouble(args[1]);
+        double yMin = Double.parseDouble(args[2]);
+        double yMax = Double.parseDouble(args[3]);
         int trials = Integer.parseInt(args[4]);
 
-        Interval1D xInterval = new Interval1D(xmin, xmax);
-        Interval1D yInterval = new Interval1D(ymin, ymax);
+        Interval1D xInterval = new Interval1D(xMin, xMax);
+        Interval1D yInterval = new Interval1D(yMin, yMax);
         Interval2D box = new Interval2D(xInterval, yInterval);
         box.draw();
 
