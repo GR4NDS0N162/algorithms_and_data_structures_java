@@ -22,10 +22,7 @@
  *
  ******************************************************************************/
 
-package org.example;
-
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+package edu.princeton.cs.algs4;
 
 public class Flips {
     public static void main(String[] args) {

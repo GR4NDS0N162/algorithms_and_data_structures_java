@@ -16,10 +16,7 @@
  *
  ******************************************************************************/
 
-package org.example;
-
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
+package edu.princeton.cs.algs4;
 
 /**
  *  The {@code Average} class provides a client for reading in a sequence

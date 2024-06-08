@@ -13,8 +13,6 @@
 
 package edu.princeton.cs.algs4;
 
-import org.example.Counter;
-
 public class FlipsMax {
 
     public static Counter max(Counter x, Counter y) {

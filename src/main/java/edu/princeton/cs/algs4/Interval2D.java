@@ -9,8 +9,6 @@
 
 package edu.princeton.cs.algs4;
 
-import org.example.Counter;
-
 /**
  *  The {@code Interval2D} class represents a closed two-dimensional interval,
  *  which represents all points (x, y) with both {@code xmin <= x <= xmax} and

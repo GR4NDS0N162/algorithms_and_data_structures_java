@@ -14,13 +14,10 @@
  *
  ******************************************************************************/
 
-package org.example;
-
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+package edu.princeton.cs.algs4;
 
 /**
- *  The {@link  org.example.RandomSeq} class is a client that prints out a pseudorandom
+ *  The {@link  RandomSeq} class is a client that prints out a pseudorandom
  *  sequence of real numbers in a given range.
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of

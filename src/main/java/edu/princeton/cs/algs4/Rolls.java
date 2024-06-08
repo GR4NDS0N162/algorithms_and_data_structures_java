@@ -17,8 +17,6 @@
 
 package edu.princeton.cs.algs4;
 
-import org.example.Counter;
-
 public class Rolls {
     public static void main(String[] args) {
         int n = Integer.parseInt(args[0]);

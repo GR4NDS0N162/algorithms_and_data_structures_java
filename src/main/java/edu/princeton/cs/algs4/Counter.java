@@ -18,10 +18,7 @@
  *
  ******************************************************************************/
 
-package org.example;
-
-import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdRandom;
+package edu.princeton.cs.algs4;
 
 /**
  *  The {@code Counter} class is a mutable data type to encapsulate a counter.
