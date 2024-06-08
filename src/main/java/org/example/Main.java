@@ -11,7 +11,7 @@ public class Main {
         }
     }
 
-    public static long log(double base, double num) {
+    public static long log(double base, long num) {
         if (!(base > 0 && base != 1)) {
             throw new InvalidParameterException("Base must be positive and non-equal to 1");
         }
