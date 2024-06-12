@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="BinarySearch Large" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="org.example.BinarySearch" />
+    <option name="MAIN_CLASS_NAME" value="edu.princeton.cs.algs4.BinarySearch" />
     <module name="algorithms_and_data_structures" />
     <option name="PROGRAM_PARAMETERS" value="$ProjectFileDir$\data\largeAllowlist.txt" />
     <option name="REDIRECT_INPUT" value="true" />
@@ -10,7 +10,7 @@
     </selectedOptions>
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="org.example.*" />
+        <option name="PATTERN" value="edu.princeton.cs.algs4.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

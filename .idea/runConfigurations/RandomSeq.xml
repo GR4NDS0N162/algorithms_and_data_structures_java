@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="RandomSeq" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="org.example.RandomSeq" />
+    <option name="MAIN_CLASS_NAME" value="edu.princeton.cs.algs4.RandomSeq" />
     <module name="algorithms_and_data_structures" />
     <option name="PROGRAM_PARAMETERS" value="5 100.0 200.0" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="org.example.*" />
+        <option name="PATTERN" value="edu.princeton.cs.algs4.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
