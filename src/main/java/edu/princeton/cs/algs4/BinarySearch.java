@@ -62,7 +62,7 @@ public class BinarySearch {
         int lo = 0;
         int hi = a.length - 1;
         while (lo <= hi) {
-            // Key is in a[lo..hi] or not present.
+            // Key is in a[lo...hi] or not present.
             int mid = lo + (hi - lo) / 2;
             if (key < a[mid]) {
                 hi = mid - 1;
