@@ -52,15 +52,21 @@ public class Quick3way {
 
     // quicksort the subarray a[lo .. hi] using 3-way partitioning
     private static void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo) {
+            return;
+        }
         int lt = lo, gt = hi;
         Comparable v = a[lo];
         int i = lo + 1;
         while (i <= gt) {
             int cmp = a[i].compareTo(v);
-            if (cmp < 0) exch(a, lt++, i++);
-            else if (cmp > 0) exch(a, i, gt--);
-            else i++;
+            if (cmp < 0) {
+                exch(a, lt++, i++);
+            } else if (cmp > 0) {
+                exch(a, i, gt--);
+            } else {
+                i++;
+            }
         }
 
         // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
@@ -95,8 +101,11 @@ public class Quick3way {
     }
 
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

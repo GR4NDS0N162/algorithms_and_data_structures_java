@@ -98,8 +98,9 @@ public class BreadthFirstPaths {
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             distTo[v] = INFINITY;
+        }
         validateVertices(sources);
         bfs(G, sources);
     }
@@ -121,8 +122,11 @@ public class BreadthFirstPaths {
             if (bfs.hasPathTo(v)) {
                 StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
-                    if (x == s) StdOut.print(x);
-                    else StdOut.print("-" + x);
+                    if (x == s) {
+                        StdOut.print(x);
+                    } else {
+                        StdOut.print("-" + x);
+                    }
                 }
                 StdOut.println();
             } else {
@@ -135,8 +139,9 @@ public class BreadthFirstPaths {
     // breadth-first search from a single source
     private void bfs(Graph G, int s) {
         Queue<Integer> q = new Queue<Integer>();
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             distTo[v] = INFINITY;
+        }
         distTo[s] = 0;
         marked[s] = true;
         q.enqueue(s);
@@ -208,11 +213,14 @@ public class BreadthFirstPaths {
      */
     public Iterable<Integer> pathTo(int v) {
         validateVertex(v);
-        if (!hasPathTo(v)) return null;
+        if (!hasPathTo(v)) {
+            return null;
+        }
         Stack<Integer> path = new Stack<Integer>();
         int x;
-        for (x = v; distTo[x] != 0; x = edgeTo[x])
+        for (x = v; distTo[x] != 0; x = edgeTo[x]) {
             path.push(x);
+        }
         path.push(x);
         return path;
     }
@@ -248,7 +256,9 @@ public class BreadthFirstPaths {
         // check that v = edgeTo[w] satisfies distTo[w] = distTo[v] + 1
         // provided v is reachable from s
         for (int w = 0; w < G.V(); w++) {
-            if (!hasPathTo(w) || w == s) continue;
+            if (!hasPathTo(w) || w == s) {
+                continue;
+            }
             int v = edgeTo[w];
             if (distTo[w] != distTo[v] + 1) {
                 StdOut.println("shortest path edge " + v + "-" + w);
@@ -264,8 +274,9 @@ public class BreadthFirstPaths {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     // throw an IllegalArgumentException if vertices is null, has zero vertices,

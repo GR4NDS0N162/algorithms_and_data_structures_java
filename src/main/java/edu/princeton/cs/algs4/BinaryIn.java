@@ -186,10 +186,14 @@ public final class BinaryIn {
      * @throws NoSuchElementException if this binary input stream is empty
      */
     public boolean readBoolean() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
         n--;
         boolean bit = ((buffer >> n) & 1) == 1;
-        if (n == 0) fillBuffer();
+        if (n == 0) {
+            fillBuffer();
+        }
         return bit;
     }
 
@@ -200,7 +204,9 @@ public final class BinaryIn {
      * @throws NoSuchElementException if there are fewer than 8 bits available
      */
     public char readChar() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
 
         // special case when aligned byte
         if (n == 8) {
@@ -214,7 +220,9 @@ public final class BinaryIn {
         x <<= (8 - n);
         int oldN = n;
         fillBuffer();
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
         n = oldN;
         x |= (buffer >>> n);
         return (char) (x & 0xff);
@@ -232,16 +240,22 @@ public final class BinaryIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 16}
      */
     public char readChar(int r) {
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value of r = " + r);
+        if (r < 1 || r > 16) {
+            throw new IllegalArgumentException("Illegal value of r = " + r);
+        }
 
         // optimize r = 8 case
-        if (r == 8) return readChar();
+        if (r == 8) {
+            return readChar();
+        }
 
         char x = 0;
         for (int i = 0; i < r; i++) {
             x <<= 1;
             boolean bit = readBoolean();
-            if (bit) x |= 1;
+            if (bit) {
+                x |= 1;
+            }
         }
         return x;
     }
@@ -254,7 +268,9 @@ public final class BinaryIn {
      *         available is not a multiple of 8 (byte-aligned)
      */
     public String readString() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
 
         StringBuilder sb = new StringBuilder();
         while (!isEmpty()) {
@@ -306,16 +322,22 @@ public final class BinaryIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 32}
      */
     public int readInt(int r) {
-        if (r < 1 || r > 32) throw new IllegalArgumentException("Illegal value of r = " + r);
+        if (r < 1 || r > 32) {
+            throw new IllegalArgumentException("Illegal value of r = " + r);
+        }
 
         // optimize r = 32 case
-        if (r == 32) return readInt();
+        if (r == 32) {
+            return readInt();
+        }
 
         int x = 0;
         for (int i = 0; i < r; i++) {
             x <<= 1;
             boolean bit = readBoolean();
-            if (bit) x |= 1;
+            if (bit) {
+                x |= 1;
+            }
         }
         return x;
     }

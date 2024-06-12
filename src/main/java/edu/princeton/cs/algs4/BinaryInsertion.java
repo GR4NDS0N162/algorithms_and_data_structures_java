@@ -66,14 +66,18 @@ public class BinaryInsertion {
             int lo = 0, hi = i;
             while (lo < hi) {
                 int mid = lo + (hi - lo) / 2;
-                if (less(v, a[mid])) hi = mid;
-                else lo = mid + 1;
+                if (less(v, a[mid])) {
+                    hi = mid;
+                } else {
+                    lo = mid + 1;
+                }
             }
 
             // insertion sort with "half exchanges"
             // (insert a[i] at index j and shift a[j], ..., a[i-1] to right)
-            for (int j = i; j > lo; --j)
+            for (int j = i; j > lo; --j) {
                 a[j] = a[j - 1];
+            }
             a[lo] = v;
         }
         assert isSorted(a);
@@ -98,8 +102,11 @@ public class BinaryInsertion {
 
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

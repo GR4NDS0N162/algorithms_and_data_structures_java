@@ -325,8 +325,9 @@ public final class StdIn {
      * @throws NoSuchElementException if standard input is empty
      */
     public static String readAll() {
-        if (!scanner.hasNextLine())
+        if (!scanner.hasNextLine()) {
             return "";
+        }
 
         String result = scanner.useDelimiter(EVERYTHING_PATTERN).next();
         // not that important to reset delimiter, since now scanner is empty
@@ -483,10 +484,18 @@ public final class StdIn {
     public static boolean readBoolean() {
         try {
             String token = readString();
-            if ("true".equalsIgnoreCase(token)) return true;
-            if ("false".equalsIgnoreCase(token)) return false;
-            if ("1".equals(token)) return true;
-            if ("0".equals(token)) return false;
+            if ("true".equalsIgnoreCase(token)) {
+                return true;
+            }
+            if ("false".equalsIgnoreCase(token)) {
+                return false;
+            }
+            if ("1".equals(token)) {
+                return true;
+            }
+            if ("0".equals(token)) {
+                return false;
+            }
             throw new InputMismatchException("attempts to read a 'boolean' value from standard input, "
                     + "but the next token is \"" + token + "\"");
         } catch (NoSuchElementException e) {
@@ -505,8 +514,9 @@ public final class StdIn {
         // we could use readAll.trim().split(), but that's not consistent
         // because trim() uses characters 0x00..0x20 as whitespace
         String[] tokens = WHITESPACE_PATTERN.split(readAll());
-        if (tokens.length == 0 || tokens[0].length() > 0)
+        if (tokens.length == 0 || tokens[0].length() > 0) {
             return tokens;
+        }
 
         // don't include first token if it is leading whitespace
         String[] decapitokens = new String[tokens.length - 1];
@@ -535,8 +545,9 @@ public final class StdIn {
     public static int[] readAllInts() {
         String[] fields = readAllStrings();
         int[] vals = new int[fields.length];
-        for (int i = 0; i < fields.length; i++)
+        for (int i = 0; i < fields.length; i++) {
             vals[i] = Integer.parseInt(fields[i]);
+        }
         return vals;
     }
 
@@ -549,8 +560,9 @@ public final class StdIn {
     public static long[] readAllLongs() {
         String[] fields = readAllStrings();
         long[] vals = new long[fields.length];
-        for (int i = 0; i < fields.length; i++)
+        for (int i = 0; i < fields.length; i++) {
             vals[i] = Long.parseLong(fields[i]);
+        }
         return vals;
     }
 
@@ -565,8 +577,9 @@ public final class StdIn {
     public static double[] readAllDoubles() {
         String[] fields = readAllStrings();
         double[] vals = new double[fields.length];
-        for (int i = 0; i < fields.length; i++)
+        for (int i = 0; i < fields.length; i++) {
             vals[i] = Double.parseDouble(fields[i]);
+        }
         return vals;
     }
 

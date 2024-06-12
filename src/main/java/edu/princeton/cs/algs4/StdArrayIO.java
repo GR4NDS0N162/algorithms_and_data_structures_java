@@ -216,8 +216,11 @@ public class StdArrayIO {
         int n = a.length;
         StdOut.println(n);
         for (int i = 0; i < n; i++) {
-            if (a[i]) StdOut.print("1 ");
-            else StdOut.print("0 ");
+            if (a[i]) {
+                StdOut.print("1 ");
+            } else {
+                StdOut.print("0 ");
+            }
         }
         StdOut.println();
     }
@@ -250,8 +253,11 @@ public class StdArrayIO {
         StdOut.println(m + " " + n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (a[i][j]) StdOut.print("1 ");
-                else StdOut.print("0 ");
+                if (a[i][j]) {
+                    StdOut.print("1 ");
+                } else {
+                    StdOut.print("0 ");
+                }
             }
             StdOut.println();
         }

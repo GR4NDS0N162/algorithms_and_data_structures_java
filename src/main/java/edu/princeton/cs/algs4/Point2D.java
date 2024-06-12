@@ -57,15 +57,23 @@ public final class Point2D implements Comparable<Point2D> {
      *    {@code Double.NEGATIVE_INFINITY}
      */
     public Point2D(double x, double y) {
-        if (Double.isInfinite(x) || Double.isInfinite(y))
+        if (Double.isInfinite(x) || Double.isInfinite(y)) {
             throw new IllegalArgumentException("Coordinates must be finite");
-        if (Double.isNaN(x) || Double.isNaN(y))
+        }
+        if (Double.isNaN(x) || Double.isNaN(y)) {
             throw new IllegalArgumentException("Coordinates cannot be NaN");
-        if (x == 0.0) this.x = 0.0;  // convert -0.0 to +0.0
-        else this.x = x;
+        }
+        if (x == 0.0) {
+            this.x = 0.0;  // convert -0.0 to +0.0
+        } else {
+            this.x = x;
+        }
 
-        if (y == 0.0) this.y = 0.0;  // convert -0.0 to +0.0
-        else this.y = y;
+        if (y == 0.0) {
+            this.y = 0.0;  // convert -0.0 to +0.0
+        } else {
+            this.y = y;
+        }
     }
 
     /**
@@ -77,9 +85,13 @@ public final class Point2D implements Comparable<Point2D> {
      */
     public static int ccw(Point2D a, Point2D b, Point2D c) {
         double area2 = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
-        if (area2 < 0) return -1;
-        else if (area2 > 0) return +1;
-        else return 0;
+        if (area2 < 0) {
+            return -1;
+        } else if (area2 > 0) {
+            return +1;
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -212,10 +224,18 @@ public final class Point2D implements Comparable<Point2D> {
      *         argument point
      */
     public int compareTo(Point2D that) {
-        if (this.y < that.y) return -1;
-        if (this.y > that.y) return +1;
-        if (this.x < that.x) return -1;
-        if (this.x > that.x) return +1;
+        if (this.y < that.y) {
+            return -1;
+        }
+        if (this.y > that.y) {
+            return +1;
+        }
+        if (this.x < that.x) {
+            return -1;
+        }
+        if (this.x > that.x) {
+            return +1;
+        }
         return 0;
     }
 
@@ -255,9 +275,15 @@ public final class Point2D implements Comparable<Point2D> {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
         Point2D that = (Point2D) other;
         return this.x == that.x && this.y == that.y;
     }
@@ -336,13 +362,21 @@ public final class Point2D implements Comparable<Point2D> {
             double dx2 = q2.x - x;
             double dy2 = q2.y - y;
 
-            if (dy1 >= 0 && dy2 < 0) return -1;    // q1 above; q2 below
-            else if (dy2 >= 0 && dy1 < 0) return +1;    // q1 below; q2 above
-            else if (dy1 == 0 && dy2 == 0) {            // 3-collinear and horizontal
-                if (dx1 >= 0 && dx2 < 0) return -1;
-                else if (dx2 >= 0 && dx1 < 0) return +1;
-                else return 0;
-            } else return -ccw(Point2D.this, q1, q2);     // both above or below
+            if (dy1 >= 0 && dy2 < 0) {
+                return -1;    // q1 above; q2 below
+            } else if (dy2 >= 0 && dy1 < 0) {
+                return +1;    // q1 below; q2 above
+            } else if (dy1 == 0 && dy2 == 0) {            // 3-collinear and horizontal
+                if (dx1 >= 0 && dx2 < 0) {
+                    return -1;
+                } else if (dx2 >= 0 && dx1 < 0) {
+                    return +1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return -ccw(Point2D.this, q1, q2);     // both above or below
+            }
 
             // Note: ccw() recomputes dx1, dy1, dx2, and dy2
         }

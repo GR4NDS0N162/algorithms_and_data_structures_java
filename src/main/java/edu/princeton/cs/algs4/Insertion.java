@@ -129,12 +129,15 @@ public class Insertion {
     public static int[] indexSort(Comparable[] a) {
         int n = a.length;
         int[] index = new int[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             index[i] = i;
+        }
 
-        for (int i = 1; i < n; i++)
-            for (int j = i; j > 0 && less(a[index[j]], a[index[j - 1]]); j--)
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j > 0 && less(a[index[j]], a[index[j - 1]]); j--) {
                 exch(index, j, j - 1);
+            }
+        }
 
         return index;
     }
@@ -176,8 +179,11 @@ public class Insertion {
 
     // is the array a[lo..hi) sorted
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i < hi; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i < hi; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -187,8 +193,11 @@ public class Insertion {
 
     // is the array a[lo..hi) sorted
     private static boolean isSorted(Object[] a, int lo, int hi, Comparator comparator) {
-        for (int i = lo + 1; i < hi; i++)
-            if (less(a[i], a[i - 1], comparator)) return false;
+        for (int i = lo + 1; i < hi; i++) {
+            if (less(a[i], a[i - 1], comparator)) {
+                return false;
+            }
+        }
         return true;
     }
 

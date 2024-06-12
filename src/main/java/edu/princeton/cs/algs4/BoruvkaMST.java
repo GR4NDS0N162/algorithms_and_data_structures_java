@@ -79,9 +79,15 @@ public class BoruvkaMST {
             for (Edge e : G.edges()) {
                 int v = e.either(), w = e.other(v);
                 int i = uf.find(v), j = uf.find(w);
-                if (i == j) continue;   // same tree
-                if (closest[i] == null || less(e, closest[i])) closest[i] = e;
-                if (closest[j] == null || less(e, closest[j])) closest[j] = e;
+                if (i == j) {
+                    continue;   // same tree
+                }
+                if (closest[i] == null || less(e, closest[i])) {
+                    closest[i] = e;
+                }
+                if (closest[j] == null || less(e, closest[j])) {
+                    closest[j] = e;
+                }
             }
 
             // add newly discovered edges to MST
@@ -180,7 +186,9 @@ public class BoruvkaMST {
             uf = new UF(G.V());
             for (Edge f : mst) {
                 int x = f.either(), y = f.other(x);
-                if (f != e) uf.union(x, y);
+                if (f != e) {
+                    uf.union(x, y);
+                }
             }
 
             // check that e is min weight edge in crossing cut

@@ -57,8 +57,9 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
         bag.add("are");
         bag.add("you");
 
-        for (String s : bag)
+        for (String s : bag) {
             StdOut.println(s);
+        }
     }
 
     /**
@@ -81,7 +82,9 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
     private void resize(int capacity) {
         assert capacity >= n;
         Item[] copy = (Item[]) new Object[capacity];
-        if (n >= 0) System.arraycopy(a, 0, copy, 0, n);
+        if (n >= 0) {
+            System.arraycopy(a, 0, copy, 0, n);
+        }
         a = copy;
     }
 
@@ -90,7 +93,9 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
      * @param item the item to add to this bag
      */
     public void add(Item item) {
-        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
+        if (n == a.length) {
+            resize(2 * a.length);    // double size of array if necessary
+        }
         a[n++] = item;                            // add item
     }
 
@@ -111,7 +116,9 @@ public class ResizingArrayBag<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return a[i++];
         }
     }

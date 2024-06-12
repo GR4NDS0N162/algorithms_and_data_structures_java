@@ -286,7 +286,9 @@ public final class StdPicture {
      * @throws IllegalArgumentException if {@code t} is negative
      */
     public static void pause(int t) {
-        if (t < 0) throw new IllegalArgumentException("argument must be non-negative");
+        if (t < 0) {
+            throw new IllegalArgumentException("argument must be non-negative");
+        }
         try {
             Thread.sleep(t);
         } catch (InterruptedException e) {

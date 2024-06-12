@@ -59,16 +59,20 @@ public class Cycle {
      */
     public Cycle(Graph G) {
         // need special case to identify parallel edge as a cycle
-        if (hasParallelEdges(G)) return;
+        if (hasParallelEdges(G)) {
+            return;
+        }
 
         // don't need special case to identify self-loop as a cycle
         // if (hasSelfLoop(G)) return;
 
         marked = new boolean[G.V()];
         edgeTo = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v])
+        for (int v = 0; v < G.V(); v++) {
+            if (!marked[v]) {
                 dfs(G, -1, v);
+            }
+        }
     }
 
     /**
@@ -156,7 +160,9 @@ public class Cycle {
         for (int w : G.adj(v)) {
 
             // short circuit if cycle already found
-            if (cycle != null) return;
+            if (cycle != null) {
+                return;
+            }
 
             if (!marked[w]) {
                 edgeTo[w] = v;

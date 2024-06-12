@@ -57,7 +57,9 @@ public class Shell {
 
         // 3x+1 increment sequence:  1, 4, 13, 40, 121, 364, 1093, ...
         int h = 1;
-        while (h < n / 3) h = 3 * h + 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
 
         while (h >= 1) {
             // h-sort the array
@@ -94,15 +96,21 @@ public class Shell {
      *  Check if array is sorted - useful for debugging.
      ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = 1; i < a.length; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 
     // is the array h-sorted?
     private static boolean isHsorted(Comparable[] a, int h) {
-        for (int i = h; i < a.length; i++)
-            if (less(a[i], a[i - h])) return false;
+        for (int i = h; i < a.length; i++) {
+            if (less(a[i], a[i - h])) {
+                return false;
+            }
+        }
         return true;
     }
 

@@ -73,7 +73,9 @@ public class FenwickTree {
         while (true) {
             String[] line = StdIn.readLine().split(" ");
 
-            if (line[0].equals("exit")) break;
+            if (line[0].equals("exit")) {
+                break;
+            }
 
             int arg1 = 0, arg2 = 0;
 

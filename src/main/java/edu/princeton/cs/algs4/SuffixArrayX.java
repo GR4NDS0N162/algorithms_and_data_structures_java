@@ -76,8 +76,9 @@ public class SuffixArrayX {
         text = text + '\0';
         this.text = text.toCharArray();
         this.index = new int[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             index[i] = i;
+        }
 
         sort(0, n - 1, 0);
     }
@@ -136,32 +137,46 @@ public class SuffixArrayX {
         int i = lo + 1;
         while (i <= gt) {
             char t = text[index[i] + d];
-            if (t < v) exch(lt++, i++);
-            else if (t > v) exch(i, gt--);
-            else i++;
+            if (t < v) {
+                exch(lt++, i++);
+            } else if (t > v) {
+                exch(i, gt--);
+            } else {
+                i++;
+            }
         }
 
         // a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
         sort(lo, lt - 1, d);
-        if (v > 0) sort(lt, gt, d + 1);
+        if (v > 0) {
+            sort(lt, gt, d + 1);
+        }
         sort(gt + 1, hi, d);
     }
 
     // sort from a[lo] to a[hi], starting at the dth character
     private void insertion(int lo, int hi, int d) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(index[j], index[j - 1], d); j--)
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i; j > lo && less(index[j], index[j - 1], d); j--) {
                 exch(j, j - 1);
+            }
+        }
     }
 
     // is text[i+d..n) < text[j+d..n) ?
     private boolean less(int i, int j, int d) {
-        if (i == j) return false;
+        if (i == j) {
+            return false;
+        }
         i = i + d;
         j = j + d;
         while (i < n && j < n) {
-            if (text[i] < text[j]) return true;
-            if (text[i] > text[j]) return false;
+            if (text[i] < text[j]) {
+                return true;
+            }
+            if (text[i] > text[j]) {
+                return false;
+            }
             i++;
             j++;
         }
@@ -191,7 +206,9 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 0 <=i < n}
      */
     public int index(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException();
+        if (i < 0 || i >= n) {
+            throw new IllegalArgumentException();
+        }
         return index[i];
     }
 
@@ -204,7 +221,9 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 1 <= i < n}
      */
     public int lcp(int i) {
-        if (i < 1 || i >= n) throw new IllegalArgumentException();
+        if (i < 1 || i >= n) {
+            throw new IllegalArgumentException();
+        }
         return lcp(index[i], index[i - 1]);
     }
 
@@ -212,7 +231,9 @@ public class SuffixArrayX {
     private int lcp(int i, int j) {
         int length = 0;
         while (i < n && j < n) {
-            if (text[i] != text[j]) return length;
+            if (text[i] != text[j]) {
+                return length;
+            }
             i++;
             j++;
             length++;
@@ -227,7 +248,9 @@ public class SuffixArrayX {
      * @throws java.lang.IllegalArgumentException unless {@code 0 <= i < n}
      */
     public String select(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException();
+        if (i < 0 || i >= n) {
+            throw new IllegalArgumentException();
+        }
         return new String(text, index[i], n - index[i]);
     }
 
@@ -243,9 +266,13 @@ public class SuffixArrayX {
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
             int cmp = compare(query, index[mid]);
-            if (cmp < 0) hi = mid - 1;
-            else if (cmp > 0) lo = mid + 1;
-            else return mid;
+            if (cmp < 0) {
+                hi = mid - 1;
+            } else if (cmp > 0) {
+                lo = mid + 1;
+            } else {
+                return mid;
+            }
         }
         return lo;
     }
@@ -255,13 +282,19 @@ public class SuffixArrayX {
         int m = query.length();
         int j = 0;
         while (i < n && j < m) {
-            if (query.charAt(j) != text[i]) return query.charAt(j) - text[i];
+            if (query.charAt(j) != text[i]) {
+                return query.charAt(j) - text[i];
+            }
             i++;
             j++;
 
         }
-        if (i < n) return -1;
-        if (j < m) return +1;
+        if (i < n) {
+            return -1;
+        }
+        if (j < m) {
+            return +1;
+        }
         return 0;
     }
 

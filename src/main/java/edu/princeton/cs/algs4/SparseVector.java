@@ -70,9 +70,14 @@ public class SparseVector {
      * @throws IllegalArgumentException unless i is between 0 and d-1
      */
     public void put(int i, double value) {
-        if (i < 0 || i >= d) throw new IllegalArgumentException("Illegal index");
-        if (value == 0.0) st.delete(i);
-        else st.put(i, value);
+        if (i < 0 || i >= d) {
+            throw new IllegalArgumentException("Illegal index");
+        }
+        if (value == 0.0) {
+            st.delete(i);
+        } else {
+            st.put(i, value);
+        }
     }
 
     /**
@@ -83,9 +88,14 @@ public class SparseVector {
      * @throws IllegalArgumentException unless i is between 0 and d-1
      */
     public double get(int i) {
-        if (i < 0 || i >= d) throw new IllegalArgumentException("Illegal index");
-        if (st.contains(i)) return st.get(i);
-        else return 0.0;
+        if (i < 0 || i >= d) {
+            throw new IllegalArgumentException("Illegal index");
+        }
+        if (st.contains(i)) {
+            return st.get(i);
+        } else {
+            return 0.0;
+        }
     }
 
     /**
@@ -125,16 +135,24 @@ public class SparseVector {
      * @throws IllegalArgumentException if the lengths of the two vectors are not equal
      */
     public double dot(SparseVector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Vector lengths disagree");
+        if (this.d != that.d) {
+            throw new IllegalArgumentException("Vector lengths disagree");
+        }
         double sum = 0.0;
 
         // iterate over the vector with the fewest nonzeros
         if (this.st.size() <= that.st.size()) {
-            for (int i : this.st.keys())
-                if (that.st.contains(i)) sum += this.get(i) * that.get(i);
+            for (int i : this.st.keys()) {
+                if (that.st.contains(i)) {
+                    sum += this.get(i) * that.get(i);
+                }
+            }
         } else {
-            for (int i : that.st.keys())
-                if (this.st.contains(i)) sum += this.get(i) * that.get(i);
+            for (int i : that.st.keys()) {
+                if (this.st.contains(i)) {
+                    sum += this.get(i) * that.get(i);
+                }
+            }
         }
         return sum;
     }
@@ -148,8 +166,9 @@ public class SparseVector {
      */
     public double dot(double[] that) {
         double sum = 0.0;
-        for (int i : st.keys())
+        for (int i : st.keys()) {
             sum += that[i] * this.get(i);
+        }
         return sum;
     }
 
@@ -182,7 +201,9 @@ public class SparseVector {
      */
     public SparseVector scale(double alpha) {
         SparseVector c = new SparseVector(d);
-        for (int i : this.st.keys()) c.put(i, alpha * this.get(i));
+        for (int i : this.st.keys()) {
+            c.put(i, alpha * this.get(i));
+        }
         return c;
     }
 
@@ -194,10 +215,16 @@ public class SparseVector {
      * @throws IllegalArgumentException if the dimensions of the two vectors are not equal
      */
     public SparseVector plus(SparseVector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Vector lengths disagree");
+        if (this.d != that.d) {
+            throw new IllegalArgumentException("Vector lengths disagree");
+        }
         SparseVector c = new SparseVector(d);
-        for (int i : this.st.keys()) c.put(i, this.get(i));                // c = this
-        for (int i : that.st.keys()) c.put(i, that.get(i) + c.get(i));     // c = c + that
+        for (int i : this.st.keys()) {
+            c.put(i, this.get(i));                // c = this
+        }
+        for (int i : that.st.keys()) {
+            c.put(i, that.get(i) + c.get(i));     // c = c + that
+        }
         return c;
     }
 

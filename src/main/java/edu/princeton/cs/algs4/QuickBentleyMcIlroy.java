@@ -80,27 +80,42 @@ public class QuickBentleyMcIlroy {
         int p = lo, q = hi + 1;
         Comparable v = a[lo];
         while (true) {
-            while (less(a[++i], v))
-                if (i == hi) break;
-            while (less(v, a[--j]))
-                if (j == lo) break;
+            while (less(a[++i], v)) {
+                if (i == hi) {
+                    break;
+                }
+            }
+            while (less(v, a[--j])) {
+                if (j == lo) {
+                    break;
+                }
+            }
 
             // pointers cross
-            if (i == j && eq(a[i], v))
+            if (i == j && eq(a[i], v)) {
                 exch(a, ++p, i);
-            if (i >= j) break;
+            }
+            if (i >= j) {
+                break;
+            }
 
             exch(a, i, j);
-            if (eq(a[i], v)) exch(a, ++p, i);
-            if (eq(a[j], v)) exch(a, --q, j);
+            if (eq(a[i], v)) {
+                exch(a, ++p, i);
+            }
+            if (eq(a[j], v)) {
+                exch(a, --q, j);
+            }
         }
 
 
         i = j + 1;
-        for (int k = lo; k <= p; k++)
+        for (int k = lo; k <= p; k++) {
             exch(a, k, j--);
-        for (int k = hi; k >= q; k--)
+        }
+        for (int k = hi; k >= q; k--) {
             exch(a, k, i++);
+        }
 
         sort(a, lo, j);
         sort(a, i, hi);
@@ -109,9 +124,11 @@ public class QuickBentleyMcIlroy {
 
     // sort from a[lo] to a[hi] using insertion sort
     private static void insertionSort(Comparable[] a, int lo, int hi) {
-        for (int i = lo; i <= hi; i++)
-            for (int j = i; j > lo && less(a[j], a[j - 1]); j--)
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i; j > lo && less(a[j], a[j - 1]); j--) {
                 exch(a, j, j - 1);
+            }
+        }
     }
 
 
@@ -128,13 +145,17 @@ public class QuickBentleyMcIlroy {
 
     // is v < w ?
     private static boolean less(Comparable v, Comparable w) {
-        if (v == w) return false;    // optimization when reference equal
+        if (v == w) {
+            return false;    // optimization when reference equal
+        }
         return v.compareTo(w) < 0;
     }
 
     // does v == w ?
     private static boolean eq(Comparable v, Comparable w) {
-        if (v == w) return true;    // optimization when reference equal
+        if (v == w) {
+            return true;    // optimization when reference equal
+        }
         return v.compareTo(w) == 0;
     }
 
@@ -150,8 +171,11 @@ public class QuickBentleyMcIlroy {
      *  Check if array is sorted - useful for debugging.
      ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = 1; i < a.length; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

@@ -88,8 +88,9 @@ public class SymbolGraph {
         while (!in.isEmpty()) {
             String[] a = in.readLine().split(delimiter);
             for (int i = 0; i < a.length; i++) {
-                if (!st.contains(a[i]))
+                if (!st.contains(a[i])) {
                     st.put(a[i], st.size());
+                }
             }
         }
 
@@ -212,8 +213,9 @@ public class SymbolGraph {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = graph.V();
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 }
 

@@ -71,8 +71,11 @@ public class DepthFirstOrder {
         postorder = new Queue<Integer>();
         preorder = new Queue<Integer>();
         marked = new boolean[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v]) dfs(G, v);
+        for (int v = 0; v < G.V(); v++) {
+            if (!marked[v]) {
+                dfs(G, v);
+            }
+        }
 
         assert check();
     }
@@ -87,8 +90,11 @@ public class DepthFirstOrder {
         postorder = new Queue<Integer>();
         preorder = new Queue<Integer>();
         marked = new boolean[G.V()];
-        for (int v = 0; v < G.V(); v++)
-            if (!marked[v]) dfs(G, v);
+        for (int v = 0; v < G.V(); v++) {
+            if (!marked[v]) {
+                dfs(G, v);
+            }
+        }
     }
 
     /**
@@ -201,8 +207,9 @@ public class DepthFirstOrder {
      */
     public Iterable<Integer> reversePost() {
         Stack<Integer> reverse = new Stack<Integer>();
-        for (int v : postorder)
+        for (int v : postorder) {
             reverse.push(v);
+        }
         return reverse;
     }
 
@@ -235,8 +242,9 @@ public class DepthFirstOrder {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 }

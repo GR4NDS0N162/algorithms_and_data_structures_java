@@ -62,8 +62,9 @@ public class AllowFilter {
         // read in string from standard input, printing out all exceptions
         while (!StdIn.isEmpty()) {
             String word = StdIn.readString();
-            if (set.contains(word))
+            if (set.contains(word)) {
                 StdOut.println(word);
+            }
         }
     }
 }

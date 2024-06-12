@@ -72,24 +72,34 @@ public class TwoPersonZeroSumGame {
         double[] c = new double[n];
         double[] b = new double[m];
         double[][] A = new double[m][n];
-        for (int i = 0; i < m; i++)
+        for (int i = 0; i < m; i++) {
             b[i] = 1.0;
-        for (int j = 0; j < n; j++)
+        }
+        for (int j = 0; j < n; j++) {
             c[j] = 1.0;
+        }
 
         // find smallest entry
         constant = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                if (payoff[i][j] < constant)
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (payoff[i][j] < constant) {
                     constant = payoff[i][j];
+                }
+            }
+        }
 
         // add constant  to every entry to make strictly positive
-        if (constant <= 0) constant = -constant + 1;
-        else constant = 0;
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
+        if (constant <= 0) {
+            constant = -constant + 1;
+        } else {
+            constant = 0;
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 A[i][j] = payoff[i][j] + constant;
+            }
+        }
 
         lp = new LinearProgramming(A, b, c);
 
@@ -107,13 +117,15 @@ public class TwoPersonZeroSumGame {
         double[] y = zerosum.column();
 
         StdOut.print("x[] = [");
-        for (int j = 0; j < n - 1; j++)
+        for (int j = 0; j < n - 1; j++) {
             StdOut.printf("%8.4f, ", x[j]);
+        }
         StdOut.printf("%8.4f]\n", x[n - 1]);
 
         StdOut.print("y[] = [");
-        for (int i = 0; i < m - 1; i++)
+        for (int i = 0; i < m - 1; i++) {
             StdOut.printf("%8.4f, ", y[i]);
+        }
         StdOut.printf("%8.4f]\n", y[m - 1]);
         StdOut.println("value =  " + zerosum.value());
 
@@ -204,9 +216,11 @@ public class TwoPersonZeroSumGame {
         int m = Integer.parseInt(args[0]);
         int n = Integer.parseInt(args[1]);
         double[][] payoff = new double[m][n];
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 payoff[i][j] = StdRandom.uniformDouble(-0.5, 0.5);
+            }
+        }
         test("random " + m + "-by-" + n, payoff);
     }
 
@@ -224,8 +238,9 @@ public class TwoPersonZeroSumGame {
     private double scale() {
         double[] x = lp.primal();
         double sum = 0.0;
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < n; j++) {
             sum += x[j];
+        }
         return sum;
     }
 
@@ -237,8 +252,9 @@ public class TwoPersonZeroSumGame {
     public double[] row() {
         double scale = scale();
         double[] x = lp.primal();
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < n; j++) {
             x[j] /= scale;
+        }
         return x;
     }
 
@@ -250,8 +266,9 @@ public class TwoPersonZeroSumGame {
     public double[] column() {
         double scale = scale();
         double[] y = lp.dual();
-        for (int i = 0; i < m; i++)
+        for (int i = 0; i < m; i++) {
             y[i] /= scale;
+        }
         return y;
     }
 
@@ -314,7 +331,9 @@ public class TwoPersonZeroSumGame {
             for (int j = 0; j < n; j++) {
                 sum += payoff[i][j] * x[j];
             }
-            if (sum > opt1) opt1 = sum;
+            if (sum > opt1) {
+                opt1 = sum;
+            }
         }
         if (Math.abs(opt1 - value) > EPSILON) {
             StdOut.println("Optimal value = " + value);
@@ -329,7 +348,9 @@ public class TwoPersonZeroSumGame {
             for (int i = 0; i < m; i++) {
                 sum += payoff[i][j] * y[i];
             }
-            if (sum < opt2) opt2 = sum;
+            if (sum < opt2) {
+                opt2 = sum;
+            }
         }
         if (Math.abs(opt2 - value) > EPSILON) {
             StdOut.println("Optimal value = " + value);

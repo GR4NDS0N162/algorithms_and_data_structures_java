@@ -61,10 +61,12 @@ public class BoyerMoore {
 
         // position of rightmost occurrence of c in the pattern
         right = new int[R];
-        for (int c = 0; c < R; c++)
+        for (int c = 0; c < R; c++) {
             right[c] = -1;
-        for (int j = 0; j < pat.length(); j++)
+        }
+        for (int j = 0; j < pat.length(); j++) {
             right[pat.charAt(j)] = j;
+        }
     }
 
     /**
@@ -80,10 +82,12 @@ public class BoyerMoore {
 
         // position of rightmost occurrence of c in the pattern
         right = new int[R];
-        for (int c = 0; c < R; c++)
+        for (int c = 0; c < R; c++) {
             right[c] = -1;
-        for (int j = 0; j < pattern.length; j++)
+        }
+        for (int j = 0; j < pattern.length; j++) {
             right[pattern[j]] = j;
+        }
     }
 
     /**
@@ -108,13 +112,15 @@ public class BoyerMoore {
         StdOut.println("text:    " + txt);
 
         StdOut.print("pattern: ");
-        for (int i = 0; i < offset1; i++)
+        for (int i = 0; i < offset1; i++) {
             StdOut.print(" ");
+        }
         StdOut.println(pat);
 
         StdOut.print("pattern: ");
-        for (int i = 0; i < offset2; i++)
+        for (int i = 0; i < offset2; i++) {
             StdOut.print(" ");
+        }
         StdOut.println(pat);
     }
 
@@ -138,7 +144,9 @@ public class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0) return i;    // found
+            if (skip == 0) {
+                return i;    // found
+            }
         }
         return n;                       // not found
     }
@@ -163,7 +171,9 @@ public class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0) return i;    // found
+            if (skip == 0) {
+                return i;    // found
+            }
         }
         return n;                       // not found
     }

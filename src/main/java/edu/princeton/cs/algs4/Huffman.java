@@ -55,8 +55,9 @@ public class Huffman {
 
         // tabulate frequency counts
         int[] freq = new int[R];
-        for (int i = 0; i < input.length; i++)
+        for (int i = 0; i < input.length; i++) {
             freq[input[i]]++;
+        }
 
         // build Huffman trie
         Node root = buildTrie(freq);
@@ -79,7 +80,9 @@ public class Huffman {
                     BinaryStdOut.write(false);
                 } else if (code.charAt(j) == '1') {
                     BinaryStdOut.write(true);
-                } else throw new IllegalStateException("Illegal state");
+                } else {
+                    throw new IllegalStateException("Illegal state");
+                }
             }
         }
 
@@ -92,9 +95,11 @@ public class Huffman {
 
         // initialize priority queue with singleton trees
         MinPQ<Node> pq = new MinPQ<Node>();
-        for (char c = 0; c < R; c++)
-            if (freq[c] > 0)
+        for (char c = 0; c < R; c++) {
+            if (freq[c] > 0) {
                 pq.insert(new Node(c, freq[c], null, null));
+            }
+        }
 
         // merge two smallest trees
         while (pq.size() > 1) {
@@ -145,8 +150,11 @@ public class Huffman {
             Node x = root;
             while (!x.isLeaf()) {
                 boolean bit = BinaryStdIn.readBoolean();
-                if (bit) x = x.right;
-                else x = x.left;
+                if (bit) {
+                    x = x.right;
+                } else {
+                    x = x.left;
+                }
             }
             BinaryStdOut.write(x.ch, 8);
         }
@@ -169,9 +177,13 @@ public class Huffman {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if (args[0].equals("-")) compress();
-        else if (args[0].equals("+")) expand();
-        else throw new IllegalArgumentException("Illegal command line argument");
+        if (args[0].equals("-")) {
+            compress();
+        } else if (args[0].equals("+")) {
+            expand();
+        } else {
+            throw new IllegalArgumentException("Illegal command line argument");
+        }
     }
 
     // Huffman trie node

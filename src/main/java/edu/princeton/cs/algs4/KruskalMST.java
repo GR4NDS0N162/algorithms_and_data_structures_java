@@ -72,9 +72,8 @@ import java.util.Arrays;
  */
 public class KruskalMST {
     private static final double FLOATING_POINT_EPSILON = 1.0E-12;
-
-    private double weight;                        // weight of MST
     private final Queue<Edge> mst = new Queue<Edge>();  // edges in MST
+    private double weight;                        // weight of MST
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
@@ -181,7 +180,9 @@ public class KruskalMST {
             uf = new UF(G.V());
             for (Edge f : mst) {
                 int x = f.either(), y = f.other(x);
-                if (f != e) uf.union(x, y);
+                if (f != e) {
+                    uf.union(x, y);
+                }
             }
 
             // check that e is min weight edge in crossing cut

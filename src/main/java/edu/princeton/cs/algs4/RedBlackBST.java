@@ -101,8 +101,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
             st.put(key, i);
         }
         StdOut.println();
-        for (String s : st.keys())
+        for (String s : st.keys()) {
             StdOut.println(s + " " + st.get(s));
+        }
         StdOut.println();
     }
 
@@ -111,13 +112,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      ***************************************************************************/
     // is node x red; false if x is null ?
     private boolean isRed(Node x) {
-        if (x == null) return false;
+        if (x == null) {
+            return false;
+        }
         return x.color == RED;
     }
 
     // number of node in subtree rooted at x; 0 if x is null
     private int size(Node x) {
-        if (x == null) return 0;
+        if (x == null) {
+            return 0;
+        }
         return x.size;
     }
 
@@ -151,7 +156,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
         return get(root, key);
     }
 
@@ -159,9 +166,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private Value get(Node x, Key key) {
         while (x != null) {
             int cmp = key.compareTo(x.key);
-            if (cmp < 0) x = x.left;
-            else if (cmp > 0) x = x.right;
-            else return x.val;
+            if (cmp < 0) {
+                x = x.left;
+            } else if (cmp > 0) {
+                x = x.right;
+            } else {
+                return x.val;
+            }
         }
         return null;
     }
@@ -192,7 +203,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("first argument to put() is null");
+        }
         if (val == null) {
             delete(key);
             return;
@@ -205,17 +218,29 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // insert the key-value pair in the subtree rooted at h
     private Node put(Node h, Key key, Value val) {
-        if (h == null) return new Node(key, val, RED, 1);
+        if (h == null) {
+            return new Node(key, val, RED, 1);
+        }
 
         int cmp = key.compareTo(h.key);
-        if (cmp < 0) h.left = put(h.left, key, val);
-        else if (cmp > 0) h.right = put(h.right, key, val);
-        else h.val = val;
+        if (cmp < 0) {
+            h.left = put(h.left, key, val);
+        } else if (cmp > 0) {
+            h.right = put(h.right, key, val);
+        } else {
+            h.val = val;
+        }
 
         // fix-up any right-leaning links
-        if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h);
-        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
-        if (isRed(h.left) && isRed(h.right)) flipColors(h);
+        if (isRed(h.right) && !isRed(h.left)) {
+            h = rotateLeft(h);
+        }
+        if (isRed(h.left) && isRed(h.left.left)) {
+            h = rotateRight(h);
+        }
+        if (isRed(h.left) && isRed(h.right)) {
+            flipColors(h);
+        }
         h.size = size(h.left) + size(h.right) + 1;
 
         return h;
@@ -230,24 +255,31 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public void deleteMin() {
-        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("BST underflow");
+        }
 
         // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
+        if (!isRed(root.left) && !isRed(root.right)) {
             root.color = RED;
+        }
 
         root = deleteMin(root);
-        if (!isEmpty()) root.color = BLACK;
+        if (!isEmpty()) {
+            root.color = BLACK;
+        }
         // assert check();
     }
 
     // delete the key-value pair with the minimum key rooted at h
     private Node deleteMin(Node h) {
-        if (h.left == null)
+        if (h.left == null) {
             return null;
+        }
 
-        if (!isRed(h.left) && !isRed(h.left.left))
+        if (!isRed(h.left) && !isRed(h.left.left)) {
             h = moveRedLeft(h);
+        }
 
         h.left = deleteMin(h.left);
         return balance(h);
@@ -259,27 +291,35 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public void deleteMax() {
-        if (isEmpty()) throw new NoSuchElementException("BST underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("BST underflow");
+        }
 
         // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
+        if (!isRed(root.left) && !isRed(root.right)) {
             root.color = RED;
+        }
 
         root = deleteMax(root);
-        if (!isEmpty()) root.color = BLACK;
+        if (!isEmpty()) {
+            root.color = BLACK;
+        }
         // assert check();
     }
 
     // delete the key-value pair with the maximum key rooted at h
     private Node deleteMax(Node h) {
-        if (isRed(h.left))
+        if (isRed(h.left)) {
             h = rotateRight(h);
+        }
 
-        if (h.right == null)
+        if (h.right == null) {
             return null;
+        }
 
-        if (!isRed(h.right) && !isRed(h.right.left))
+        if (!isRed(h.right) && !isRed(h.right.left)) {
             h = moveRedRight(h);
+        }
 
         h.right = deleteMax(h.right);
 
@@ -294,15 +334,22 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
-        if (!contains(key)) return;
+        if (key == null) {
+            throw new IllegalArgumentException("argument to delete() is null");
+        }
+        if (!contains(key)) {
+            return;
+        }
 
         // if both children of root are black, set root to red
-        if (!isRed(root.left) && !isRed(root.right))
+        if (!isRed(root.left) && !isRed(root.right)) {
             root.color = RED;
+        }
 
         root = delete(root, key);
-        if (!isEmpty()) root.color = BLACK;
+        if (!isEmpty()) {
+            root.color = BLACK;
+        }
         // assert check();
     }
 
@@ -311,16 +358,20 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         // assert get(h, key) != null;
 
         if (key.compareTo(h.key) < 0) {
-            if (!isRed(h.left) && !isRed(h.left.left))
+            if (!isRed(h.left) && !isRed(h.left.left)) {
                 h = moveRedLeft(h);
+            }
             h.left = delete(h.left, key);
         } else {
-            if (isRed(h.left))
+            if (isRed(h.left)) {
                 h = rotateRight(h);
-            if (key.compareTo(h.key) == 0 && (h.right == null))
+            }
+            if (key.compareTo(h.key) == 0 && (h.right == null)) {
                 return null;
-            if (!isRed(h.right) && !isRed(h.right.left))
+            }
+            if (!isRed(h.right) && !isRed(h.right.left)) {
                 h = moveRedRight(h);
+            }
             if (key.compareTo(h.key) == 0) {
                 Node x = min(h.right);
                 h.key = x.key;
@@ -328,7 +379,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
                 // h.val = get(h.right, min(h.right).key);
                 // h.key = min(h.right).key;
                 h.right = deleteMin(h.right);
-            } else h.right = delete(h.right, key);
+            } else {
+                h.right = delete(h.right, key);
+            }
         }
         return balance(h);
     }
@@ -408,9 +461,15 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private Node balance(Node h) {
         // assert (h != null);
 
-        if (isRed(h.right) && !isRed(h.left)) h = rotateLeft(h);
-        if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
-        if (isRed(h.left) && isRed(h.right)) flipColors(h);
+        if (isRed(h.right) && !isRed(h.left)) {
+            h = rotateLeft(h);
+        }
+        if (isRed(h.left) && isRed(h.left.left)) {
+            h = rotateRight(h);
+        }
+        if (isRed(h.left) && isRed(h.right)) {
+            flipColors(h);
+        }
 
         h.size = size(h.left) + size(h.right) + 1;
         return h;
@@ -430,7 +489,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     private int height(Node x) {
-        if (x == null) return -1;
+        if (x == null) {
+            return -1;
+        }
         return 1 + Math.max(height(x.left), height(x.right));
     }
 
@@ -444,15 +505,20 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls min() with empty symbol table");
+        }
         return min(root).key;
     }
 
     // the smallest key in subtree rooted at x; null if no such key
     private Node min(Node x) {
         // assert x != null;
-        if (x.left == null) return x;
-        else return min(x.left);
+        if (x.left == null) {
+            return x;
+        } else {
+            return min(x.left);
+        }
     }
 
     /**
@@ -461,15 +527,20 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls max() with empty symbol table");
+        }
         return max(root).key;
     }
 
     // the largest key in the subtree rooted at x; null if no such key
     private Node max(Node x) {
         // assert x != null;
-        if (x.right == null) return x;
-        else return max(x.right);
+        if (x.right == null) {
+            return x;
+        } else {
+            return max(x.right);
+        }
     }
 
 
@@ -481,22 +552,38 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key floor(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
-        if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to floor() is null");
+        }
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls floor() with empty symbol table");
+        }
         Node x = floor(root, key);
-        if (x == null) throw new NoSuchElementException("argument to floor() is too small");
-        else return x.key;
+        if (x == null) {
+            throw new NoSuchElementException("argument to floor() is too small");
+        } else {
+            return x.key;
+        }
     }
 
     // the largest key in the subtree rooted at x less than or equal to the given key
     private Node floor(Node x, Key key) {
-        if (x == null) return null;
+        if (x == null) {
+            return null;
+        }
         int cmp = key.compareTo(x.key);
-        if (cmp == 0) return x;
-        if (cmp < 0) return floor(x.left, key);
+        if (cmp == 0) {
+            return x;
+        }
+        if (cmp < 0) {
+            return floor(x.left, key);
+        }
         Node t = floor(x.right, key);
-        if (t != null) return t;
-        else return x;
+        if (t != null) {
+            return t;
+        } else {
+            return x;
+        }
     }
 
     /**
@@ -507,22 +594,38 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Key ceiling(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
-        if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to ceiling() is null");
+        }
+        if (isEmpty()) {
+            throw new NoSuchElementException("calls ceiling() with empty symbol table");
+        }
         Node x = ceiling(root, key);
-        if (x == null) throw new NoSuchElementException("argument to ceiling() is too large");
-        else return x.key;
+        if (x == null) {
+            throw new NoSuchElementException("argument to ceiling() is too large");
+        } else {
+            return x.key;
+        }
     }
 
     // the smallest key in the subtree rooted at x greater than or equal to the given key
     private Node ceiling(Node x, Key key) {
-        if (x == null) return null;
+        if (x == null) {
+            return null;
+        }
         int cmp = key.compareTo(x.key);
-        if (cmp == 0) return x;
-        if (cmp > 0) return ceiling(x.right, key);
+        if (cmp == 0) {
+            return x;
+        }
+        if (cmp > 0) {
+            return ceiling(x.right, key);
+        }
         Node t = ceiling(x.left, key);
-        if (t != null) return t;
-        else return x;
+        if (t != null) {
+            return t;
+        } else {
+            return x;
+        }
     }
 
     /**
@@ -546,11 +649,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // Return key in BST rooted at x of given rank.
     // Precondition: rank is in legal range.
     private Key select(Node x, int rank) {
-        if (x == null) return null;
+        if (x == null) {
+            return null;
+        }
         int leftSize = size(x.left);
-        if (leftSize > rank) return select(x.left, rank);
-        else if (leftSize < rank) return select(x.right, rank - leftSize - 1);
-        else return x.key;
+        if (leftSize > rank) {
+            return select(x.left, rank);
+        } else if (leftSize < rank) {
+            return select(x.right, rank - leftSize - 1);
+        } else {
+            return x.key;
+        }
     }
 
     /**
@@ -560,17 +669,25 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public int rank(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to rank() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to rank() is null");
+        }
         return rank(key, root);
     }
 
     // number of keys less than key in the subtree rooted at x
     private int rank(Key key, Node x) {
-        if (x == null) return 0;
+        if (x == null) {
+            return 0;
+        }
         int cmp = key.compareTo(x.key);
-        if (cmp < 0) return rank(key, x.left);
-        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
-        else return size(x.left);
+        if (cmp < 0) {
+            return rank(key, x.left);
+        } else if (cmp > 0) {
+            return 1 + size(x.left) + rank(key, x.right);
+        } else {
+            return size(x.left);
+        }
     }
 
     /***************************************************************************
@@ -584,7 +701,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @return all keys in the symbol table in ascending order
      */
     public Iterable<Key> keys() {
-        if (isEmpty()) return new Queue<Key>();
+        if (isEmpty()) {
+            return new Queue<Key>();
+        }
         return keys(min(), max());
     }
 
@@ -600,8 +719,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      *    is {@code null}
      */
     public Iterable<Key> keys(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+        if (lo == null) {
+            throw new IllegalArgumentException("first argument to keys() is null");
+        }
+        if (hi == null) {
+            throw new IllegalArgumentException("second argument to keys() is null");
+        }
 
         Queue<Key> queue = new Queue<Key>();
         // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
@@ -612,12 +735,20 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // add the keys between lo and hi in the subtree rooted at x
     // to the queue
     private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
-        if (x == null) return;
+        if (x == null) {
+            return;
+        }
         int cmplo = lo.compareTo(x.key);
         int cmphi = hi.compareTo(x.key);
-        if (cmplo < 0) keys(x.left, queue, lo, hi);
-        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
-        if (cmphi > 0) keys(x.right, queue, lo, hi);
+        if (cmplo < 0) {
+            keys(x.left, queue, lo, hi);
+        }
+        if (cmplo <= 0 && cmphi >= 0) {
+            queue.enqueue(x.key);
+        }
+        if (cmphi > 0) {
+            keys(x.right, queue, lo, hi);
+        }
     }
 
     /**
@@ -631,12 +762,21 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      *    is {@code null}
      */
     public int size(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to size() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to size() is null");
+        if (lo == null) {
+            throw new IllegalArgumentException("first argument to size() is null");
+        }
+        if (hi == null) {
+            throw new IllegalArgumentException("second argument to size() is null");
+        }
 
-        if (lo.compareTo(hi) > 0) return 0;
-        if (contains(hi)) return rank(hi) - rank(lo) + 1;
-        else return rank(hi) - rank(lo);
+        if (lo.compareTo(hi) > 0) {
+            return 0;
+        }
+        if (contains(hi)) {
+            return rank(hi) - rank(lo) + 1;
+        } else {
+            return rank(hi) - rank(lo);
+        }
     }
 
 
@@ -644,11 +784,21 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      *  Check integrity of red-black tree data structure.
      ***************************************************************************/
     private boolean check() {
-        if (!isBST()) StdOut.println("Not in symmetric order");
-        if (!isSizeConsistent()) StdOut.println("Subtree counts not consistent");
-        if (!isRankConsistent()) StdOut.println("Ranks not consistent");
-        if (!is23()) StdOut.println("Not a 2-3 tree");
-        if (!isBalanced()) StdOut.println("Not balanced");
+        if (!isBST()) {
+            StdOut.println("Not in symmetric order");
+        }
+        if (!isSizeConsistent()) {
+            StdOut.println("Subtree counts not consistent");
+        }
+        if (!isRankConsistent()) {
+            StdOut.println("Ranks not consistent");
+        }
+        if (!is23()) {
+            StdOut.println("Not a 2-3 tree");
+        }
+        if (!isBalanced()) {
+            StdOut.println("Not balanced");
+        }
         return isBST() && isSizeConsistent() && isRankConsistent() && is23() && isBalanced();
     }
 
@@ -662,9 +812,15 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // (if min or max is null, treat as empty constraint)
     // Credit: elegant solution due to Bob Dondero
     private boolean isBST(Node x, Key min, Key max) {
-        if (x == null) return true;
-        if (min != null && x.key.compareTo(min) <= 0) return false;
-        if (max != null && x.key.compareTo(max) >= 0) return false;
+        if (x == null) {
+            return true;
+        }
+        if (min != null && x.key.compareTo(min) <= 0) {
+            return false;
+        }
+        if (max != null && x.key.compareTo(max) >= 0) {
+            return false;
+        }
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
     }
 
@@ -674,17 +830,27 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     private boolean isSizeConsistent(Node x) {
-        if (x == null) return true;
-        if (x.size != size(x.left) + size(x.right) + 1) return false;
+        if (x == null) {
+            return true;
+        }
+        if (x.size != size(x.left) + size(x.right) + 1) {
+            return false;
+        }
         return isSizeConsistent(x.left) && isSizeConsistent(x.right);
     }
 
     // check that ranks are consistent
     private boolean isRankConsistent() {
-        for (int i = 0; i < size(); i++)
-            if (i != rank(select(i))) return false;
-        for (Key key : keys())
-            if (key.compareTo(select(rank(key))) != 0) return false;
+        for (int i = 0; i < size(); i++) {
+            if (i != rank(select(i))) {
+                return false;
+            }
+        }
+        for (Key key : keys()) {
+            if (key.compareTo(select(rank(key))) != 0) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -695,10 +861,15 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     private boolean is23(Node x) {
-        if (x == null) return true;
-        if (isRed(x.right)) return false;
-        if (x != root && isRed(x) && isRed(x.left))
+        if (x == null) {
+            return true;
+        }
+        if (isRed(x.right)) {
             return false;
+        }
+        if (x != root && isRed(x) && isRed(x.left)) {
+            return false;
+        }
         return is23(x.left) && is23(x.right);
     }
 
@@ -707,7 +878,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         int black = 0;     // number of black links on path from root to min
         Node x = root;
         while (x != null) {
-            if (!isRed(x)) black++;
+            if (!isRed(x)) {
+                black++;
+            }
             x = x.left;
         }
         return isBalanced(root, black);
@@ -715,8 +888,12 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // does every path from the root to a leaf have the given number of black links?
     private boolean isBalanced(Node x, int black) {
-        if (x == null) return black == 0;
-        if (!isRed(x)) black--;
+        if (x == null) {
+            return black == 0;
+        }
+        if (!isRed(x)) {
+            black--;
+        }
         return isBalanced(x.left, black) && isBalanced(x.right, black);
     }
 

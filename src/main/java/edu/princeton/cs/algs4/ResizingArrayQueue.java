@@ -65,8 +65,11 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
         ResizingArrayQueue<String> queue = new ResizingArrayQueue<String>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
-            if (!item.equals("-")) queue.enqueue(item);
-            else if (!queue.isEmpty()) StdOut.print(queue.dequeue() + " ");
+            if (!item.equals("-")) {
+                queue.enqueue(item);
+            } else if (!queue.isEmpty()) {
+                StdOut.print(queue.dequeue() + " ");
+            }
         }
         StdOut.println("(" + queue.size() + " left on queue)");
     }
@@ -105,9 +108,13 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
      */
     public void enqueue(Item item) {
         // double size of array if necessary and recopy to front of array
-        if (n == q.length) resize(2 * q.length);   // double size of array if necessary
+        if (n == q.length) {
+            resize(2 * q.length);   // double size of array if necessary
+        }
         q[last++] = item;                        // add item
-        if (last == q.length) last = 0;          // wrap-around
+        if (last == q.length) {
+            last = 0;          // wrap-around
+        }
         n++;
     }
 
@@ -117,14 +124,20 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item dequeue() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
         Item item = q[first];
         q[first] = null;                            // to avoid loitering
         n--;
         first++;
-        if (first == q.length) first = 0;           // wrap-around
+        if (first == q.length) {
+            first = 0;           // wrap-around
+        }
         // shrink size of array if necessary
-        if (n > 0 && n == q.length / 4) resize(q.length / 2);
+        if (n > 0 && n == q.length / 4) {
+            resize(q.length / 2);
+        }
         return item;
     }
 
@@ -134,7 +147,9 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
      * @throws java.util.NoSuchElementException if this queue is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Queue underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
         return q[first];
     }
 
@@ -155,7 +170,9 @@ public class ResizingArrayQueue<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             Item item = q[(i + first) % q.length];
             i++;
             return item;

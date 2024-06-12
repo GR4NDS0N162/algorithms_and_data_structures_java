@@ -63,8 +63,12 @@ public final class StdStats {
 
         double max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < a.length; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] > max) max = a[i];
+            if (Double.isNaN(a[i])) {
+                return Double.NaN;
+            }
+            if (a[i] > max) {
+                max = a[i];
+            }
         }
         return max;
     }
@@ -86,8 +90,12 @@ public final class StdStats {
 
         double max = Double.NEGATIVE_INFINITY;
         for (int i = lo; i < hi; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] > max) max = a[i];
+            if (Double.isNaN(a[i])) {
+                return Double.NaN;
+            }
+            if (a[i] > max) {
+                max = a[i];
+            }
         }
         return max;
     }
@@ -104,7 +112,9 @@ public final class StdStats {
 
         int max = Integer.MIN_VALUE;
         for (int i = 0; i < a.length; i++) {
-            if (a[i] > max) max = a[i];
+            if (a[i] > max) {
+                max = a[i];
+            }
         }
         return max;
     }
@@ -121,8 +131,12 @@ public final class StdStats {
 
         double min = Double.POSITIVE_INFINITY;
         for (int i = 0; i < a.length; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] < min) min = a[i];
+            if (Double.isNaN(a[i])) {
+                return Double.NaN;
+            }
+            if (a[i] < min) {
+                min = a[i];
+            }
         }
         return min;
     }
@@ -144,8 +158,12 @@ public final class StdStats {
 
         double min = Double.POSITIVE_INFINITY;
         for (int i = lo; i < hi; i++) {
-            if (Double.isNaN(a[i])) return Double.NaN;
-            if (a[i] < min) min = a[i];
+            if (Double.isNaN(a[i])) {
+                return Double.NaN;
+            }
+            if (a[i] < min) {
+                min = a[i];
+            }
         }
         return min;
     }
@@ -162,7 +180,9 @@ public final class StdStats {
 
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < a.length; i++) {
-            if (a[i] < min) min = a[i];
+            if (a[i] < min) {
+                min = a[i];
+            }
         }
         return min;
     }
@@ -177,7 +197,9 @@ public final class StdStats {
     public static double mean(double[] a) {
         validateNotNull(a);
 
-        if (a.length == 0) return Double.NaN;
+        if (a.length == 0) {
+            return Double.NaN;
+        }
         double sum = sum(a);
         return sum / a.length;
     }
@@ -198,7 +220,9 @@ public final class StdStats {
         validateSubarrayIndices(lo, hi, a.length);
 
         int length = hi - lo;
-        if (length == 0) return Double.NaN;
+        if (length == 0) {
+            return Double.NaN;
+        }
 
         double sum = sum(a, lo, hi);
         return sum / length;
@@ -214,7 +238,9 @@ public final class StdStats {
     public static double mean(int[] a) {
         validateNotNull(a);
 
-        if (a.length == 0) return Double.NaN;
+        if (a.length == 0) {
+            return Double.NaN;
+        }
         int sum = sum(a);
         return 1.0 * sum / a.length;
     }
@@ -229,7 +255,9 @@ public final class StdStats {
     public static double var(double[] a) {
         validateNotNull(a);
 
-        if (a.length == 0) return Double.NaN;
+        if (a.length == 0) {
+            return Double.NaN;
+        }
         double avg = mean(a);
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -254,7 +282,9 @@ public final class StdStats {
         validateSubarrayIndices(lo, hi, a.length);
 
         int length = hi - lo;
-        if (length == 0) return Double.NaN;
+        if (length == 0) {
+            return Double.NaN;
+        }
 
         double avg = mean(a, lo, hi);
         double sum = 0.0;
@@ -273,7 +303,9 @@ public final class StdStats {
      */
     public static double var(int[] a) {
         validateNotNull(a);
-        if (a.length == 0) return Double.NaN;
+        if (a.length == 0) {
+            return Double.NaN;
+        }
         double avg = mean(a);
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -291,7 +323,9 @@ public final class StdStats {
      */
     public static double varp(double[] a) {
         validateNotNull(a);
-        if (a.length == 0) return Double.NaN;
+        if (a.length == 0) {
+            return Double.NaN;
+        }
         double avg = mean(a);
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -316,7 +350,9 @@ public final class StdStats {
         validateSubarrayIndices(lo, hi, a.length);
 
         int length = hi - lo;
-        if (length == 0) return Double.NaN;
+        if (length == 0) {
+            return Double.NaN;
+        }
 
         double avg = mean(a, lo, hi);
         double sum = 0.0;
@@ -506,14 +542,16 @@ public final class StdStats {
     // throw an IllegalArgumentException if x is null
     // (x is either of type double[] or int[])
     private static void validateNotNull(Object x) {
-        if (x == null)
+        if (x == null) {
             throw new IllegalArgumentException("argument is null");
+        }
     }
 
     // throw an exception unless 0 <= lo <= hi <= length
     private static void validateSubarrayIndices(int lo, int hi, int length) {
-        if (lo < 0 || hi > length || lo > hi)
+        if (lo < 0 || hi > length || lo > hi) {
             throw new IllegalArgumentException("subarray indices out of bounds: [" + lo + ", " + hi + ")");
+        }
     }
 
 

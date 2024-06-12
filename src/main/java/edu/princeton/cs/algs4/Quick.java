@@ -57,7 +57,9 @@ public class Quick {
 
     // quicksort the subarray from a[lo] to a[hi]
     private static void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) return;
+        if (hi <= lo) {
+            return;
+        }
         int j = partition(a, lo, hi);
         sort(a, lo, j - 1);
         sort(a, j + 1, hi);
@@ -74,16 +76,22 @@ public class Quick {
 
             // find item on lo to swap
             while (less(a[++i], v)) {
-                if (i == hi) break;
+                if (i == hi) {
+                    break;
+                }
             }
 
             // find item on hi to swap
             while (less(v, a[--j])) {
-                if (j == lo) break;      // redundant since a[lo] acts as sentinel
+                if (j == lo) {
+                    break;      // redundant since a[lo] acts as sentinel
+                }
             }
 
             // check if pointers cross
-            if (i >= j) break;
+            if (i >= j) {
+                break;
+            }
 
             exch(a, i, j);
         }
@@ -113,9 +121,13 @@ public class Quick {
         int lo = 0, hi = a.length - 1;
         while (hi > lo) {
             int i = partition(a, lo, hi);
-            if (i > k) hi = i - 1;
-            else if (i < k) lo = i + 1;
-            else return a[i];
+            if (i > k) {
+                hi = i - 1;
+            } else if (i < k) {
+                lo = i + 1;
+            } else {
+                return a[i];
+            }
         }
         return a[lo];
     }
@@ -127,7 +139,9 @@ public class Quick {
 
     // is v < w ?
     private static boolean less(Comparable v, Comparable w) {
-        if (v == w) return false;   // optimization when reference equals
+        if (v == w) {
+            return false;   // optimization when reference equals
+        }
         return v.compareTo(w) < 0;
     }
 
@@ -147,8 +161,11 @@ public class Quick {
     }
 
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

@@ -67,7 +67,9 @@ public class InsertionX {
                 exchanges++;
             }
         }
-        if (exchanges == 0) return;
+        if (exchanges == 0) {
+            return;
+        }
 
 
         // insertion sort with half-exchanges
@@ -106,8 +108,11 @@ public class InsertionX {
      *  Check if array is sorted - useful for debugging.
      ***************************************************************************/
     private static boolean isSorted(Comparable[] a) {
-        for (int i = 1; i < a.length; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = 1; i < a.length; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

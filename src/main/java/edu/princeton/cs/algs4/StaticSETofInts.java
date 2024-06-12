@@ -44,9 +44,11 @@ public class StaticSETofInts {
         Arrays.sort(a);
 
         // check for duplicates
-        for (int i = 1; i < a.length; i++)
-            if (a[i] == a[i - 1])
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] == a[i - 1]) {
                 throw new IllegalArgumentException("Argument arrays contains duplicate keys.");
+            }
+        }
     }
 
     /**
@@ -71,9 +73,13 @@ public class StaticSETofInts {
         while (lo <= hi) {
             // Key is in a[lo..hi] or not present.
             int mid = lo + (hi - lo) / 2;
-            if (key < a[mid]) hi = mid - 1;
-            else if (key > a[mid]) lo = mid + 1;
-            else return mid;
+            if (key < a[mid]) {
+                hi = mid - 1;
+            } else if (key > a[mid]) {
+                lo = mid + 1;
+            } else {
+                return mid;
+            }
         }
         return -1;
     }

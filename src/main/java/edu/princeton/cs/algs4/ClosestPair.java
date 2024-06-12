@@ -48,13 +48,19 @@ public class ClosestPair {
      *         entry in {@code points[]} is {@code null}
      */
     public ClosestPair(Point2D[] points) {
-        if (points == null) throw new IllegalArgumentException("constructor argument is null");
+        if (points == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
         for (int i = 0; i < points.length; i++) {
-            if (points[i] == null) throw new IllegalArgumentException("array element " + i + " is null");
+            if (points[i] == null) {
+                throw new IllegalArgumentException("array element " + i + " is null");
+            }
         }
 
         int n = points.length;
-        if (n <= 1) return;
+        if (n <= 1) {
+            return;
+        }
 
         // sort by x-coordinate (breaking ties by y-coordinate via stability)
         Point2D[] pointsByX = new Point2D[n];
@@ -91,15 +97,22 @@ public class ClosestPair {
     // precondition: a[lo .. mid] and a[mid+1 .. hi] are sorted subarrays
     private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
         // copy to aux[]
-        if (hi + 1 - lo >= 0) System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        if (hi + 1 - lo >= 0) {
+            System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        }
 
         // merge back to a[]
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
-            if (i > mid) a[k] = aux[j++];
-            else if (j > hi) a[k] = aux[i++];
-            else if (less(aux[j], aux[i])) a[k] = aux[j++];
-            else a[k] = aux[i++];
+            if (i > mid) {
+                a[k] = aux[j++];
+            } else if (j > hi) {
+                a[k] = aux[i++];
+            } else if (less(aux[j], aux[i])) {
+                a[k] = aux[j++];
+            } else {
+                a[k] = aux[i++];
+            }
         }
     }
 
@@ -129,7 +142,9 @@ public class ClosestPair {
     // precondition:  pointsByX[lo..hi] sorted by x-coordinate
     // postcondition: pointsByY[lo..hi] sorted by y-coordinate
     private double closest(Point2D[] pointsByX, Point2D[] pointsByY, Point2D[] aux, int lo, int hi) {
-        if (hi <= lo) return Double.POSITIVE_INFINITY;
+        if (hi <= lo) {
+            return Double.POSITIVE_INFINITY;
+        }
 
         int mid = lo + (hi - lo) / 2;
         Point2D median = pointsByX[mid];
@@ -145,8 +160,9 @@ public class ClosestPair {
         // aux[0..m-1] = sequence of points closer than delta, sorted by y-coordinate
         int m = 0;
         for (int i = lo; i <= hi; i++) {
-            if (Math.abs(pointsByY[i].x() - median.x()) < delta)
+            if (Math.abs(pointsByY[i].x() - median.x()) < delta) {
                 aux[m++] = pointsByY[i];
+            }
         }
 
         // compare each point to its neighbors with y-coordinate closer than delta

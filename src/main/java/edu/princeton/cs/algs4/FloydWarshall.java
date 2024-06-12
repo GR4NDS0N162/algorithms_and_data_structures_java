@@ -48,9 +48,9 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class FloydWarshall {
-    private boolean hasNegativeCycle;  // is there a negative cycle?
     private final double[][] distTo;         // distTo[v][w] = length of shortest v->w path
     private final DirectedEdge[][] edgeTo;   // edgeTo[v][w] = last edge on shortest v->w path
+    private boolean hasNegativeCycle;  // is there a negative cycle?
 
     /**
      * Computes a shortest paths tree from each vertex to every other vertex in
@@ -87,7 +87,9 @@ public class FloydWarshall {
         for (int i = 0; i < V; i++) {
             // compute shortest paths using only 0, 1, ..., i as intermediate vertices
             for (int v = 0; v < V; v++) {
-                if (edgeTo[v][i] == null) continue;  // optimization
+                if (edgeTo[v][i] == null) {
+                    continue;  // optimization
+                }
                 for (int w = 0; w < V; w++) {
                     if (distTo[v][w] > distTo[v][i] + distTo[i][w]) {
                         distTo[v][w] = distTo[v][i] + distTo[i][w];
@@ -119,8 +121,11 @@ public class FloydWarshall {
             int v = StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
             double weight = 0.01 * StdRandom.uniformInt(-15, 100);
-            if (v == w) G.addEdge(new DirectedEdge(v, w, Math.abs(weight)));
-            else G.addEdge(new DirectedEdge(v, w, weight));
+            if (v == w) {
+                G.addEdge(new DirectedEdge(v, w, Math.abs(weight)));
+            } else {
+                G.addEdge(new DirectedEdge(v, w, weight));
+            }
         }
 
         StdOut.println(G);
@@ -137,8 +142,11 @@ public class FloydWarshall {
         for (int v = 0; v < G.V(); v++) {
             StdOut.printf("%3d: ", v);
             for (int w = 0; w < G.V(); w++) {
-                if (spt.hasPath(v, w)) StdOut.printf("%6.2f ", spt.dist(v, w));
-                else StdOut.printf("  Inf ");
+                if (spt.hasPath(v, w)) {
+                    StdOut.printf("%6.2f ", spt.dist(v, w));
+                } else {
+                    StdOut.printf("  Inf ");
+                }
             }
             StdOut.println();
         }
@@ -146,8 +154,9 @@ public class FloydWarshall {
         // print negative cycle
         if (spt.hasNegativeCycle()) {
             StdOut.println("Negative cost cycle:");
-            for (DirectedEdge e : spt.negativeCycle())
+            for (DirectedEdge e : spt.negativeCycle()) {
                 StdOut.println(e);
+            }
             StdOut.println();
         }
 
@@ -157,8 +166,9 @@ public class FloydWarshall {
                 for (int w = 0; w < G.V(); w++) {
                     if (spt.hasPath(v, w)) {
                         StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
-                        for (DirectedEdge e : spt.path(v, w))
+                        for (DirectedEdge e : spt.path(v, w)) {
                             StdOut.print(e + "  ");
+                        }
                         StdOut.println();
                     } else {
                         StdOut.printf("%d to %d no path\n", v, w);
@@ -188,9 +198,11 @@ public class FloydWarshall {
             if (distTo[v][v] < 0.0) {
                 int V = edgeTo.length;
                 EdgeWeightedDigraph spt = new EdgeWeightedDigraph(V);
-                for (int w = 0; w < V; w++)
-                    if (edgeTo[v][w] != null)
+                for (int w = 0; w < V; w++) {
+                    if (edgeTo[v][w] != null) {
                         spt.addEdge(edgeTo[v][w]);
+                    }
+                }
                 EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(spt);
                 assert finder.hasCycle();
                 return finder.cycle();
@@ -226,8 +238,9 @@ public class FloydWarshall {
     public double dist(int s, int t) {
         validateVertex(s);
         validateVertex(t);
-        if (hasNegativeCycle())
+        if (hasNegativeCycle()) {
             throw new UnsupportedOperationException("Negative cost cycle exists");
+        }
         return distTo[s][t];
     }
 
@@ -243,9 +256,12 @@ public class FloydWarshall {
     public Iterable<DirectedEdge> path(int s, int t) {
         validateVertex(s);
         validateVertex(t);
-        if (hasNegativeCycle())
+        if (hasNegativeCycle()) {
             throw new UnsupportedOperationException("Negative cost cycle exists");
-        if (!hasPath(s, t)) return null;
+        }
+        if (!hasPath(s, t)) {
+            return null;
+        }
         Stack<DirectedEdge> path = new Stack<DirectedEdge>();
         for (DirectedEdge e = edgeTo[s][t]; e != null; e = edgeTo[s][e.from()]) {
             path.push(e);
@@ -276,8 +292,9 @@ public class FloydWarshall {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = distTo.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 }

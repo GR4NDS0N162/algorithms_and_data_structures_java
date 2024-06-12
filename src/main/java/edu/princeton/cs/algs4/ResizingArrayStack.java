@@ -65,8 +65,11 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
         ResizingArrayStack<String> stack = new ResizingArrayStack<String>();
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
-            if (!item.equals("-")) stack.push(item);
-            else if (!stack.isEmpty()) StdOut.print(stack.pop() + " ");
+            if (!item.equals("-")) {
+                stack.push(item);
+            } else if (!stack.isEmpty()) {
+                StdOut.print(stack.pop() + " ");
+            }
         }
         StdOut.println("(" + stack.size() + " left on stack)");
     }
@@ -93,7 +96,9 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
 
         // textbook implementation
         Item[] copy = (Item[]) new Object[capacity];
-        if (n >= 0) System.arraycopy(a, 0, copy, 0, n);
+        if (n >= 0) {
+            System.arraycopy(a, 0, copy, 0, n);
+        }
         a = copy;
 
         // alternative implementation
@@ -105,7 +110,9 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
      * @param item the item to add
      */
     public void push(Item item) {
-        if (n == a.length) resize(2 * a.length);    // double size of array if necessary
+        if (n == a.length) {
+            resize(2 * a.length);    // double size of array if necessary
+        }
         a[n++] = item;                            // add item
     }
 
@@ -115,12 +122,16 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item pop() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack underflow");
+        }
         Item item = a[n - 1];
         a[n - 1] = null;                              // to avoid loitering
         n--;
         // shrink size of array if necessary
-        if (n > 0 && n == a.length / 4) resize(a.length / 2);
+        if (n > 0 && n == a.length / 4) {
+            resize(a.length / 2);
+        }
         return item;
     }
 
@@ -130,7 +141,9 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
      * @throws java.util.NoSuchElementException if this stack is empty
      */
     public Item peek() {
-        if (isEmpty()) throw new NoSuchElementException("Stack underflow");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Stack underflow");
+        }
         return a[n - 1];
     }
 
@@ -155,7 +168,9 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return a[i--];
         }
     }

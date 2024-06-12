@@ -40,10 +40,10 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class Bipartite {
-    private boolean isBipartite;   // is the graph bipartite?
     private final boolean[] color;       // color[v] gives vertices on one side of bipartition
     private final boolean[] marked;      // marked[v] = true iff v has been visited in DFS
     private final int[] edgeTo;          // edgeTo[v] = last edge on path to v
+    private boolean isBipartite;   // is the graph bipartite?
     private Stack<Integer> cycle;  // odd-length cycle
 
     /**
@@ -109,7 +109,9 @@ public class Bipartite {
         for (int w : G.adj(v)) {
 
             // short circuit if odd-length cycle found
-            if (cycle != null) return;
+            if (cycle != null) {
+                return;
+            }
 
             // found uncolored vertex, so recur
             if (!marked[w]) {
@@ -153,8 +155,9 @@ public class Bipartite {
      */
     public boolean color(int v) {
         validateVertex(v);
-        if (!isBipartite)
+        if (!isBipartite) {
             throw new UnsupportedOperationException("graph is not bipartite");
+        }
         return color[v];
     }
 
@@ -188,7 +191,9 @@ public class Bipartite {
             // verify cycle
             int first = -1, last = -1;
             for (int v : oddCycle()) {
-                if (first == -1) first = v;
+                if (first == -1) {
+                    first = v;
+                }
                 last = v;
             }
             if (first != last) {
@@ -203,8 +208,9 @@ public class Bipartite {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 

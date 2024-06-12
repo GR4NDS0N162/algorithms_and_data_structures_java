@@ -136,7 +136,9 @@ public class LinkedBag<Item> implements Iterable<Item> {
 
         // returns the next item in the iterator (and advances the iterator)
         public Item next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             Item item = current.item;
             current = current.next;
             return item;

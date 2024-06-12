@@ -57,7 +57,9 @@ public class Selection {
         for (int i = 0; i < n; i++) {
             int min = i;
             for (int j = i + 1; j < n; j++) {
-                if (less(a[j], a[min])) min = j;
+                if (less(a[j], a[min])) {
+                    min = j;
+                }
             }
             exch(a, i, min);
             assert isSorted(a, 0, i);
@@ -75,7 +77,9 @@ public class Selection {
         for (int i = 0; i < n; i++) {
             int min = i;
             for (int j = i + 1; j < n; j++) {
-                if (less(comparator, a[j], a[min])) min = j;
+                if (less(comparator, a[j], a[min])) {
+                    min = j;
+                }
             }
             exch(a, i, min);
             assert isSorted(a, comparator, 0, i);
@@ -118,8 +122,11 @@ public class Selection {
 
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -130,8 +137,11 @@ public class Selection {
 
     // is the array sorted from a[lo] to a[hi]
     private static boolean isSorted(Object[] a, Comparator comparator, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (less(comparator, a[i], a[i - 1])) return false;
+        for (int i = lo + 1; i <= hi; i++) {
+            if (less(comparator, a[i], a[i - 1])) {
+                return false;
+            }
+        }
         return true;
     }
 

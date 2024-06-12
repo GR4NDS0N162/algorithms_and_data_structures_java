@@ -62,8 +62,8 @@ public class EdgeWeightedGraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
-    private int E;
     private final Bag<Edge>[] adj;
+    private int E;
 
     /**
      * Initializes an empty edge-weighted graph with {@code V} vertices and 0 edges.
@@ -72,7 +72,9 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public EdgeWeightedGraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices must be non-negative");
+        if (V < 0) {
+            throw new IllegalArgumentException("Number of vertices must be non-negative");
+        }
         this.V = V;
         this.E = 0;
         adj = (Bag<Edge>[]) new Bag[V];
@@ -91,7 +93,9 @@ public class EdgeWeightedGraph {
      */
     public EdgeWeightedGraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
+        if (E < 0) {
+            throw new IllegalArgumentException("Number of edges must be non-negative");
+        }
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
@@ -114,7 +118,9 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedGraph(In in) {
-        if (in == null) throw new IllegalArgumentException("argument is null");
+        if (in == null) {
+            throw new IllegalArgumentException("argument is null");
+        }
 
         try {
             V = in.readInt();
@@ -124,7 +130,9 @@ public class EdgeWeightedGraph {
             }
 
             int E = in.readInt();
-            if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
+            if (E < 0) {
+                throw new IllegalArgumentException("Number of edges must be non-negative");
+            }
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
@@ -191,8 +199,9 @@ public class EdgeWeightedGraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     /**
@@ -252,7 +261,9 @@ public class EdgeWeightedGraph {
                 }
                 // add only one copy of each self loop (self loops will be consecutive)
                 else if (e.other(v) == v) {
-                    if (selfLoops % 2 == 0) list.add(e);
+                    if (selfLoops % 2 == 0) {
+                        list.add(e);
+                    }
                     selfLoops++;
                 }
             }

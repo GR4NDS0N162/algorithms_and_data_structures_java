@@ -77,8 +77,9 @@ public class QuickFindUF {
     public QuickFindUF(int n) {
         count = n;
         id = new int[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             id[i] = i;
+        }
     }
 
     /**
@@ -96,7 +97,9 @@ public class QuickFindUF {
         while (!StdIn.isEmpty()) {
             int p = StdIn.readInt();
             int q = StdIn.readInt();
-            if (uf.find(p) == uf.find(q)) continue;
+            if (uf.find(p) == uf.find(q)) {
+                continue;
+            }
             uf.union(p, q);
             StdOut.println(p + " " + q);
         }
@@ -166,10 +169,15 @@ public class QuickFindUF {
         int qID = id[q];   // to reduce the number of array accesses
 
         // p and q are already in the same component
-        if (pID == qID) return;
+        if (pID == qID) {
+            return;
+        }
 
-        for (int i = 0; i < id.length; i++)
-            if (id[i] == pID) id[i] = qID;
+        for (int i = 0; i < id.length; i++) {
+            if (id[i] == pID) {
+                id[i] = qID;
+            }
+        }
         count--;
     }
 

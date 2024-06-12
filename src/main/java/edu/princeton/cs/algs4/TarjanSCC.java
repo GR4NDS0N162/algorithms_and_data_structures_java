@@ -57,9 +57,9 @@ public class TarjanSCC {
     private final boolean[] marked;        // marked[v] = has v been visited?
     private final int[] id;                // id[v] = id of strong component containing v
     private final int[] low;               // low[v] = low number of v
+    private final Stack<Integer> stack;
     private int pre;                 // preorder number counter
     private int count;               // number of strongly-connected components
-    private final Stack<Integer> stack;
 
 
     /**
@@ -72,7 +72,9 @@ public class TarjanSCC {
         id = new int[G.V()];
         low = new int[G.V()];
         for (int v = 0; v < G.V(); v++) {
-            if (!marked[v]) dfs(G, v);
+            if (!marked[v]) {
+                dfs(G, v);
+            }
         }
 
         // check that id[] gives strong components
@@ -118,8 +120,12 @@ public class TarjanSCC {
         int min = low[v];
         stack.push(v);
         for (int w : G.adj(v)) {
-            if (!marked[w]) dfs(G, w);
-            if (low[w] < min) min = low[w];
+            if (!marked[w]) {
+                dfs(G, w);
+            }
+            if (low[w] < min) {
+                min = low[w];
+            }
         }
         if (min < low[v]) {
             low[v] = min;
@@ -173,8 +179,9 @@ public class TarjanSCC {
         TransitiveClosure tc = new TransitiveClosure(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
-                if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v)))
+                if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v))) {
                     return false;
+                }
             }
         }
         return true;
@@ -183,8 +190,9 @@ public class TarjanSCC {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 }

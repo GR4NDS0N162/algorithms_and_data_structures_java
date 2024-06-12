@@ -38,17 +38,23 @@ public class Inversions {
         long inversions = 0;
 
         // copy to aux[]
-        if (hi + 1 - lo >= 0) System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        if (hi + 1 - lo >= 0) {
+            System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        }
 
         // merge back to a[]
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
-            if (i > mid) a[k] = aux[j++];
-            else if (j > hi) a[k] = aux[i++];
-            else if (aux[j] < aux[i]) {
+            if (i > mid) {
+                a[k] = aux[j++];
+            } else if (j > hi) {
+                a[k] = aux[i++];
+            } else if (aux[j] < aux[i]) {
                 a[k] = aux[j++];
                 inversions += (mid - i + 1);
-            } else a[k] = aux[i++];
+            } else {
+                a[k] = aux[i++];
+            }
         }
         return inversions;
     }
@@ -57,7 +63,9 @@ public class Inversions {
     // side effect b[lo..hi] is rearranged in ascending order
     private static long count(int[] a, int[] b, int[] aux, int lo, int hi) {
         long inversions = 0;
-        if (hi <= lo) return 0;
+        if (hi <= lo) {
+            return 0;
+        }
         int mid = lo + (hi - lo) / 2;
         inversions += count(a, b, aux, lo, mid);
         inversions += count(a, b, aux, mid + 1, hi);
@@ -89,17 +97,23 @@ public class Inversions {
         long inversions = 0;
 
         // copy to aux[]
-        if (hi + 1 - lo >= 0) System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        if (hi + 1 - lo >= 0) {
+            System.arraycopy(a, lo, aux, lo, hi + 1 - lo);
+        }
 
         // merge back to a[]
         int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
-            if (i > mid) a[k] = aux[j++];
-            else if (j > hi) a[k] = aux[i++];
-            else if (less(aux[j], aux[i])) {
+            if (i > mid) {
+                a[k] = aux[j++];
+            } else if (j > hi) {
+                a[k] = aux[i++];
+            } else if (less(aux[j], aux[i])) {
                 a[k] = aux[j++];
                 inversions += (mid - i + 1);
-            } else a[k] = aux[i++];
+            } else {
+                a[k] = aux[i++];
+            }
         }
         return inversions;
     }
@@ -108,7 +122,9 @@ public class Inversions {
     // side effect b[lo..hi] is rearranged in ascending order
     private static <Key extends Comparable<Key>> long count(Key[] a, Key[] b, Key[] aux, int lo, int hi) {
         long inversions = 0;
-        if (hi <= lo) return 0;
+        if (hi <= lo) {
+            return 0;
+        }
         int mid = lo + (hi - lo) / 2;
         inversions += count(a, b, aux, lo, mid);
         inversions += count(a, b, aux, mid + 1, hi);
@@ -143,18 +159,26 @@ public class Inversions {
     // count number of inversions in a[lo..hi] via brute force (for debugging only)
     private static <Key extends Comparable<Key>> long brute(Key[] a, int lo, int hi) {
         long inversions = 0;
-        for (int i = lo; i <= hi; i++)
-            for (int j = i + 1; j <= hi; j++)
-                if (less(a[j], a[i])) inversions++;
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i + 1; j <= hi; j++) {
+                if (less(a[j], a[i])) {
+                    inversions++;
+                }
+            }
+        }
         return inversions;
     }
 
     // count number of inversions in a[lo..hi] via brute force (for debugging only)
     private static long brute(int[] a, int lo, int hi) {
         long inversions = 0;
-        for (int i = lo; i <= hi; i++)
-            for (int j = i + 1; j <= hi; j++)
-                if (a[j] < a[i]) inversions++;
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i + 1; j <= hi; j++) {
+                if (a[j] < a[i]) {
+                    inversions++;
+                }
+            }
+        }
         return inversions;
     }
 
@@ -168,8 +192,9 @@ public class Inversions {
         int[] a = StdIn.readAllInts();
         int n = a.length;
         Integer[] b = new Integer[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             b[i] = a[i];
+        }
         StdOut.println(Inversions.count(a));
         StdOut.println(Inversions.count(b));
     }

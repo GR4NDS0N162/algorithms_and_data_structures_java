@@ -77,8 +77,9 @@ public class NonrecursiveDFS {
         // to be able to iterate over each adjacency list, keeping track of which
         // vertex in each adjacency list needs to be explored next
         Iterator<Integer>[] adj = (Iterator<Integer>[]) new Iterator[G.V()];
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             adj[v] = G.adj(v).iterator();
+        }
 
         // depth-first search using an explicit stack
         Stack<Integer> stack = new Stack<Integer>();
@@ -113,9 +114,11 @@ public class NonrecursiveDFS {
         Graph G = new Graph(in);
         int s = Integer.parseInt(args[1]);
         NonrecursiveDFS dfs = new NonrecursiveDFS(G, s);
-        for (int v = 0; v < G.V(); v++)
-            if (dfs.marked(v))
+        for (int v = 0; v < G.V(); v++) {
+            if (dfs.marked(v)) {
                 StdOut.print(v + " ");
+            }
+        }
         StdOut.println();
     }
 
@@ -134,8 +137,9 @@ public class NonrecursiveDFS {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 

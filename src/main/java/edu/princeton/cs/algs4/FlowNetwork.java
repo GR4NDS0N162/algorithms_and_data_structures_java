@@ -37,8 +37,8 @@ public class FlowNetwork {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
-    private int E;
     private final Bag<FlowEdge>[] adj;
+    private int E;
 
     /**
      * Initializes an empty flow network with {@code V} vertices and 0 edges.
@@ -46,12 +46,15 @@ public class FlowNetwork {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public FlowNetwork(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices in a Graph must be non-negative");
+        if (V < 0) {
+            throw new IllegalArgumentException("Number of vertices in a Graph must be non-negative");
+        }
         this.V = V;
         this.E = 0;
         adj = (Bag<FlowEdge>[]) new Bag[V];
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             adj[v] = new Bag<FlowEdge>();
+        }
     }
 
     /**
@@ -64,7 +67,9 @@ public class FlowNetwork {
      */
     public FlowNetwork(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
+        if (E < 0) {
+            throw new IllegalArgumentException("Number of edges must be non-negative");
+        }
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
@@ -86,7 +91,9 @@ public class FlowNetwork {
     public FlowNetwork(In in) {
         this(in.readInt());
         int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("number of edges must be non-negative");
+        if (E < 0) {
+            throw new IllegalArgumentException("number of edges must be non-negative");
+        }
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();
@@ -126,8 +133,9 @@ public class FlowNetwork {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     /**
@@ -161,11 +169,13 @@ public class FlowNetwork {
     // return list of all edges - excludes self loops
     public Iterable<FlowEdge> edges() {
         Bag<FlowEdge> list = new Bag<FlowEdge>();
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             for (FlowEdge e : adj(v)) {
-                if (e.to() != v)
+                if (e.to() != v) {
                     list.add(e);
+                }
             }
+        }
         return list;
     }
 
@@ -181,7 +191,9 @@ public class FlowNetwork {
         for (int v = 0; v < V; v++) {
             s.append(v + ":  ");
             for (FlowEdge e : adj[v]) {
-                if (e.to() != v) s.append(e + "  ");
+                if (e.to() != v) {
+                    s.append(e + "  ");
+                }
             }
             s.append(NEWLINE);
         }

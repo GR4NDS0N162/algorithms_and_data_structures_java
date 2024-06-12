@@ -48,9 +48,9 @@ public class EdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;                // number of vertices in this digraph
-    private int E;                      // number of edges in this digraph
     private final Bag<DirectedEdge>[] adj;    // adj[v] = adjacency list for vertex v
     private final int[] indegree;             // indegree[v] = indegree of vertex v
+    private int E;                      // number of edges in this digraph
 
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -59,13 +59,16 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public EdgeWeightedDigraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be non-negative");
+        if (V < 0) {
+            throw new IllegalArgumentException("Number of vertices in a Digraph must be non-negative");
+        }
         this.V = V;
         this.E = 0;
         this.indegree = new int[V];
         adj = (Bag<DirectedEdge>[]) new Bag[V];
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             adj[v] = new Bag<DirectedEdge>();
+        }
     }
 
     /**
@@ -78,7 +81,9 @@ public class EdgeWeightedDigraph {
      */
     public EdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges in a Digraph must be non-negative");
+        if (E < 0) {
+            throw new IllegalArgumentException("Number of edges in a Digraph must be non-negative");
+        }
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniformInt(V);
             int w = StdRandom.uniformInt(V);
@@ -101,10 +106,14 @@ public class EdgeWeightedDigraph {
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedDigraph(In in) {
-        if (in == null) throw new IllegalArgumentException("argument is null");
+        if (in == null) {
+            throw new IllegalArgumentException("argument is null");
+        }
         try {
             this.V = in.readInt();
-            if (V < 0) throw new IllegalArgumentException("number of vertices in a Digraph must be non-negative");
+            if (V < 0) {
+                throw new IllegalArgumentException("number of vertices in a Digraph must be non-negative");
+            }
             indegree = new int[V];
             adj = (Bag<DirectedEdge>[]) new Bag[V];
             for (int v = 0; v < V; v++) {
@@ -112,7 +121,9 @@ public class EdgeWeightedDigraph {
             }
 
             int E = in.readInt();
-            if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
+            if (E < 0) {
+                throw new IllegalArgumentException("Number of edges must be non-negative");
+            }
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
@@ -134,8 +145,9 @@ public class EdgeWeightedDigraph {
     public EdgeWeightedDigraph(EdgeWeightedDigraph G) {
         this(G.V());
         this.E = G.E();
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             this.indegree[v] = G.indegree(v);
+        }
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
             Stack<DirectedEdge> reverse = new Stack<DirectedEdge>();
@@ -179,8 +191,9 @@ public class EdgeWeightedDigraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     /**

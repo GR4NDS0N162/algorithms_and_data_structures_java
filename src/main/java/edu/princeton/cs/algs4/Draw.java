@@ -215,18 +215,26 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // throw an IllegalArgumentException if x is NaN or infinite
     private static void validate(double x, String name) {
-        if (Double.isNaN(x)) throw new IllegalArgumentException(name + " is NaN");
-        if (Double.isInfinite(x)) throw new IllegalArgumentException(name + " is infinite");
+        if (Double.isNaN(x)) {
+            throw new IllegalArgumentException(name + " is NaN");
+        }
+        if (Double.isInfinite(x)) {
+            throw new IllegalArgumentException(name + " is infinite");
+        }
     }
 
     // throw an IllegalArgumentException if s is null
     private static void validateNonnegative(double x, String name) {
-        if (x < 0) throw new IllegalArgumentException(name + " negative");
+        if (x < 0) {
+            throw new IllegalArgumentException(name + " negative");
+        }
     }
 
     // throw an IllegalArgumentException if s is null
     private static void validateNotNull(Object x, String name) {
-        if (x == null) throw new IllegalArgumentException(name + " is null");
+        if (x == null) {
+            throw new IllegalArgumentException(name + " is null");
+        }
     }
 
     /***************************************************************************
@@ -235,7 +243,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // get an image from the given filename
     private static Image getImage(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        if (filename == null) {
+            throw new IllegalArgumentException();
+        }
 
         // to read from file
         ImageIcon icon = new ImageIcon(filename);
@@ -253,14 +263,17 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         // in case file is inside a .jar (classpath relative to Draw)
         if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
             URL url = Draw.class.getResource(filename);
-            if (url != null)
+            if (url != null) {
                 icon = new ImageIcon(url);
+            }
         }
 
         // in case file is inside a .jar (classpath relative to root of jar)
         if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
             URL url = Draw.class.getResource("/" + filename);
-            if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
+            if (url == null) {
+                throw new IllegalArgumentException("image " + filename + " not found");
+            }
             icon = new ImageIcon(url);
         }
 
@@ -371,7 +384,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * @throws IllegalArgumentException if the width or height is 0 or negative
      */
     public void setLocationOnScreen(int x, int y) {
-        if (x <= 0 || y <= 0) throw new IllegalArgumentException();
+        if (x <= 0 || y <= 0) {
+            throw new IllegalArgumentException();
+        }
         frame.setLocation(x, y);
     }
 
@@ -468,7 +483,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         validate(min, "min");
         validate(max, "max");
         double size = max - min;
-        if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
+        if (size == 0.0) {
+            throw new IllegalArgumentException("the min and max are the same");
+        }
         xmin = min - BORDER * size;
         xmax = max + BORDER * size;
     }
@@ -485,7 +502,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         validate(min, "min");
         validate(max, "max");
         double size = max - min;
-        if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
+        if (size == 0.0) {
+            throw new IllegalArgumentException("the min and max are the same");
+        }
         ymin = min - BORDER * size;
         ymax = max + BORDER * size;
     }
@@ -626,9 +645,15 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *         or {@code blue} is outside its prescribed range
      */
     public void setPenColor(int red, int green, int blue) {
-        if (red < 0 || red >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
-        if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
-        if (blue < 0 || blue >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        if (red < 0 || red >= 256) {
+            throw new IllegalArgumentException("red must be between 0 and 255");
+        }
+        if (green < 0 || green >= 256) {
+            throw new IllegalArgumentException("green must be between 0 and 255");
+        }
+        if (blue < 0 || blue >= 256) {
+            throw new IllegalArgumentException("blue must be between 0 and 255");
+        }
         setPenColor(new Color(red, green, blue));
     }
 
@@ -735,8 +760,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         // double ws = factorX(2*r);
         // double hs = factorY(2*r);
         // if (ws <= 1 && hs <= 1) pixel(x, y);
-        if (r <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - r / 2, ys - r / 2, r, r));
+        if (r <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.fill(new Ellipse2D.Double(xs - r / 2, ys - r / 2, r, r));
+        }
         draw();
     }
 
@@ -759,8 +787,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * radius);
         double hs = factorY(2 * radius);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -783,8 +814,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * radius);
         double hs = factorY(2 * radius);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -812,8 +846,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * semiMajorAxis);
         double hs = factorY(2 * semiMinorAxis);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -841,8 +878,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * semiMajorAxis);
         double hs = factorY(2 * semiMinorAxis);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -867,13 +907,18 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         validate(angle2, "angle2");
         validateNonnegative(radius, "arc radius");
 
-        while (angle2 < angle1) angle2 += 360;
+        while (angle2 < angle1) {
+            angle2 += 360;
+        }
         double xs = scaleX(x);
         double ys = scaleY(y);
         double ws = factorX(2 * radius);
         double hs = factorY(2 * radius);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.draw(new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+        }
         draw();
     }
 
@@ -896,8 +941,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * halfLength);
         double hs = factorY(2 * halfLength);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -920,8 +968,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * halfLength);
         double hs = factorY(2 * halfLength);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -947,8 +998,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * halfWidth);
         double hs = factorY(2 * halfHeight);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -974,8 +1028,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(2 * halfWidth);
         double hs = factorY(2 * halfHeight);
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
+            offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+        }
         draw();
     }
 
@@ -995,19 +1052,28 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     public void polygon(double[] x, double[] y) {
         validateNotNull(x, "x-coordinate array");
         validateNotNull(y, "y-coordinate array");
-        for (int i = 0; i < x.length; i++) validate(x[i], "x[" + i + "]");
-        for (int i = 0; i < y.length; i++) validate(y[i], "y[" + i + "]");
+        for (int i = 0; i < x.length; i++) {
+            validate(x[i], "x[" + i + "]");
+        }
+        for (int i = 0; i < y.length; i++) {
+            validate(y[i], "y[" + i + "]");
+        }
 
         int n1 = x.length;
         int n2 = y.length;
-        if (n1 != n2) throw new IllegalArgumentException("arrays must be of the same length");
+        if (n1 != n2) {
+            throw new IllegalArgumentException("arrays must be of the same length");
+        }
         int n = n1;
-        if (n == 0) return;
+        if (n == 0) {
+            return;
+        }
 
         GeneralPath path = new GeneralPath();
         path.moveTo((float) scaleX(x[0]), (float) scaleY(y[0]));
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             path.lineTo((float) scaleX(x[i]), (float) scaleY(y[i]));
+        }
         path.closePath();
         offscreen.draw(path);
         draw();
@@ -1029,19 +1095,28 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     public void filledPolygon(double[] x, double[] y) {
         validateNotNull(x, "x-coordinate array");
         validateNotNull(y, "y-coordinate array");
-        for (int i = 0; i < x.length; i++) validate(x[i], "x[" + i + "]");
-        for (int i = 0; i < y.length; i++) validate(y[i], "y[" + i + "]");
+        for (int i = 0; i < x.length; i++) {
+            validate(x[i], "x[" + i + "]");
+        }
+        for (int i = 0; i < y.length; i++) {
+            validate(y[i], "y[" + i + "]");
+        }
 
         int n1 = x.length;
         int n2 = y.length;
-        if (n1 != n2) throw new IllegalArgumentException("arrays must be of the same length");
+        if (n1 != n2) {
+            throw new IllegalArgumentException("arrays must be of the same length");
+        }
         int n = n1;
-        if (n == 0) return;
+        if (n == 0) {
+            return;
+        }
 
         GeneralPath path = new GeneralPath();
         path.moveTo((float) scaleX(x[0]), (float) scaleY(y[0]));
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             path.lineTo((float) scaleX(x[i]), (float) scaleY(y[i]));
+        }
         path.closePath();
         offscreen.fill(path);
         draw();
@@ -1071,7 +1146,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        if (ws < 0 || hs < 0) {
+            throw new IllegalArgumentException("image " + filename + " is corrupt");
+        }
 
         offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
         draw();
@@ -1101,7 +1178,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         int ws = image.getWidth(null);
         int hs = image.getHeight(null);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
+        if (ws < 0 || hs < 0) {
+            throw new IllegalArgumentException("image " + filename + " is corrupt");
+        }
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
         offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
@@ -1140,9 +1219,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(scaledWidth);
         double hs = factorY(scaledHeight);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
-        if (ws <= 1 && hs <= 1) pixel(x, y);
-        else {
+        if (ws < 0 || hs < 0) {
+            throw new IllegalArgumentException("image " + filename + " is corrupt");
+        }
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        } else {
             offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
                     (int) Math.round(ys - hs / 2.0),
                     (int) Math.round(ws),
@@ -1186,8 +1268,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         double ws = factorX(scaledWidth);
         double hs = factorY(scaledHeight);
-        if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
-        if (ws <= 1 && hs <= 1) pixel(x, y);
+        if (ws < 0 || hs < 0) {
+            throw new IllegalArgumentException("image " + filename + " is corrupt");
+        }
+        if (ws <= 1 && hs <= 1) {
+            pixel(x, y);
+        }
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
         offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
@@ -1331,7 +1417,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // draw onscreen if defer is false
     private void draw() {
-        if (!defer) show();
+        if (!defer) {
+            show();
+        }
     }
 
     /**
@@ -1365,7 +1453,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      */
     public void save(String filename) {
         validateNotNull(filename, "filename");
-        if (filename.length() == 0) throw new IllegalArgumentException("argument to save() is the empty string");
+        if (filename.length() == 0) {
+            throw new IllegalArgumentException("argument to save() is the empty string");
+        }
         File file = new File(filename);
 
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);
@@ -1376,12 +1466,16 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         try {
             // if the file format supports transparency (such as PNG or GIF)
-            if (ImageIO.write(onscreenImage, suffix, file)) return;
+            if (ImageIO.write(onscreenImage, suffix, file)) {
+                return;
+            }
 
             // if the file format does not support transparency (such as JPEG or BMP)
             BufferedImage saveImage = new BufferedImage(2 * width, 2 * height, BufferedImage.TYPE_INT_RGB);
             saveImage.createGraphics().drawImage(onscreenImage, 0, 0, Color.WHITE, null);
-            if (ImageIO.write(saveImage, suffix, file)) return;
+            if (ImageIO.write(saveImage, suffix, file)) {
+                return;
+            }
 
             // failed to save the file; probably wrong format
             System.out.printf("Error: the filetype '%s' is not supported\n", suffix);
@@ -1499,8 +1593,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             isMousePressed = true;
         }
         if (e.getButton() == MouseEvent.BUTTON1) {
-            for (DrawListener listener : listeners)
+            for (DrawListener listener : listeners) {
                 listener.mousePressed(userX(e.getX()), userY(e.getY()));
+            }
         }
 
     }
@@ -1514,8 +1609,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             isMousePressed = false;
         }
         if (e.getButton() == MouseEvent.BUTTON1) {
-            for (DrawListener listener : listeners)
+            for (DrawListener listener : listeners) {
                 listener.mouseReleased(userX(e.getX()), userY(e.getY()));
+            }
         }
     }
 
@@ -1525,8 +1621,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
-            for (DrawListener listener : listeners)
+            for (DrawListener listener : listeners) {
                 listener.mouseClicked(userX(e.getX()), userY(e.getY()));
+            }
         }
     }
 
@@ -1540,8 +1637,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             mouseY = userY(e.getY());
         }
         // doesn't seem to work if a button is specified
-        for (DrawListener listener : listeners)
+        for (DrawListener listener : listeners) {
             listener.mouseDragged(userX(e.getX()), userY(e.getY()));
+        }
     }
 
 
@@ -1610,8 +1708,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
 
         // notify all listeners
-        for (DrawListener listener : listeners)
+        for (DrawListener listener : listeners) {
             listener.keyTyped(e.getKeyChar());
+        }
     }
 
     /**
@@ -1624,8 +1723,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
 
         // notify all listeners
-        for (DrawListener listener : listeners)
+        for (DrawListener listener : listeners) {
             listener.keyPressed(e.getKeyCode());
+        }
     }
 
     /***************************************************************************
@@ -1642,8 +1742,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
 
         // notify all listeners
-        for (DrawListener listener : listeners)
+        for (DrawListener listener : listeners) {
             listener.keyReleased(e.getKeyCode());
+        }
     }
 
     /**
@@ -1659,7 +1760,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     public void disableTimer() {
-        if (timer != null) timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     /***************************************************************************
@@ -1698,8 +1801,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     private class MyTimerTask extends TimerTask {
         public void run() {
-            for (DrawListener listener : listeners)
+            for (DrawListener listener : listeners) {
                 listener.update();
+            }
         }
     }
 

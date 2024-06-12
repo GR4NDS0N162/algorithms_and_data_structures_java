@@ -40,8 +40,9 @@ public class Transaction implements Comparable<Transaction> {
      *         or {@code Double.NEGATIVE_INFINITY}
      */
     public Transaction(String who, Date when, double amount) {
-        if (Double.isNaN(amount) || Double.isInfinite(amount))
+        if (Double.isNaN(amount) || Double.isInfinite(amount)) {
             throw new IllegalArgumentException("Amount cannot be NaN or infinite");
+        }
         this.who = who;
         this.when = when;
         this.amount = amount;
@@ -60,8 +61,9 @@ public class Transaction implements Comparable<Transaction> {
         who = a[0];
         when = new Date(a[1]);
         amount = Double.parseDouble(a[2]);
-        if (Double.isNaN(amount) || Double.isInfinite(amount))
+        if (Double.isNaN(amount) || Double.isInfinite(amount)) {
             throw new IllegalArgumentException("Amount cannot be NaN or infinite");
+        }
     }
 
     /**
@@ -77,26 +79,30 @@ public class Transaction implements Comparable<Transaction> {
         a[3] = new Transaction("Dijkstra 8/22/2007 2678.40");
 
         StdOut.println("Unsorted");
-        for (int i = 0; i < a.length; i++)
+        for (int i = 0; i < a.length; i++) {
             StdOut.println(a[i]);
+        }
         StdOut.println();
 
         StdOut.println("Sort by date");
         Arrays.sort(a, new Transaction.WhenOrder());
-        for (int i = 0; i < a.length; i++)
+        for (int i = 0; i < a.length; i++) {
             StdOut.println(a[i]);
+        }
         StdOut.println();
 
         StdOut.println("Sort by customer");
         Arrays.sort(a, new Transaction.WhoOrder());
-        for (int i = 0; i < a.length; i++)
+        for (int i = 0; i < a.length; i++) {
             StdOut.println(a[i]);
+        }
         StdOut.println();
 
         StdOut.println("Sort by amount");
         Arrays.sort(a, new Transaction.HowMuchOrder());
-        for (int i = 0; i < a.length; i++)
+        for (int i = 0; i < a.length; i++) {
             StdOut.println(a[i]);
+        }
         StdOut.println();
     }
 
@@ -157,9 +163,15 @@ public class Transaction implements Comparable<Transaction> {
      */
     @Override
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
         Transaction that = (Transaction) other;
         return (this.amount == that.amount) && (this.who.equals(that.who))
                 && (this.when.equals(that.when));

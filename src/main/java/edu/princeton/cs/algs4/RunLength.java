@@ -53,8 +53,9 @@ public class RunLength {
         boolean b = false;
         while (!BinaryStdIn.isEmpty()) {
             int run = BinaryStdIn.readInt(LG_R);
-            for (int i = 0; i < run; i++)
+            for (int i = 0; i < run; i++) {
                 BinaryStdOut.write(b);
+            }
             b = !b;
         }
         BinaryStdOut.close();
@@ -95,9 +96,13 @@ public class RunLength {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if (args[0].equals("-")) compress();
-        else if (args[0].equals("+")) expand();
-        else throw new IllegalArgumentException("Illegal command line argument");
+        if (args[0].equals("-")) {
+            compress();
+        } else if (args[0].equals("+")) {
+            expand();
+        } else {
+            throw new IllegalArgumentException("Illegal command line argument");
+        }
     }
 
 }

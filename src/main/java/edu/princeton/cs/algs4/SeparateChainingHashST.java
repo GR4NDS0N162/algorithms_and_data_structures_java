@@ -62,8 +62,9 @@ public class SeparateChainingHashST<Key, Value> {
     public SeparateChainingHashST(int m) {
         this.m = m;
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
-        for (int i = 0; i < m; i++)
+        for (int i = 0; i < m; i++) {
             st[i] = new SequentialSearchST<Key, Value>();
+        }
     }
 
     /**
@@ -79,8 +80,9 @@ public class SeparateChainingHashST<Key, Value> {
         }
 
         // print keys
-        for (String s : st.keys())
+        for (String s : st.keys()) {
             StdOut.println(s + " " + st.get(s));
+        }
 
     }
 
@@ -139,7 +141,9 @@ public class SeparateChainingHashST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to contains() is null");
+        }
         return get(key) != null;
     }
 
@@ -152,7 +156,9 @@ public class SeparateChainingHashST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
         int i = hash(key);
         return st[i].get(key);
     }
@@ -168,17 +174,23 @@ public class SeparateChainingHashST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("first argument to put() is null");
+        }
         if (val == null) {
             delete(key);
             return;
         }
 
         // double table size if average length of list >= 10
-        if (n >= 10 * m) resize(2 * m);
+        if (n >= 10 * m) {
+            resize(2 * m);
+        }
 
         int i = hash(key);
-        if (!st[i].contains(key)) n++;
+        if (!st[i].contains(key)) {
+            n++;
+        }
         st[i].put(key, val);
     }
 
@@ -190,22 +202,29 @@ public class SeparateChainingHashST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to delete() is null");
+        }
 
         int i = hash(key);
-        if (st[i].contains(key)) n--;
+        if (st[i].contains(key)) {
+            n--;
+        }
         st[i].delete(key);
 
         // halve table size if average length of list <= 2
-        if (m > INIT_CAPACITY && n <= 2 * m) resize(m / 2);
+        if (m > INIT_CAPACITY && n <= 2 * m) {
+            resize(m / 2);
+        }
     }
 
     // return keys in symbol table as an Iterable
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<Key>();
         for (int i = 0; i < m; i++) {
-            for (Key key : st[i].keys())
+            for (Key key : st[i].keys()) {
                 queue.enqueue(key);
+            }
         }
         return queue;
     }

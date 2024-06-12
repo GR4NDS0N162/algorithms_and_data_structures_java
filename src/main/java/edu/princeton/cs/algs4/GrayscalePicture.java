@@ -84,8 +84,12 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code height} is negative
      */
     public GrayscalePicture(int width, int height) {
-        if (width < 0) throw new IllegalArgumentException("width must be non-negative");
-        if (height < 0) throw new IllegalArgumentException("height must be non-negative");
+        if (width < 0) {
+            throw new IllegalArgumentException("width must be non-negative");
+        }
+        if (height < 0) {
+            throw new IllegalArgumentException("height must be non-negative");
+        }
         this.width = width;
         this.height = height;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -98,16 +102,20 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code picture} is {@code null}
      */
     public GrayscalePicture(GrayscalePicture picture) {
-        if (picture == null) throw new IllegalArgumentException("constructor argument is null");
+        if (picture == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
 
         width = picture.width();
         height = picture.height();
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         filename = picture.filename;
         isOriginUpperLeft = picture.isOriginUpperLeft;
-        for (int col = 0; col < width(); col++)
-            for (int row = 0; row < height(); row++)
+        for (int col = 0; col < width(); col++) {
+            for (int row = 0; row < height(); row++) {
                 image.setRGB(col, row, picture.image.getRGB(col, row));
+            }
+        }
     }
 
     /**
@@ -118,7 +126,9 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public GrayscalePicture(String name) {
-        if (name == null) throw new IllegalArgumentException("constructor argument is null");
+        if (name == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
         this.filename = name;
         try {
             // try to read from file in working directory
@@ -202,7 +212,9 @@ public final class GrayscalePicture implements ActionListener {
      * @return the {@code JLabel}
      */
     public JLabel getJLabel() {
-        if (image == null) return null;         // no image available
+        if (image == null) {
+            return null;         // no image available
+        }
         ImageIcon icon = new ImageIcon(image);
         return new JLabel(icon);
     }
@@ -246,8 +258,11 @@ public final class GrayscalePicture implements ActionListener {
             frame.setContentPane(getJLabel());
             // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            if (filename == null) frame.setTitle(width + "-by-" + height);
-            else frame.setTitle(filename);
+            if (filename == null) {
+                frame.setTitle(width + "-by-" + height);
+            } else {
+                frame.setTitle(filename);
+            }
             frame.setResizable(false);
             frame.pack();
         }
@@ -295,18 +310,21 @@ public final class GrayscalePicture implements ActionListener {
     }
 
     private void validateRowIndex(int row) {
-        if (row < 0 || row >= height())
+        if (row < 0 || row >= height()) {
             throw new IndexOutOfBoundsException("row index must be between 0 and " + (height() - 1) + ": " + row);
+        }
     }
 
     private void validateColumnIndex(int col) {
-        if (col < 0 || col >= width())
+        if (col < 0 || col >= width()) {
             throw new IndexOutOfBoundsException("column index must be between 0 and " + (width() - 1) + ": " + col);
+        }
     }
 
     private void validateGrayscaleValue(int gray) {
-        if (gray < 0 || gray >= 256)
+        if (gray < 0 || gray >= 256) {
             throw new IllegalArgumentException("grayscale value must be between 0 and 255");
+        }
     }
 
     /**
@@ -338,8 +356,11 @@ public final class GrayscalePicture implements ActionListener {
     public int getGrayscale(int col, int row) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (isOriginUpperLeft) return image.getRGB(col, row) & 0xFF;
-        else return image.getRGB(col, height - row - 1) & 0xFF;
+        if (isOriginUpperLeft) {
+            return image.getRGB(col, row) & 0xFF;
+        } else {
+            return image.getRGB(col, height - row - 1) & 0xFF;
+        }
     }
 
     /**
@@ -354,7 +375,9 @@ public final class GrayscalePicture implements ActionListener {
     public void set(int col, int row, Color color) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (color == null) throw new IllegalArgumentException("color argument is null");
+        if (color == null) {
+            throw new IllegalArgumentException("color argument is null");
+        }
         Color gray = toGray(color);
         image.setRGB(col, row, gray.getRGB());
     }
@@ -373,8 +396,11 @@ public final class GrayscalePicture implements ActionListener {
         validateRowIndex(row);
         validateGrayscaleValue(gray);
         int rgb = gray | (gray << 8) | (gray << 16);
-        if (isOriginUpperLeft) image.setRGB(col, row, rgb);
-        else image.setRGB(col, height - row - 1, rgb);
+        if (isOriginUpperLeft) {
+            image.setRGB(col, row, rgb);
+        } else {
+            image.setRGB(col, height - row - 1, rgb);
+        }
     }
 
     /**
@@ -385,15 +411,29 @@ public final class GrayscalePicture implements ActionListener {
      *         and if all pixels have the same color; {@code false} otherwise
      */
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
         GrayscalePicture that = (GrayscalePicture) other;
-        if (this.width() != that.width()) return false;
-        if (this.height() != that.height()) return false;
-        for (int col = 0; col < width(); col++)
-            for (int row = 0; row < height(); row++)
-                if (this.getGrayscale(col, row) != that.getGrayscale(col, row)) return false;
+        if (this.width() != that.width()) {
+            return false;
+        }
+        if (this.height() != that.height()) {
+            return false;
+        }
+        for (int col = 0; col < width(); col++) {
+            for (int row = 0; row < height(); row++) {
+                if (this.getGrayscale(col, row) != that.getGrayscale(col, row)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -410,8 +450,11 @@ public final class GrayscalePicture implements ActionListener {
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 int gray;
-                if (isOriginUpperLeft) gray = 0xFF & image.getRGB(col, row);
-                else gray = 0xFF & image.getRGB(col, height - row - 1);
+                if (isOriginUpperLeft) {
+                    gray = 0xFF & image.getRGB(col, row);
+                } else {
+                    gray = 0xFF & image.getRGB(col, height - row - 1);
+                }
                 sb.append(String.format("%3d ", gray));
             }
             sb.append("\n");
@@ -437,7 +480,9 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public void save(String name) {
-        if (name == null) throw new IllegalArgumentException("argument to save() is null");
+        if (name == null) {
+            throw new IllegalArgumentException("argument to save() is null");
+        }
         save(new File(name));
         filename = name;
     }
@@ -449,9 +494,13 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public void save(File file) {
-        if (file == null) throw new IllegalArgumentException("argument to save() is null");
+        if (file == null) {
+            throw new IllegalArgumentException("argument to save() is null");
+        }
         filename = file.getName();
-        if (frame != null) frame.setTitle(filename);
+        if (frame != null) {
+            frame.setTitle(filename);
+        }
 
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);
         if (!filename.contains(".") || suffix.length() == 0) {

@@ -46,7 +46,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
     public MultiwayMinPQ(int d) {
-        if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+        if (d < 2) {
+            throw new IllegalArgumentException("Dimension should be 2 or over");
+        }
         this.d = d;
         order = 1;
         keys = (Key[]) new Comparable[d << 1];
@@ -62,7 +64,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
     public MultiwayMinPQ(Comparator<Key> comparator, int d) {
-        if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+        if (d < 2) {
+            throw new IllegalArgumentException("Dimension should be 2 or over");
+        }
         this.d = d;
         order = 1;
         keys = (Key[]) new Comparable[d << 1];
@@ -78,12 +82,16 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
     public MultiwayMinPQ(Key[] a, int d) {
-        if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+        if (d < 2) {
+            throw new IllegalArgumentException("Dimension should be 2 or over");
+        }
         this.d = d;
         order = 1;
         keys = (Key[]) new Comparable[d << 1];
         comp = new MyComparator();
-        for (Key key : a) insert(key);
+        for (Key key : a) {
+            insert(key);
+        }
     }
 
     /**
@@ -96,12 +104,16 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @throws java.lang.IllegalArgumentException if {@code d < 2}
      */
     public MultiwayMinPQ(Comparator<Key> comparator, Key[] a, int d) {
-        if (d < 2) throw new IllegalArgumentException("Dimension should be 2 or over");
+        if (d < 2) {
+            throw new IllegalArgumentException("Dimension should be 2 or over");
+        }
         this.d = d;
         order = 1;
         keys = (Key[]) new Comparable[d << 1];
         comp = comparator;
-        for (Key key : a) insert(key);
+        for (Key key : a) {
+            insert(key);
+        }
     }
 
     /**
@@ -143,7 +155,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @return the minimum key currently in the priority queue
      */
     public Key minKey() {
-        if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Priority queue is empty");
+        }
         return keys[d];
     }
 
@@ -154,7 +168,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
      * @return the minimum key
      */
     public Key delMin() {
-        if (isEmpty()) throw new NoSuchElementException("Priority queue is empty");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Priority queue is empty");
+        }
         exch(0, --n);
         sink(0);
         Key min = keys[n + d];
@@ -174,8 +190,12 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
     //Compares two keys
     private boolean greater(int x, int y) {
         int i = x + d, j = y + d;
-        if (keys[i] == null) return false;
-        if (keys[j] == null) return true;
+        if (keys[i] == null) {
+            return false;
+        }
+        if (keys[j] == null) {
+            return true;
+        }
         return comp.compare(keys[i], keys[j]) > 0;
     }
 
@@ -207,7 +227,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
     //Moves downward
     private void sink(int i) {
         int child = d * i + 1;
-        if (child >= n) return;
+        if (child >= n) {
+            return;
+        }
         int min = minChild(i);
         while (min < n && greater(i, min)) {
             exch(i, min);
@@ -225,7 +247,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
         int loBound = d * i + 1, hiBound = d * i + d;
         int min = loBound;
         for (int cur = loBound; cur <= hiBound; cur++) {
-            if (cur < n && greater(min, cur)) min = cur;
+            if (cur < n && greater(min, cur)) {
+                min = cur;
+            }
         }
         return min;
     }
@@ -279,7 +303,9 @@ public class MultiwayMinPQ<Key> implements Iterable<Key> {
         }
 
         public Key next() {
-            if (!hasNext()) throw new NoSuchElementException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return data.delMin();
         }
 

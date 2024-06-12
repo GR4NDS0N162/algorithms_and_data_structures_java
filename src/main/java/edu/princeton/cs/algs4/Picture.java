@@ -232,8 +232,12 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code height} is negative or zero
      */
     public Picture(int width, int height) {
-        if (width <= 0) throw new IllegalArgumentException("width must be positive");
-        if (height <= 0) throw new IllegalArgumentException("height must be positive");
+        if (width <= 0) {
+            throw new IllegalArgumentException("width must be positive");
+        }
+        if (height <= 0) {
+            throw new IllegalArgumentException("height must be positive");
+        }
         this.width = width;
         this.height = height;
         this.title = width + "-by-" + height;
@@ -247,16 +251,20 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code picture} is {@code null}
      */
     public Picture(Picture picture) {
-        if (picture == null) throw new IllegalArgumentException("constructor argument is null");
+        if (picture == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
 
         width = picture.width();
         height = picture.height();
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         title = picture.title;
         isOriginUpperLeft = picture.isOriginUpperLeft;
-        for (int col = 0; col < width(); col++)
-            for (int row = 0; row < height(); row++)
+        for (int col = 0; col < width(); col++) {
+            for (int row = 0; row < height(); row++) {
                 image.setRGB(col, row, picture.image.getRGB(col, row));
+            }
+        }
     }
 
     /**
@@ -270,8 +278,12 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code name} is {@code null}
      */
     public Picture(String filename) {
-        if (filename == null) throw new IllegalArgumentException("constructor argument is null");
-        if (filename.length() == 0) throw new IllegalArgumentException("constructor argument is the empty string");
+        if (filename == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
+        if (filename.length() == 0) {
+            throw new IllegalArgumentException("constructor argument is the empty string");
+        }
 
         title = filename;
         try {
@@ -327,7 +339,9 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public Picture(File file) {
-        if (file == null) throw new IllegalArgumentException("constructor argument is null");
+        if (file == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
 
         try {
             BufferedImage image = ImageIO.read(file);
@@ -400,7 +414,9 @@ public final class Picture implements ActionListener {
      * @return the {@code JLabel}
      */
     public JLabel getJLabel() {
-        if (image == null) return null;         // no image available
+        if (image == null) {
+            return null;         // no image available
+        }
         ImageIcon icon = new ImageIcon(image);
         return new JLabel(icon);
     }
@@ -481,13 +497,15 @@ public final class Picture implements ActionListener {
     }
 
     private void validateRowIndex(int row) {
-        if (row < 0 || row >= height())
+        if (row < 0 || row >= height()) {
             throw new IndexOutOfBoundsException("row index must be between 0 and " + (height() - 1) + ": " + row);
+        }
     }
 
     private void validateColumnIndex(int col) {
-        if (col < 0 || col >= width())
+        if (col < 0 || col >= width()) {
             throw new IndexOutOfBoundsException("column index must be between 0 and " + (width() - 1) + ": " + col);
+        }
     }
 
     /**
@@ -518,8 +536,11 @@ public final class Picture implements ActionListener {
     public int getRGB(int col, int row) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (isOriginUpperLeft) return image.getRGB(col, row);
-        else return image.getRGB(col, height - row - 1);
+        if (isOriginUpperLeft) {
+            return image.getRGB(col, row);
+        } else {
+            return image.getRGB(col, height - row - 1);
+        }
     }
 
     /**
@@ -534,7 +555,9 @@ public final class Picture implements ActionListener {
     public void set(int col, int row, Color color) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (color == null) throw new IllegalArgumentException("color argument is null");
+        if (color == null) {
+            throw new IllegalArgumentException("color argument is null");
+        }
         int rgb = color.getRGB();
         setRGB(col, row, rgb);
     }
@@ -550,8 +573,11 @@ public final class Picture implements ActionListener {
     public void setRGB(int col, int row, int rgb) {
         validateColumnIndex(col);
         validateRowIndex(row);
-        if (isOriginUpperLeft) image.setRGB(col, row, rgb);
-        else image.setRGB(col, height - row - 1, rgb);
+        if (isOriginUpperLeft) {
+            image.setRGB(col, row, rgb);
+        } else {
+            image.setRGB(col, height - row - 1, rgb);
+        }
     }
 
     /**
@@ -562,15 +588,29 @@ public final class Picture implements ActionListener {
      *         and if all pixels have the same color; {@code false} otherwise
      */
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
         Picture that = (Picture) other;
-        if (this.width() != that.width()) return false;
-        if (this.height() != that.height()) return false;
-        for (int col = 0; col < width(); col++)
-            for (int row = 0; row < height(); row++)
-                if (this.getRGB(col, row) != that.getRGB(col, row)) return false;
+        if (this.width() != that.width()) {
+            return false;
+        }
+        if (this.height() != that.height()) {
+            return false;
+        }
+        for (int col = 0; col < width(); col++) {
+            for (int row = 0; row < height(); row++) {
+                if (this.getRGB(col, row) != that.getRGB(col, row)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -588,8 +628,11 @@ public final class Picture implements ActionListener {
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 int rgb;
-                if (isOriginUpperLeft) rgb = image.getRGB(col, row);
-                else rgb = image.getRGB(col, height - row - 1);
+                if (isOriginUpperLeft) {
+                    rgb = image.getRGB(col, row);
+                } else {
+                    rgb = image.getRGB(col, height - row - 1);
+                }
                 sb.append(String.format("#%06X ", rgb & 0xFFFFFF));
             }
             sb.append("\n");
@@ -613,7 +656,9 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code title} is {@code null}
      */
     public void setTitle(String title) {
-        if (title == null) throw new IllegalArgumentException("title is null");
+        if (title == null) {
+            throw new IllegalArgumentException("title is null");
+        }
         this.title = title;
     }
 
@@ -623,7 +668,9 @@ public final class Picture implements ActionListener {
             for (int row = 0; row < height; row++) {
                 int argb = image.getRGB(col, row);
                 int alpha = (argb >> 24) & 0xFF;
-                if (alpha != 255) return true;
+                if (alpha != 255) {
+                    return true;
+                }
             }
         }
         return false;
@@ -643,8 +690,12 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code filename} is the empty string
      */
     public void save(String filename) {
-        if (filename == null) throw new IllegalArgumentException("argument to save() is null");
-        if (filename.length() == 0) throw new IllegalArgumentException("argument to save() is the empty string");
+        if (filename == null) {
+            throw new IllegalArgumentException("argument to save() is null");
+        }
+        if (filename.length() == 0) {
+            throw new IllegalArgumentException("argument to save() is the empty string");
+        }
         File file = new File(filename);
         save(file);
     }
@@ -662,7 +713,9 @@ public final class Picture implements ActionListener {
      * @throws IllegalArgumentException if {@code file} is {@code null}
      */
     public void save(File file) {
-        if (file == null) throw new IllegalArgumentException("argument to save() is null");
+        if (file == null) {
+            throw new IllegalArgumentException("argument to save() is null");
+        }
         title = file.getName();
 
         String suffix = title.substring(title.lastIndexOf('.') + 1);
@@ -673,13 +726,17 @@ public final class Picture implements ActionListener {
 
         try {
             // for formats that support transparency (e.g., PNG and GIF)
-            if (ImageIO.write(image, suffix, file)) return;
+            if (ImageIO.write(image, suffix, file)) {
+                return;
+            }
 
             // for formats that don't support transparency (e.g., JPG and BMP)
             // create BufferedImage in RGB format and use white background
             BufferedImage imageRGB = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             imageRGB.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
-            if (ImageIO.write(imageRGB, suffix, file)) return;
+            if (ImageIO.write(imageRGB, suffix, file)) {
+                return;
+            }
 
             System.out.printf("Error: the filetype '%s' is not supported\n", suffix);
         } catch (IOException e) {

@@ -63,8 +63,11 @@ public class Interval2D {
             double y = StdRandom.uniformDouble(0.0, 1.0);
             Point2D point = new Point2D(x, y);
 
-            if (box.contains(point)) counter.increment();
-            else point.draw();
+            if (box.contains(point)) {
+                counter.increment();
+            } else {
+                point.draw();
+            }
         }
 
         StdOut.println(counter);
@@ -78,7 +81,9 @@ public class Interval2D {
      *    that two-dimensional interval; false otherwise
      */
     public boolean intersects(Interval2D that) {
-        if (!this.x.intersects(that.x)) return false;
+        if (!this.x.intersects(that.x)) {
+            return false;
+        }
         return this.y.intersects(that.y);
     }
 
@@ -114,9 +119,15 @@ public class Interval2D {
      * @return true if this interval equals the other interval; false otherwise
      */
     public boolean equals(Object other) {
-        if (other == this) return true;
-        if (other == null) return false;
-        if (other.getClass() != this.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other.getClass() != this.getClass()) {
+            return false;
+        }
         Interval2D that = (Interval2D) other;
         return this.x.equals(that.x) && this.y.equals(that.y);
     }

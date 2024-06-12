@@ -59,7 +59,9 @@ public class FileIndex {
             In in = new In(file);
             while (!in.isEmpty()) {
                 String word = in.readString();
-                if (!st.contains(word)) st.put(word, new SET<File>());
+                if (!st.contains(word)) {
+                    st.put(word, new SET<File>());
+                }
                 SET<File> set = st.get(word);
                 set.add(file);
             }

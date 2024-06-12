@@ -72,7 +72,9 @@ public final class BinaryStdIn {
      * Close this input stream and release any associated system resources.
      */
     public static void close() {
-        if (!isInitialized) initialize();
+        if (!isInitialized) {
+            initialize();
+        }
         try {
             in.close();
             isInitialized = false;
@@ -86,7 +88,9 @@ public final class BinaryStdIn {
      * @return true if and only if standard input is empty
      */
     public static boolean isEmpty() {
-        if (!isInitialized) initialize();
+        if (!isInitialized) {
+            initialize();
+        }
         return buffer == EOF;
     }
 
@@ -97,10 +101,14 @@ public final class BinaryStdIn {
      * @throws NoSuchElementException if standard input is empty
      */
     public static boolean readBoolean() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
         n--;
         boolean bit = ((buffer >> n) & 1) == 1;
-        if (n == 0) fillBuffer();
+        if (n == 0) {
+            fillBuffer();
+        }
         return bit;
     }
 
@@ -113,7 +121,9 @@ public final class BinaryStdIn {
      * @throws NoSuchElementException if there are fewer than 8 bits available on standard input
      */
     public static char readChar() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
 
         // special case when aligned byte
         if (n == 8) {
@@ -127,7 +137,9 @@ public final class BinaryStdIn {
         x <<= (8 - n);
         int oldN = n;
         fillBuffer();
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
         n = oldN;
         x |= (buffer >>> n);
         return (char) (x & 0xff);
@@ -144,16 +156,22 @@ public final class BinaryStdIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 16}
      */
     public static char readChar(int r) {
-        if (r < 1 || r > 16) throw new IllegalArgumentException("Illegal value of r = " + r);
+        if (r < 1 || r > 16) {
+            throw new IllegalArgumentException("Illegal value of r = " + r);
+        }
 
         // optimize r = 8 case
-        if (r == 8) return readChar();
+        if (r == 8) {
+            return readChar();
+        }
 
         char x = 0;
         for (int i = 0; i < r; i++) {
             x <<= 1;
             boolean bit = readBoolean();
-            if (bit) x |= 1;
+            if (bit) {
+                x |= 1;
+            }
         }
         return x;
     }
@@ -166,7 +184,9 @@ public final class BinaryStdIn {
      *         available on standard input is not a multiple of 8 (byte-aligned)
      */
     public static String readString() {
-        if (isEmpty()) throw new NoSuchElementException("Reading from empty input stream");
+        if (isEmpty()) {
+            throw new NoSuchElementException("Reading from empty input stream");
+        }
 
         StringBuilder sb = new StringBuilder();
         while (!isEmpty()) {
@@ -218,16 +238,22 @@ public final class BinaryStdIn {
      * @throws IllegalArgumentException unless {@code 1 <= r <= 32}
      */
     public static int readInt(int r) {
-        if (r < 1 || r > 32) throw new IllegalArgumentException("Illegal value of r = " + r);
+        if (r < 1 || r > 32) {
+            throw new IllegalArgumentException("Illegal value of r = " + r);
+        }
 
         // optimize r = 32 case
-        if (r == 32) return readInt();
+        if (r == 32) {
+            return readInt();
+        }
 
         int x = 0;
         for (int i = 0; i < r; i++) {
             x <<= 1;
             boolean bit = readBoolean();
-            if (bit) x |= 1;
+            if (bit) {
+                x |= 1;
+            }
         }
         return x;
     }

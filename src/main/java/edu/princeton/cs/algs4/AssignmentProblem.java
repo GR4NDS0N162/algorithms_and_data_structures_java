@@ -42,11 +42,11 @@ public class AssignmentProblem {
 
     private final int n;              // number of rows and columns
     private final double[][] weight;  // the n-by-n cost matrix
-    private double minWeight;   // minimum value of any weight
     private final double[] px;        // px[i] = dual variable for row i
     private final double[] py;        // py[j] = dual variable for col j
     private final int[] xy;           // xy[i] = j means i-j is a match
     private final int[] yx;           // yx[j] = i means i-j is a match
+    private double minWeight;   // minimum value of any weight
 
     /**
      * Determines an optimal solution to the assignment problem.
@@ -56,15 +56,20 @@ public class AssignmentProblem {
      * @throws IllegalArgumentException if {@code weight} is {@code null}
      */
     public AssignmentProblem(double[][] weight) {
-        if (weight == null) throw new IllegalArgumentException("constructor argument is null");
+        if (weight == null) {
+            throw new IllegalArgumentException("constructor argument is null");
+        }
 
         n = weight.length;
         this.weight = new double[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (Double.isNaN(weight[i][j]))
+                if (Double.isNaN(weight[i][j])) {
                     throw new IllegalArgumentException("weight " + i + "-" + j + " is NaN");
-                if (weight[i][j] < minWeight) minWeight = weight[i][j];
+                }
+                if (weight[i][j] < minWeight) {
+                    minWeight = weight[i][j];
+                }
                 this.weight[i][j] = weight[i][j];
             }
         }
@@ -76,10 +81,12 @@ public class AssignmentProblem {
         // initial matching is empty
         xy = new int[n];
         yx = new int[n];
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             xy[i] = UNMATCHED;
-        for (int j = 0; j < n; j++)
+        }
+        for (int j = 0; j < n; j++) {
             yx[j] = UNMATCHED;
+        }
 
         // add n edges to matching
         for (int k = 0; k < n; k++) {
@@ -115,13 +122,16 @@ public class AssignmentProblem {
         StdOut.println();
 
         // print n-by-n matrix and optimal solution
-        if (n >= 20) return;
+        if (n >= 20) {
+            return;
+        }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (j == assignment.sol(i))
+                if (j == assignment.sol(i)) {
                     StdOut.printf("*%.0f ", weight[i][j]);
-                else
+                } else {
                     StdOut.printf(" %.0f ", weight[i][j]);
+                }
             }
             StdOut.println();
         }
@@ -134,17 +144,22 @@ public class AssignmentProblem {
         EdgeWeightedDigraph G = new EdgeWeightedDigraph(2 * n + 2);
         int s = 2 * n, t = 2 * n + 1;
         for (int i = 0; i < n; i++) {
-            if (xy[i] == UNMATCHED)
+            if (xy[i] == UNMATCHED) {
                 G.addEdge(new DirectedEdge(s, i, 0.0));
+            }
         }
         for (int j = 0; j < n; j++) {
-            if (yx[j] == UNMATCHED)
+            if (yx[j] == UNMATCHED) {
                 G.addEdge(new DirectedEdge(n + j, t, py[j]));
+            }
         }
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (xy[i] == j) G.addEdge(new DirectedEdge(n + j, i, 0.0));
-                else G.addEdge(new DirectedEdge(i, n + j, reducedCost(i, j)));
+                if (xy[i] == j) {
+                    G.addEdge(new DirectedEdge(n + j, i, 0.0));
+                } else {
+                    G.addEdge(new DirectedEdge(i, n + j, reducedCost(i, j)));
+                }
             }
         }
 
@@ -161,10 +176,12 @@ public class AssignmentProblem {
         }
 
         // update dual variables
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             px[i] += spt.distTo(i);
-        for (int j = 0; j < n; j++)
+        }
+        for (int j = 0; j < n; j++) {
             py[j] += spt.distTo(n + j);
+        }
     }
 
     // reduced cost of i-j
@@ -174,7 +191,9 @@ public class AssignmentProblem {
 
         // to avoid issues with floating-point precision
         double magnitude = Math.abs(weight[i][j]) + Math.abs(px[i]) + Math.abs(py[j]);
-        if (Math.abs(reducedCost) <= FLOATING_POINT_EPSILON * magnitude) return 0.0;
+        if (Math.abs(reducedCost) <= FLOATING_POINT_EPSILON * magnitude) {
+            return 0.0;
+        }
 
         assert reducedCost >= 0.0;
         return reducedCost;
@@ -229,14 +248,17 @@ public class AssignmentProblem {
     public double weight() {
         double total = 0.0;
         for (int i = 0; i < n; i++) {
-            if (xy[i] != UNMATCHED)
+            if (xy[i] != UNMATCHED) {
                 total += weight[i][xy[i]];
+            }
         }
         return total;
     }
 
     private void validate(int i) {
-        if (i < 0 || i >= n) throw new IllegalArgumentException("index is not between 0 and " + (n - 1) + ": " + i);
+        if (i < 0 || i >= n) {
+            throw new IllegalArgumentException("index is not between 0 and " + (n - 1) + ": " + i);
+        }
     }
 
     /**************************************************************************

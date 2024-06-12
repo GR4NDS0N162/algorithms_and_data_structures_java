@@ -49,16 +49,13 @@ package edu.princeton.cs.algs4;
  */
 public class GlobalMincut {
     private static final double FLOATING_POINT_EPSILON = 1.0E-11;
-
+    // number of vertices
+    private final int V;
     // the weight of the minimum cut
     private double weight = Double.POSITIVE_INFINITY;
-
     // cut[v] = true if v is on the first subset of vertices of the minimum cut;
     // or false if v is on the second subset
     private boolean[] cut;
-
-    // number of vertices
-    private final int V;
 
     /**
      * Computes a minimum cut in an edge-weighted graph.
@@ -86,7 +83,9 @@ public class GlobalMincut {
         GlobalMincut mc = new GlobalMincut(G);
         StdOut.print("Min cut: ");
         for (int v = 0; v < G.V(); v++) {
-            if (mc.cut(v)) StdOut.print(v + " ");
+            if (mc.cut(v)) {
+                StdOut.print(v + " ");
+            }
         }
         StdOut.println();
         StdOut.println("Min cut weight = " + mc.weight());
@@ -100,9 +99,13 @@ public class GlobalMincut {
      *             is less than {@code 2} or if any edge weight is negative
      */
     private void validate(EdgeWeightedGraph G) {
-        if (G.V() < 2) throw new IllegalArgumentException("number of vertices of G is less than 2");
+        if (G.V() < 2) {
+            throw new IllegalArgumentException("number of vertices of G is less than 2");
+        }
         for (Edge e : G.edges()) {
-            if (e.weight() < 0) throw new IllegalArgumentException("edge " + e + " has negative weight");
+            if (e.weight() < 0) {
+                throw new IllegalArgumentException("edge " + e + " has negative weight");
+            }
         }
     }
 
@@ -189,7 +192,9 @@ public class GlobalMincut {
     private void minCutPhase(EdgeWeightedGraph G, boolean[] marked, CutPhase cp) {
         IndexMaxPQ<Double> pq = new IndexMaxPQ<Double>(G.V());
         for (int v = 0; v < G.V(); v++) {
-            if (v != cp.s && !marked[v]) pq.insert(v, 0.0);
+            if (v != cp.s && !marked[v]) {
+                pq.insert(v, 0.0);
+            }
         }
         pq.insert(cp.s, Double.POSITIVE_INFINITY);
         while (!pq.isEmpty()) {
@@ -198,7 +203,9 @@ public class GlobalMincut {
             cp.t = v;
             for (Edge e : G.adj(v)) {
                 int w = e.other(v);
-                if (pq.contains(w)) pq.increaseKey(w, pq.keyOf(w) + e.weight());
+                if (pq.contains(w)) {
+                    pq.increaseKey(w, pq.keyOf(w) + e.weight());
+                }
             }
         }
         cp.weight = 0.0;
@@ -222,11 +229,17 @@ public class GlobalMincut {
         for (int v = 0; v < G.V(); v++) {
             for (Edge e : G.adj(v)) {
                 int w = e.other(v);
-                if (v == s && w == t || v == t && w == s) continue;
+                if (v == s && w == t || v == t && w == s) {
+                    continue;
+                }
                 if (v < w) {
-                    if (w == t) H.addEdge(new Edge(v, s, e.weight()));
-                    else if (v == t) H.addEdge(new Edge(w, s, e.weight()));
-                    else H.addEdge(new Edge(v, w, e.weight()));
+                    if (w == t) {
+                        H.addEdge(new Edge(v, s, e.weight()));
+                    } else if (v == t) {
+                        H.addEdge(new Edge(w, s, e.weight()));
+                    } else {
+                        H.addEdge(new Edge(v, w, e.weight()));
+                    }
                 }
             }
         }
@@ -264,8 +277,9 @@ public class GlobalMincut {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     /**

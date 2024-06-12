@@ -72,8 +72,9 @@ public class Topological {
             order = dfs.reversePost();
             rank = new int[G.V()];
             int i = 0;
-            for (int v : order)
+            for (int v : order) {
                 rank[v] = i++;
+            }
         }
     }
 
@@ -147,15 +148,19 @@ public class Topological {
      */
     public int rank(int v) {
         validateVertex(v);
-        if (hasOrder()) return rank[v];
-        else return -1;
+        if (hasOrder()) {
+            return rank[v];
+        } else {
+            return -1;
+        }
     }
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = rank.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 }

@@ -326,11 +326,17 @@ public final class StdAudio {
      * @throws IllegalArgumentException if the sample is {@code Double.NaN}
      */
     public static void play(double sample) {
-        if (Double.isNaN(sample)) throw new IllegalArgumentException("sample is NaN");
+        if (Double.isNaN(sample)) {
+            throw new IllegalArgumentException("sample is NaN");
+        }
 
         // clip if outside [-1, +1]
-        if (sample < -1.0) sample = -1.0;
-        if (sample > +1.0) sample = +1.0;
+        if (sample < -1.0) {
+            sample = -1.0;
+        }
+        if (sample > +1.0) {
+            sample = +1.0;
+        }
 
         // save sample if recording
         if (isRecording) {
@@ -339,7 +345,9 @@ public final class StdAudio {
 
         // convert to bytes
         short s = (short) (MAX_16_BIT * sample);
-        if (sample == 1.0) s = Short.MAX_VALUE;   // special case since 32768 not a short
+        if (sample == 1.0) {
+            s = Short.MAX_VALUE;   // special case since 32768 not a short
+        }
         buffer[bufferSize++] = (byte) s;
         buffer[bufferSize++] = (byte) (s >> 8);   // little endian
 
@@ -359,7 +367,9 @@ public final class StdAudio {
      * @throws IllegalArgumentException if {@code samples} is {@code null}
      */
     public static void play(double[] samples) {
-        if (samples == null) throw new IllegalArgumentException("argument to play() is null");
+        if (samples == null) {
+            throw new IllegalArgumentException("argument to play() is null");
+        }
         for (int i = 0; i < samples.length; i++) {
             play(samples[i]);
         }
@@ -379,8 +389,9 @@ public final class StdAudio {
         // may not work for streaming file formats
         if (isRecording) {
             double[] samples = read(filename);
-            for (double sample : samples)
+            for (double sample : samples) {
                 recordedSamples.enqueue(sample);
+            }
         }
 
         AudioInputStream ais = getAudioInputStreamFromFile(filename);
@@ -493,7 +504,9 @@ public final class StdAudio {
         byte[] data = new byte[2 * samples.length];
         for (int i = 0; i < samples.length; i++) {
             int temp = (short) (samples[i] * MAX_16_BIT);
-            if (samples[i] == 1.0) temp = Short.MAX_VALUE;   // special case since 32768 not a short
+            if (samples[i] == 1.0) {
+                temp = Short.MAX_VALUE;   // special case since 32768 not a short
+            }
             data[2 * i] = (byte) temp;
             data[2 * i + 1] = (byte) (temp >> 8);   // little endian
         }
@@ -564,7 +577,9 @@ public final class StdAudio {
      */
     @Deprecated
     public static synchronized void loopInBackground(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
+        if (filename == null) {
+            throw new IllegalArgumentException();
+        }
 
         final AudioInputStream ais = getAudioInputStreamFromFile(filename);
 
@@ -710,13 +725,17 @@ public final class StdAudio {
         private void resize(int capacity) {
             assert capacity >= n;
             double[] temp = new double[capacity];
-            if (n >= 0) System.arraycopy(a, 0, temp, 0, n);
+            if (n >= 0) {
+                System.arraycopy(a, 0, temp, 0, n);
+            }
             a = temp;
         }
 
         // enqueue item onto the queue
         public void enqueue(double item) {
-            if (n == a.length) resize(2 * a.length);    // double length of array if necessary
+            if (n == a.length) {
+                resize(2 * a.length);    // double length of array if necessary
+            }
             a[n++] = item;                            // add item
         }
 

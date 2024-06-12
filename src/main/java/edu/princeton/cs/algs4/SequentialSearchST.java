@@ -79,8 +79,9 @@ public class SequentialSearchST<Key, Value> {
             String key = StdIn.readString();
             st.put(key, i);
         }
-        for (String s : st.keys())
+        for (String s : st.keys()) {
             StdOut.println(s + " " + st.get(s));
+        }
     }
 
     /**
@@ -111,7 +112,9 @@ public class SequentialSearchST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public boolean contains(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to contains() is null");
+        }
         return get(key) != null;
     }
 
@@ -124,10 +127,13 @@ public class SequentialSearchST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public Value get(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to get() is null");
+        }
         for (Node x = first; x != null; x = x.next) {
-            if (key.equals(x.key))
+            if (key.equals(x.key)) {
                 return x.val;
+            }
         }
         return null;
     }
@@ -143,7 +149,9 @@ public class SequentialSearchST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void put(Key key, Value val) {
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("first argument to put() is null");
+        }
         if (val == null) {
             delete(key);
             return;
@@ -167,14 +175,18 @@ public class SequentialSearchST<Key, Value> {
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
     public void delete(Key key) {
-        if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        if (key == null) {
+            throw new IllegalArgumentException("argument to delete() is null");
+        }
         first = delete(first, key);
     }
 
     // delete key in linked list beginning at Node x
     // warning: function call stack too large if table is large
     private Node delete(Node x, Key key) {
-        if (x == null) return null;
+        if (x == null) {
+            return null;
+        }
         if (key.equals(x.key)) {
             n--;
             return x.next;
@@ -193,8 +205,9 @@ public class SequentialSearchST<Key, Value> {
      */
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<Key>();
-        for (Node x = first; x != null; x = x.next)
+        for (Node x = first; x != null; x = x.next) {
             queue.enqueue(x.key);
+        }
         return queue;
     }
 

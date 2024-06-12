@@ -56,10 +56,10 @@ public class GabowSCC {
     private final boolean[] marked;        // marked[v] = has v been visited?
     private final int[] id;                // id[v] = id of strong component containing v
     private final int[] preorder;          // preorder[v] = preorder of v
-    private int pre;                 // preorder number counter
-    private int count;               // number of strongly-connected components
     private final Stack<Integer> stack1;
     private final Stack<Integer> stack2;
+    private int pre;                 // preorder number counter
+    private int count;               // number of strongly-connected components
 
 
     /**
@@ -72,11 +72,14 @@ public class GabowSCC {
         stack2 = new Stack<Integer>();
         id = new int[G.V()];
         preorder = new int[G.V()];
-        for (int v = 0; v < G.V(); v++)
+        for (int v = 0; v < G.V(); v++) {
             id[v] = -1;
+        }
 
         for (int v = 0; v < G.V(); v++) {
-            if (!marked[v]) dfs(G, v);
+            if (!marked[v]) {
+                dfs(G, v);
+            }
         }
 
         // check that id[] gives strong components
@@ -122,10 +125,12 @@ public class GabowSCC {
         stack1.push(v);
         stack2.push(v);
         for (int w : G.adj(v)) {
-            if (!marked[w]) dfs(G, w);
-            else if (id[w] == -1) {
-                while (preorder[stack2.peek()] > preorder[w])
+            if (!marked[w]) {
+                dfs(G, w);
+            } else if (id[w] == -1) {
+                while (preorder[stack2.peek()] > preorder[w]) {
                     stack2.pop();
+                }
             }
         }
 
@@ -180,8 +185,9 @@ public class GabowSCC {
         TransitiveClosure tc = new TransitiveClosure(G);
         for (int v = 0; v < G.V(); v++) {
             for (int w = 0; w < G.V(); w++) {
-                if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v)))
+                if (stronglyConnected(v, w) != (tc.reachable(v, w) && tc.reachable(w, v))) {
                     return false;
+                }
             }
         }
         return true;
@@ -190,8 +196,9 @@ public class GabowSCC {
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         int V = marked.length;
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
 }

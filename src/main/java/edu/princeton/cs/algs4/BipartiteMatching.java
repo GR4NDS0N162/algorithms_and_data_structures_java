@@ -58,10 +58,10 @@ public class BipartiteMatching {
 
     private final int V;                 // number of vertices in the graph
     private final BipartiteX bipartition;      // the bipartition
-    private int cardinality;             // cardinality of current matching
     private final int[] mate;                  // mate[v] =  w if v-w is an edge in current matching
     //         = -1 if v is not in current matching
     private final boolean[] inMinVertexCover;  // inMinVertexCover[v] = true iff v is in min vertex cover
+    private int cardinality;             // cardinality of current matching
     private boolean[] marked;            // marked[v] = true iff v is reachable via alternating path
     private int[] edgeTo;                // edgeTo[v] = last edge on alternating path to v
 
@@ -82,8 +82,9 @@ public class BipartiteMatching {
 
         // initialize empty matching
         mate = new int[V];
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             mate[v] = UNMATCHED;
+        }
 
         // alternating path algorithm
         while (hasAugmentingPath(G)) {
@@ -109,8 +110,12 @@ public class BipartiteMatching {
         // find min vertex cover from marked[] array
         inMinVertexCover = new boolean[V];
         for (int v = 0; v < V; v++) {
-            if (bipartition.color(v) && !marked[v]) inMinVertexCover[v] = true;
-            if (!bipartition.color(v) && marked[v]) inMinVertexCover[v] = true;
+            if (bipartition.color(v) && !marked[v]) {
+                inMinVertexCover[v] = true;
+            }
+            if (!bipartition.color(v) && marked[v]) {
+                inMinVertexCover[v] = true;
+            }
         }
 
         assert certifySolution(G);
@@ -131,7 +136,9 @@ public class BipartiteMatching {
         int E = Integer.parseInt(args[2]);
         Graph G = GraphGenerator.bipartite(V1, V2, E);
 
-        if (G.V() < 1000) StdOut.println(G);
+        if (G.V() < 1000) {
+            StdOut.println(G);
+        }
 
         BipartiteMatching matching = new BipartiteMatching(G);
 
@@ -141,21 +148,27 @@ public class BipartiteMatching {
         StdOut.printf("Graph has a perfect matching           = %b\n", matching.isPerfect());
         StdOut.println();
 
-        if (G.V() >= 1000) return;
+        if (G.V() >= 1000) {
+            return;
+        }
 
         StdOut.print("Max matching: ");
         for (int v = 0; v < G.V(); v++) {
             int w = matching.mate(v);
             if (matching.isMatched(v) && v < w)  // print each edge only once
+            {
                 StdOut.print(v + "-" + w + " ");
+            }
         }
         StdOut.println();
 
         // print minimum vertex cover
         StdOut.print("Min vertex cover: ");
-        for (int v = 0; v < G.V(); v++)
-            if (matching.inMinVertexCover(v))
+        for (int v = 0; v < G.V(); v++) {
+            if (matching.inMinVertexCover(v)) {
                 StdOut.print(v + " ");
+            }
+        }
         StdOut.println();
     }
 
@@ -177,8 +190,9 @@ public class BipartiteMatching {
         marked = new boolean[V];
 
         edgeTo = new int[V];
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             edgeTo[v] = -1;
+        }
 
         // breadth-first search (starting from all unmatched vertices on one side of bipartition)
         Queue<Integer> queue = new Queue<Integer>();
@@ -198,7 +212,9 @@ public class BipartiteMatching {
                 if (isResidualGraphEdge(v, w) && !marked[w]) {
                     edgeTo[w] = v;
                     marked[w] = true;
-                    if (!isMatched(w)) return true;
+                    if (!isMatched(w)) {
+                        return true;
+                    }
                     queue.enqueue(w);
                 }
             }
@@ -209,7 +225,9 @@ public class BipartiteMatching {
 
     // is the edge v-w a forward edge not in the matching or a reverse edge in the matching?
     private boolean isResidualGraphEdge(int v, int w) {
-        if ((mate[v] != w) && bipartition.color(v)) return true;
+        if ((mate[v] != w) && bipartition.color(v)) {
+            return true;
+        }
         return (mate[v] == w) && !bipartition.color(v);
     }
 
@@ -279,8 +297,9 @@ public class BipartiteMatching {
     }
 
     private void validate(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     /**************************************************************************
@@ -294,49 +313,80 @@ public class BipartiteMatching {
 
         // check that mate(v) = w iff mate(w) = v
         for (int v = 0; v < V; v++) {
-            if (mate(v) == -1) continue;
-            if (mate(mate(v)) != v) return false;
+            if (mate(v) == -1) {
+                continue;
+            }
+            if (mate(mate(v)) != v) {
+                return false;
+            }
         }
 
         // check that size() is consistent with mate()
         int matchedVertices = 0;
         for (int v = 0; v < V; v++) {
-            if (mate(v) != -1) matchedVertices++;
+            if (mate(v) != -1) {
+                matchedVertices++;
+            }
         }
-        if (2 * size() != matchedVertices) return false;
+        if (2 * size() != matchedVertices) {
+            return false;
+        }
 
         // check that size() is consistent with minVertexCover()
         int sizeOfMinVertexCover = 0;
-        for (int v = 0; v < V; v++)
-            if (inMinVertexCover(v)) sizeOfMinVertexCover++;
-        if (size() != sizeOfMinVertexCover) return false;
+        for (int v = 0; v < V; v++) {
+            if (inMinVertexCover(v)) {
+                sizeOfMinVertexCover++;
+            }
+        }
+        if (size() != sizeOfMinVertexCover) {
+            return false;
+        }
 
         // check that mate() uses each vertex at most once
         boolean[] isMatched = new boolean[V];
         for (int v = 0; v < V; v++) {
             int w = mate[v];
-            if (w == -1) continue;
-            if (v == w) return false;
-            if (v >= w) continue;
-            if (isMatched[v] || isMatched[w]) return false;
+            if (w == -1) {
+                continue;
+            }
+            if (v == w) {
+                return false;
+            }
+            if (v >= w) {
+                continue;
+            }
+            if (isMatched[v] || isMatched[w]) {
+                return false;
+            }
             isMatched[v] = true;
             isMatched[w] = true;
         }
 
         // check that mate() uses only edges that appear in the graph
         for (int v = 0; v < V; v++) {
-            if (mate(v) == -1) continue;
+            if (mate(v) == -1) {
+                continue;
+            }
             boolean isEdge = false;
             for (int w : G.adj(v)) {
-                if (mate(v) == w) isEdge = true;
+                if (mate(v) == w) {
+                    isEdge = true;
+                }
             }
-            if (!isEdge) return false;
+            if (!isEdge) {
+                return false;
+            }
         }
 
         // check that inMinVertexCover() is a vertex cover
-        for (int v = 0; v < V; v++)
-            for (int w : G.adj(v))
-                if (!inMinVertexCover(v) && !inMinVertexCover(w)) return false;
+        for (int v = 0; v < V; v++) {
+            for (int w : G.adj(v)) {
+                if (!inMinVertexCover(v) && !inMinVertexCover(w)) {
+                    return false;
+                }
+            }
+        }
 
         return true;
     }

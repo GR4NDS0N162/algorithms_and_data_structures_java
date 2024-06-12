@@ -39,8 +39,8 @@ public class AdjMatrixEdgeWeightedDigraph {
     private static final String NEWLINE = System.getProperty("line.separator");
 
     private final int V;
-    private int E;
     private final DirectedEdge[][] adj;
+    private int E;
 
     /**
      * Initializes an empty edge-weighted digraph with {@code V} vertices and 0 edges.
@@ -48,7 +48,9 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("number of vertices must be non-negative");
+        if (V < 0) {
+            throw new IllegalArgumentException("number of vertices must be non-negative");
+        }
         this.V = V;
         this.E = 0;
         this.adj = new DirectedEdge[V][V];
@@ -63,8 +65,12 @@ public class AdjMatrixEdgeWeightedDigraph {
      */
     public AdjMatrixEdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("number of edges must be non-negative");
-        if (E > V * V) throw new IllegalArgumentException("too many edges");
+        if (E < 0) {
+            throw new IllegalArgumentException("number of edges must be non-negative");
+        }
+        if (E > V * V) {
+            throw new IllegalArgumentException("too many edges");
+        }
 
         // can be inefficient
         while (this.E != E) {
@@ -151,8 +157,9 @@ public class AdjMatrixEdgeWeightedDigraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-        if (v < 0 || v >= V)
+        if (v < 0 || v >= V) {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+        }
     }
 
     // support iteration over graph vertices
@@ -170,7 +177,9 @@ public class AdjMatrixEdgeWeightedDigraph {
 
         public boolean hasNext() {
             while (w < V) {
-                if (adj[v][w] != null) return true;
+                if (adj[v][w] != null) {
+                    return true;
+                }
                 w++;
             }
             return false;

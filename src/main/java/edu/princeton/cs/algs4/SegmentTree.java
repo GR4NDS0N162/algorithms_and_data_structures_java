@@ -80,7 +80,9 @@ public class SegmentTree {
         while (true) {
             String[] line = StdIn.readLine().split(" ");
 
-            if (line[0].equals("exit")) break;
+            if (line[0].equals("exit")) {
+                break;
+            }
 
             int arg1 = 0, arg2 = 0, arg3 = 0;
 
@@ -259,7 +261,9 @@ public class SegmentTree {
             change(n, value);
         }
 
-        if (n.size() == 1) return;
+        if (n.size() == 1) {
+            return;
+        }
 
         if (intersects(from, to, n.from, n.to)) {
             /**
