@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac StdStats.java
  *  Execution:    java StdStats < input.txt
  *  Dependencies: StdOut.java
@@ -31,6 +31,8 @@ package edu.princeton.cs.algs4; /***********************************************
  *
  ******************************************************************************/
 
+package edu.princeton.cs.algs4;
+
 /**
  *  The {@code StdStats} class provides static methods for computing
  *  statistics such as min, max, mean, sample standard deviation, and
@@ -46,7 +48,8 @@ package edu.princeton.cs.algs4; /***********************************************
  */
 public final class StdStats {
 
-    private StdStats() { }
+    private StdStats() {
+    }
 
     /**
      * Returns the maximum value in the specified array.
@@ -450,7 +453,7 @@ public final class StdStats {
         return sum;
     }
 
-   /**
+    /**
      * Plots the points (0, <em>a</em><sub>0</sub>), (1, <em>a</em><sub>1</sub>), ...,
      * (<em>n</em>-1, <em>a</em><sub><em>n</em>-1</sub>) to standard draw.
      *
@@ -466,7 +469,7 @@ public final class StdStats {
         }
     }
 
-   /**
+    /**
      * Plots the line segments connecting
      * (<em>i</em>, <em>a</em><sub><em>i</em></sub>) to
      * (<em>i</em>+1, <em>a</em><sub><em>i</em>+1</sub>) for
@@ -480,11 +483,11 @@ public final class StdStats {
         StdDraw.setXscale(-1, n);
         StdDraw.setPenRadius();
         for (int i = 1; i < n; i++) {
-            StdDraw.line(i-1, a[i-1], i, a[i]);
+            StdDraw.line(i - 1, a[i - 1], i, a[i]);
         }
     }
 
-   /**
+    /**
      * Plots bars from (0, <em>a</em><sub><em>i</em></sub>) to
      * (<em>a</em><sub><em>i</em></sub>) for each <em>i</em>
      * to standard draw.
@@ -496,7 +499,7 @@ public final class StdStats {
         int n = a.length;
         StdDraw.setXscale(-1, n);
         for (int i = 0; i < n; i++) {
-            StdDraw.filledRectangle(i, a[i]/2, 0.25, a[i]/2);
+            StdDraw.filledRectangle(i, a[i] / 2, 0.25, a[i] / 2);
         }
     }
 
@@ -514,7 +517,7 @@ public final class StdStats {
     }
 
 
-   /**
+    /**
      * Unit tests {@code StdStats}.
      * Convert command-line arguments to array of doubles and call various methods.
      *
@@ -531,3 +534,27 @@ public final class StdStats {
         StdOut.printf("      varp %10.3f\n", varp(a));
     }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

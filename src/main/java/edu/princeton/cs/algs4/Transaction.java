@@ -65,6 +65,42 @@ public class Transaction implements Comparable<Transaction> {
     }
 
     /**
+     * Unit tests the {@code Transaction} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        Transaction[] a = new Transaction[4];
+        a[0] = new Transaction("Turing   6/17/1990  644.08");
+        a[1] = new Transaction("Tarjan   3/26/2002 4121.85");
+        a[2] = new Transaction("Knuth    6/14/1999  288.34");
+        a[3] = new Transaction("Dijkstra 8/22/2007 2678.40");
+
+        StdOut.println("Unsorted");
+        for (int i = 0; i < a.length; i++)
+            StdOut.println(a[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by date");
+        Arrays.sort(a, new Transaction.WhenOrder());
+        for (int i = 0; i < a.length; i++)
+            StdOut.println(a[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by customer");
+        Arrays.sort(a, new Transaction.WhoOrder());
+        for (int i = 0; i < a.length; i++)
+            StdOut.println(a[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by amount");
+        Arrays.sort(a, new Transaction.HowMuchOrder());
+        for (int i = 0; i < a.length; i++)
+            StdOut.println(a[i]);
+        StdOut.println();
+    }
+
+    /**
      * Returns the name of the customer involved in this transaction.
      *
      * @return the name of the customer involved in this transaction
@@ -129,7 +165,6 @@ public class Transaction implements Comparable<Transaction> {
                 && (this.when.equals(that.when));
     }
 
-
     /**
      * Returns a hash code for this transaction.
      *
@@ -177,40 +212,29 @@ public class Transaction implements Comparable<Transaction> {
         }
     }
 
-
-    /**
-     * Unit tests the {@code Transaction} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        Transaction[] a = new Transaction[4];
-        a[0] = new Transaction("Turing   6/17/1990  644.08");
-        a[1] = new Transaction("Tarjan   3/26/2002 4121.85");
-        a[2] = new Transaction("Knuth    6/14/1999  288.34");
-        a[3] = new Transaction("Dijkstra 8/22/2007 2678.40");
-
-        StdOut.println("Unsorted");
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by date");
-        Arrays.sort(a, new Transaction.WhenOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by customer");
-        Arrays.sort(a, new Transaction.WhoOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by amount");
-        Arrays.sort(a, new Transaction.HowMuchOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
-        StdOut.println();
-    }
 }
+
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

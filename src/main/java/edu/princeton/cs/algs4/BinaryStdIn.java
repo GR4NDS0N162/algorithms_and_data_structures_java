@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac BinaryStdIn.java
  *  Execution:    java BinaryStdIn < input > output
  *  Dependencies: none
@@ -9,6 +9,8 @@ package edu.princeton.cs.algs4; /***********************************************
  *  % diff input.jpg output.jpg
  *
  ******************************************************************************/
+
+package edu.princeton.cs.algs4;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -43,7 +45,8 @@ public final class BinaryStdIn {
     private static boolean isInitialized;   // has BinaryStdIn been called for first time?
 
     // don't instantiate
-    private BinaryStdIn() { }
+    private BinaryStdIn() {
+    }
 
     // fill buffer
     private static void initialize() {
@@ -58,15 +61,14 @@ public final class BinaryStdIn {
         try {
             buffer = in.read();
             n = 8;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("EOF");
             buffer = EOF;
             n = -1;
         }
     }
 
-   /**
+    /**
      * Close this input stream and release any associated system resources.
      */
     public static void close() {
@@ -74,13 +76,12 @@ public final class BinaryStdIn {
         try {
             in.close();
             isInitialized = false;
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalStateException("Could not close BinaryStdIn", ioe);
         }
     }
 
-   /**
+    /**
      * Returns true if standard input is empty.
      * @return true if and only if standard input is empty
      */
@@ -89,7 +90,7 @@ public final class BinaryStdIn {
         return buffer == EOF;
     }
 
-   /**
+    /**
      * Reads the next bit of data from standard input and return as a boolean.
      *
      * @return the next bit of data from standard input as a {@code boolean}
@@ -103,7 +104,7 @@ public final class BinaryStdIn {
         return bit;
     }
 
-   /**
+    /**
      * Reads the next 8 bits from standard input and return as an 8-bit char.
      * Note that {@code char} is a 16-bit type;
      * to read the next 16 bits as a char, use {@code readChar(16)}.
@@ -134,7 +135,7 @@ public final class BinaryStdIn {
         // because buffer will be -1, so there is a special case for aligned byte
     }
 
-   /**
+    /**
      * Reads the next <em>r</em> bits from standard input and return as an <em>r</em>-bit character.
      *
      * @param  r number of bits to read.
@@ -157,7 +158,7 @@ public final class BinaryStdIn {
         return x;
     }
 
-   /**
+    /**
      * Reads the remaining bytes of data from standard input and return as a string.
      *
      * @return the remaining bytes of data from standard input as a {@code String}
@@ -176,7 +177,7 @@ public final class BinaryStdIn {
     }
 
 
-   /**
+    /**
      * Reads the next 16 bits from standard input and return as a 16-bit short.
      *
      * @return the next 16 bits of data from standard input as a {@code short}
@@ -192,7 +193,7 @@ public final class BinaryStdIn {
         return x;
     }
 
-   /**
+    /**
      * Reads the next 32 bits from standard input and return as a 32-bit int.
      *
      * @return the next 32 bits of data from standard input as a {@code int}
@@ -208,7 +209,7 @@ public final class BinaryStdIn {
         return x;
     }
 
-   /**
+    /**
      * Reads the next <em>r</em> bits from standard input and return as an <em>r</em>-bit int.
      *
      * @param  r number of bits to read.
@@ -231,7 +232,7 @@ public final class BinaryStdIn {
         return x;
     }
 
-   /**
+    /**
      * Reads the next 64 bits from standard input and return as a 64-bit long.
      *
      * @return the next 64 bits of data from standard input as a {@code long}
@@ -248,7 +249,7 @@ public final class BinaryStdIn {
     }
 
 
-   /**
+    /**
      * Reads the next 64 bits from standard input and return as a 64-bit double.
      *
      * @return the next 64 bits of data from standard input as a {@code double}
@@ -258,7 +259,7 @@ public final class BinaryStdIn {
         return Double.longBitsToDouble(readLong());
     }
 
-   /**
+    /**
      * Reads the next 32 bits from standard input and return as a 32-bit float.
      *
      * @return the next 32 bits of data from standard input as a {@code float}
@@ -269,7 +270,7 @@ public final class BinaryStdIn {
     }
 
 
-   /**
+    /**
      * Reads the next 8 bits from standard input and return as an 8-bit byte.
      *
      * @return the next 8 bits of data from standard input as a {@code byte}
@@ -280,7 +281,7 @@ public final class BinaryStdIn {
         return (byte) (c & 0xff);
     }
 
-   /**
+    /**
      * Test client. Reads in a binary input file from standard input and writes
      * it to standard output.
      *
@@ -296,3 +297,27 @@ public final class BinaryStdIn {
         BinaryStdOut.flush();
     }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

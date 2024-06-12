@@ -1,9 +1,11 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac StdPicture.java
  *  Execution:    java StdPicture filename.jpg
  *  Dependencies: Picture.java
  *
  ******************************************************************************/
+
+package edu.princeton.cs.algs4;
 
 
 /**
@@ -179,9 +181,10 @@ public final class StdPicture {
     private static Picture picture = new Picture(DEFAULT_SIZE, DEFAULT_SIZE);
 
     // singleton pattern: client can't instantiate
-    private StdPicture() { }
+    private StdPicture() {
+    }
 
-   /**
+    /**
      * Initializes a {@code width}-by-{@code height} picture, with {@code width} columns
      * and {@code height} rows, where each pixel is black.
      *
@@ -195,13 +198,12 @@ public final class StdPicture {
             hide();
             picture = new Picture(width, height);
             show();
-        }
-        else {
+        } else {
             picture = new Picture(width, height);
         }
     }
 
-   /**
+    /**
      * Creates a {@code width}-by-{@code height} picture, with {@code width} columns
      * and {@code height} rows, where each pixel is black.
      *
@@ -216,7 +218,7 @@ public final class StdPicture {
         init(width, height);
     }
 
-   /**
+    /**
      * Initializes the picture by reading a JPEG, PNG, GIF, BMP, or TIFF image
      * from a file or URL.
      * The filetype extension must be {@code .jpg}, {@code .png}, {@code .gif},
@@ -251,7 +253,7 @@ public final class StdPicture {
         }
     }
 
-   /**
+    /**
      * Initializes the picture by reading an image from a file or URL.
      *
      * @param  filename the name of the file or URL
@@ -264,14 +266,14 @@ public final class StdPicture {
         read(filename);
     }
 
-   /**
+    /**
      * Displays the picture in a window on the screen.
      */
     public static void show() {
         picture.show();
     }
 
-   /**
+    /**
      * Hides the window on the screen containing the picture.
      */
     public static void hide() {
@@ -287,13 +289,12 @@ public final class StdPicture {
         if (t < 0) throw new IllegalArgumentException("argument must be non-negative");
         try {
             Thread.sleep(t);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Error sleeping");
         }
     }
 
-   /**
+    /**
      * Returns the height of the picture.
      *
      * @return the height of the picture (in pixels)
@@ -302,7 +303,7 @@ public final class StdPicture {
         return picture.height();
     }
 
-   /**
+    /**
      * Returns the width of the picture.
      *
      * @return the width of the picture (in pixels)
@@ -311,7 +312,7 @@ public final class StdPicture {
         return picture.width();
     }
 
-   /**
+    /**
      * Returns the alpha component of the color of pixel ({@code col}, {@code row}).
      *
      * @param col the column index
@@ -324,7 +325,7 @@ public final class StdPicture {
         return (rgb >> 24) & 0xFF;
     }
 
-   /**
+    /**
      * Returns the red component of the color of pixel ({@code col}, {@code row}).
      *
      * @param col the column index
@@ -337,7 +338,7 @@ public final class StdPicture {
         return (rgb >> 16) & 0xFF;
     }
 
-   /**
+    /**
      * Returns the green component of the color of pixel ({@code col}, {@code row}).
      *
      * @param col the column index
@@ -350,7 +351,7 @@ public final class StdPicture {
         return (rgb >> 8) & 0xFF;
     }
 
-   /**
+    /**
      * Returns the blue component of the color of pixel ({@code col}, {@code row}).
      *
      * @param col the column index
@@ -363,7 +364,7 @@ public final class StdPicture {
         return (rgb >> 0) & 0xFF;
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to given color.
      *
      * @param col the column index
@@ -381,7 +382,7 @@ public final class StdPicture {
         picture.setRGB(col, row, rgb);
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to given color.
      *
      * @param col the column index
@@ -408,7 +409,7 @@ public final class StdPicture {
         picture.setTitle(title);
     }
 
-   /**
+    /**
      * Saves the picture to a file in a supported file format
      * (typically JPEG, PNG, GIF, TIFF, and BMP).
      * The filetype extension must be {@code .jpg}, {@code .png}, {@code .gif},
@@ -425,7 +426,7 @@ public final class StdPicture {
         picture.save(filename);
     }
 
-   /**
+    /**
      * Unit tests this {@code StdPicture} data type.
      * Reads a picture specified by the command-line argument,
      * and shows it in a window on the screen.
@@ -439,3 +440,27 @@ public final class StdPicture {
     }
 
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

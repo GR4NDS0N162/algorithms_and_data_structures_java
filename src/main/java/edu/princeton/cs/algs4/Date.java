@@ -57,6 +57,46 @@ public class Date implements Comparable<Date> {
         if (!isValid(month, day, year)) throw new IllegalArgumentException("Invalid date");
     }
 
+    // is the given date valid?
+    private static boolean isValid(int m, int d, int y) {
+        if (m < 1 || m > 12) return false;
+        if (d < 1 || d > DAYS[m]) return false;
+        return m != 2 || d != 29 || isLeapYear(y);
+    }
+
+    // is y a leap year?
+    private static boolean isLeapYear(int y) {
+        if (y % 400 == 0) return true;
+        if (y % 100 == 0) return false;
+        return y % 4 == 0;
+    }
+
+    /**
+     * Unit tests the {@code Date} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        Date today = new Date(2, 25, 2004);
+        StdOut.println(today);
+        for (int i = 0; i < 10; i++) {
+            today = today.next();
+            StdOut.println(today);
+        }
+
+        StdOut.println(today.isAfter(today.next()));
+        StdOut.println(today.isAfter(today));
+        StdOut.println(today.next().isAfter(today));
+
+
+        Date birthday = new Date(10, 16, 1971);
+        StdOut.println(birthday);
+        for (int i = 0; i < 10; i++) {
+            birthday = birthday.next();
+            StdOut.println(birthday);
+        }
+    }
+
     /**
      * Return the month.
      * @return the month (an integer between 1 and 12)
@@ -79,22 +119,6 @@ public class Date implements Comparable<Date> {
      */
     public int year() {
         return year;
-    }
-
-
-    // is the given date valid?
-    private static boolean isValid(int m, int d, int y) {
-        if (m < 1 || m > 12) return false;
-        if (d < 1 || d > DAYS[m]) return false;
-        if (m == 2 && d == 29 && !isLeapYear(y)) return false;
-        return true;
-    }
-
-    // is y a leap year?
-    private static boolean isLeapYear(int y) {
-        if (y % 400 == 0) return true;
-        if (y % 100 == 0) return false;
-        return y % 4 == 0;
     }
 
     /**
@@ -182,30 +206,28 @@ public class Date implements Comparable<Date> {
         return day + 31 * month + 31 * 12 * year;
     }
 
-    /**
-     * Unit tests the {@code Date} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        Date today = new Date(2, 25, 2004);
-        StdOut.println(today);
-        for (int i = 0; i < 10; i++) {
-            today = today.next();
-            StdOut.println(today);
-        }
-
-        StdOut.println(today.isAfter(today.next()));
-        StdOut.println(today.isAfter(today));
-        StdOut.println(today.next().isAfter(today));
-
-
-        Date birthday = new Date(10, 16, 1971);
-        StdOut.println(birthday);
-        for (int i = 0; i < 10; i++) {
-            birthday = birthday.next();
-            StdOut.println(birthday);
-        }
-    }
-
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

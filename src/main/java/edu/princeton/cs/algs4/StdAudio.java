@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac StdAudio.java
  *  Execution:    java StdAudio
  *  Dependencies: none
@@ -7,25 +7,15 @@ package edu.princeton.cs.algs4; /***********************************************
  *
  ******************************************************************************/
 
-import javax.sound.sampled.Clip;
+package edu.princeton.cs.algs4;
 
-import java.io.File;
+import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.File;
 import java.io.IOException;
-
+import java.io.InputStream;
 import java.net.URL;
-
 import java.util.LinkedList;
-
-import javax.sound.sampled.AudioFileFormat;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *  The {@code StdAudio} class provides static methods for
@@ -37,9 +27,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *  rate of 44,100 Hz.
  *  In addition to playing individual samples, standard audio supports
  *  reading, writing, and playing audio files in a variety of standard formats.
- *  <p>
- *  See {@link StdAudioStereo} for a version that supports
- *  <em>stereo</em> audio (separate left and right channels).
  *  <p>
  *  <b>Getting started.</b>
  *  To use this class, you must have {@code StdAudio} in your Java classpath.
@@ -124,14 +111,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *  The first method reads audio samples from an audio file
  *  (in WAVE, AU, AIFF, or MIDI format)
  *  and returns them as a double array with values between –1.0 and +1.0.
- *  The second method saves the audio samples in the specified double array to an
+ *  The second method saves the samples in the specified double array to an
  *  audio file (in WAVE, AU, or AIFF format).
  *
  *  <p>
  *  <b>Audio file formats.</b>
  *  {@code StdAudio} relies on the
  *  <a href = "https://www.oracle.com/java/technologies/javase/jmf-211-formats.html">Java Media Framework</a>
- *  for reading, writing, and playing audio files. You should be able to read or play files
+ *  for reading, writing, and playing  audio files. You should be able to read or play files
  *  in WAVE, AU, AIFF, and MIDI formats and save them to WAVE, AU, and AIFF formats.
  *  The file extensions corresponding to WAVE, AU, AIFF, and MIDI files
  *  are {@code .wav}, {@code .au}, {@code .aiff}, and {@code .midi},
@@ -157,18 +144,23 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *  <b>Recording audio.</b>
  *  You can use the following methods to record audio samples that are
  *  played as a result of calls to {@link #play(double sample)} or
- *  {@link #play(double[] samples)}.
+ *  {@link #play(double[] samples)}. To record audio samples that are
+ *  played as a result of calls to {@link #play(String filename)},
+ *  first read them into an array using {@link #read(String filename)}
+ *  and call {@link #play(double[] samples)} on that array.
  *  <ul>
  *  <li> {@link #startRecording()}
  *  <li> {@link #stopRecording()}
  *  </ul>
  *  <p>
- *  The method {@code startRecording()} begins recording audio.
- *  The method {@code stopRecording()} stops recording and returns the recorded
+ *  The method {@link #startRecording()} begins recording audio.
+ *  The method {@link #stopRecording()} stops recording and returns the recorded
  *  samples as an array of doubles.
  *  <p>
  *  {@code StdAudio} does not currently support recording audio that calls
- *  {@code playInBackground()}.
+ *  either {@link #play(String filename)} or
+ *  {@link #playInBackground(String filename)}, as these may use different
+ *  data formats, such as 8-bit and stereo.
  *  <p>
  *  <b>Playing audio files in a background thread.</b>
  *  You can use the following methods to play an audio file in a background thread
@@ -218,12 +210,12 @@ public final class StdAudio {
     private static final int MAX_16_BIT = 32768;
     private static final int SAMPLE_BUFFER_SIZE = 4096;
 
-    private static final int MONAURAL = 1;
+    private static final int MONO = 1;
     private static final int STEREO = 2;
     private static final boolean LITTLE_ENDIAN = false;
-    private static final boolean BIG_ENDIAN    = true;
-    private static final boolean SIGNED        = true;
-    private static final boolean UNSIGNED      = false;
+    private static final boolean BIG_ENDIAN = true;
+    private static final boolean SIGNED = true;
+    private static final boolean UNSIGNED = false;
 
 
     private static SourceDataLine line;   // to play the sound
@@ -237,20 +229,20 @@ public final class StdAudio {
     private static QueueOfDoubles recordedSamples = null;
     private static boolean isRecording = false;
 
-    private StdAudio() {
-        // can not instantiate
-    }
-
     // static initializer
     static {
         init();
     }
 
+    private StdAudio() {
+        // can not instantiate
+    }
+
     // open up an audio stream
     private static void init() {
         try {
-            // 44,100 Hz, 16-bit audio, monaural, signed PCM, little endian
-            AudioFormat format = new AudioFormat((float) SAMPLE_RATE, BITS_PER_SAMPLE, MONAURAL, SIGNED, LITTLE_ENDIAN);
+            // 44,100 Hz, 16-bit audio, mono, signed PCM, little endian
+            AudioFormat format = new AudioFormat((float) SAMPLE_RATE, BITS_PER_SAMPLE, MONO, SIGNED, LITTLE_ENDIAN);
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
 
             line = (SourceDataLine) AudioSystem.getLine(info);
@@ -259,9 +251,8 @@ public final class StdAudio {
             // the internal buffer is a fraction of the actual buffer size, this choice is arbitrary
             // it gets divided because we can't expect the buffered data to line up exactly with when
             // the sound card decides to push out its samples.
-            buffer = new byte[SAMPLE_BUFFER_SIZE * BYTES_PER_SAMPLE/3];
-        }
-        catch (LineUnavailableException e) {
+            buffer = new byte[SAMPLE_BUFFER_SIZE * BYTES_PER_SAMPLE / 3];
+        } catch (LineUnavailableException e) {
             System.out.println(e.getMessage());
         }
 
@@ -297,11 +288,9 @@ public final class StdAudio {
             // from URL (including jar file)
             URL url = new URL(filename);
             return AudioSystem.getAudioInputStream(url);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IllegalArgumentException("could not read '" + filename + "'", e);
-        }
-        catch (UnsupportedAudioFileException e) {
+        } catch (UnsupportedAudioFileException e) {
             throw new IllegalArgumentException("file of unsupported audio file format: '" + filename + "'", e);
         }
     }
@@ -327,6 +316,7 @@ public final class StdAudio {
         line.stop();
     }
 */
+
     /**
      * Writes one sample (between –1.0 and +1.0) to standard audio.
      * If the sample is outside the range, it will be clipped
@@ -407,11 +397,9 @@ public final class StdAudio {
             while ((count = ais.read(samples, 0, BUFFER_SIZE)) != -1) {
                 line.write(samples, 0, count);
             }
-        }
-        catch (IOException | LineUnavailableException e) {
-            System.out.println(e);
-        }
-        finally {
+        } catch (IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        } finally {
             if (line != null) {
                 line.drain();
                 line.close();
@@ -430,16 +418,16 @@ public final class StdAudio {
      * @return the array of samples
      */
     public static double[] read(String filename) {
-        // 4K buffer (must be a multiple of 2 for monaural or 4 for stereo)
+        // 4K buffer (must be a multiple of 2 for mono or 4 for stereo)
         int READ_BUFFER_SIZE = 4096;
 
         // create AudioInputStream from file
         AudioInputStream fromAudioInputStream = getAudioInputStreamFromFile(filename);
         AudioFormat fromAudioFormat = fromAudioInputStream.getFormat();
 
-        // normalize AudioInputStream to 44,100 Hz, 16-bit audio, monaural, signed PCM, little endian
+        // normalize AudioInputStream to 44,100 Hz, 16-bit audio, mono, signed PCM, little endian
         // https://docs.oracle.com/javase/tutorial/sound/converters.html
-        AudioFormat toAudioFormat = new AudioFormat((float) SAMPLE_RATE, BITS_PER_SAMPLE, MONAURAL, SIGNED, LITTLE_ENDIAN);
+        AudioFormat toAudioFormat = new AudioFormat((float) SAMPLE_RATE, BITS_PER_SAMPLE, MONO, SIGNED, LITTLE_ENDIAN);
         if (!AudioSystem.isConversionSupported(toAudioFormat, fromAudioFormat)) {
             throw new IllegalArgumentException("system cannot convert from " + fromAudioFormat + " to " + toAudioFormat);
         }
@@ -452,9 +440,9 @@ public final class StdAudio {
             int count;
             while ((count = toAudioInputStream.read(bytes, 0, READ_BUFFER_SIZE)) != -1) {
 
-                // little endian, monaural
-                for (int i = 0; i < count/2; i++) {
-                    double sample = ((short) (((bytes[2*i+1] & 0xFF) << 8) | (bytes[2*i] & 0xFF))) / ((double) MAX_16_BIT);
+                // little endian, monoaural
+                for (int i = 0; i < count / 2; i++) {
+                    double sample = ((short) (((bytes[2 * i + 1] & 0xFF) << 8) | (bytes[2 * i] & 0xFF))) / ((double) MAX_16_BIT);
                     queue.enqueue(sample);
                 }
 
@@ -471,25 +459,23 @@ public final class StdAudio {
             toAudioInputStream.close();
             fromAudioInputStream.close();
             return queue.toArray();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("could not read '" + filename + "'", ioe);
         }
     }
 
     /**
-     * Saves the audio samples as an audio file (using WAV, AU, or AIFF format).
+     * Saves the double array as an audio file (using WAV, AU, or AIFF format).
      * The file extension must be either {@code .wav}, {@code .au},
      * or {@code .aiff}.
      * The format uses a sampling rate of 44,100 Hz, 16-bit audio,
-     * monaural, signed PCM, ands little Endian.
+     * mono, signed PCM, ands little Endian.
      *
      * @param  filename the name of the audio file
      * @param  samples the array of samples
      * @throws IllegalArgumentException if unable to save {@code filename}
      * @throws IllegalArgumentException if {@code samples} is {@code null}
      * @throws IllegalArgumentException if {@code filename} is {@code null}
-     * @throws IllegalArgumentException if {@code filename} is the empty string
      * @throws IllegalArgumentException if {@code filename} extension is not
      *         {@code .wav}, {@code .au}, or {@code .aiff}.
      */
@@ -500,49 +486,42 @@ public final class StdAudio {
         if (samples == null) {
             throw new IllegalArgumentException("samples[] is null");
         }
-        if (filename.length() == 0) {
-            throw new IllegalArgumentException("argument to save() is the empty string");
-        }
 
         // assumes 16-bit samples with sample rate = 44,100 Hz
-        // use 16-bit audio, monaural, signed PCM, little Endian
-        AudioFormat format = new AudioFormat(SAMPLE_RATE, 16, MONAURAL, SIGNED, LITTLE_ENDIAN);
+        // use 16-bit audio, mono, signed PCM, little Endian
+        AudioFormat format = new AudioFormat(SAMPLE_RATE, 16, MONO, SIGNED, LITTLE_ENDIAN);
         byte[] data = new byte[2 * samples.length];
         for (int i = 0; i < samples.length; i++) {
             int temp = (short) (samples[i] * MAX_16_BIT);
             if (samples[i] == 1.0) temp = Short.MAX_VALUE;   // special case since 32768 not a short
-            data[2*i + 0] = (byte) temp;
-            data[2*i + 1] = (byte) (temp >> 8);   // little endian
+            data[2 * i] = (byte) temp;
+            data[2 * i + 1] = (byte) (temp >> 8);   // little endian
         }
 
 
         // now save the file
         try (ByteArrayInputStream bais = new ByteArrayInputStream(data);
-            AudioInputStream ais = new AudioInputStream(bais, format, samples.length)) {
+             AudioInputStream ais = new AudioInputStream(bais, format, samples.length)) {
 
             if (filename.endsWith(".wav") || filename.endsWith(".WAV")) {
                 if (!AudioSystem.isFileTypeSupported(AudioFileFormat.Type.WAVE, ais)) {
                     throw new IllegalArgumentException("saving to WAVE file format is not supported on this system");
                 }
                 AudioSystem.write(ais, AudioFileFormat.Type.WAVE, new File(filename));
-            }
-            else if (filename.endsWith(".au") || filename.endsWith(".AU")) {
+            } else if (filename.endsWith(".au") || filename.endsWith(".AU")) {
                 if (!AudioSystem.isFileTypeSupported(AudioFileFormat.Type.AU, ais)) {
                     throw new IllegalArgumentException("saving to AU file format is not supported on this system");
                 }
                 AudioSystem.write(ais, AudioFileFormat.Type.AU, new File(filename));
-            }
-            else if (filename.endsWith(".aif") || filename.endsWith(".aiff") || filename.endsWith(".AIF") || filename.endsWith(".AIFF")) {
+            } else if (filename.endsWith(".aif") || filename.endsWith(".aiff") || filename.endsWith(".AIF") || filename.endsWith(".AIFF")) {
                 if (!AudioSystem.isFileTypeSupported(AudioFileFormat.Type.AIFF, ais)) {
                     throw new IllegalArgumentException("saving to AIFF file format is not supported on this system");
                 }
                 AudioSystem.write(ais, AudioFileFormat.Type.AIFF, new File(filename));
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException("file extension for saving must be .wav, .au, or .aif");
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new IllegalArgumentException("unable to save file '" + filename + "'", ioe);
         }
     }
@@ -554,7 +533,7 @@ public final class StdAudio {
         for (BackgroundRunnable runnable : backgroundRunnables) {
             runnable.stop();
         }
-        backgroundRunnables.clear();
+        backgroundRunnables = new LinkedList<>();
     }
 
     /**
@@ -573,9 +552,106 @@ public final class StdAudio {
         backgroundRunnables.add(runnable);
     }
 
+    /**
+     * Loops an audio file (in WAVE, AU, AIFF, or MIDI format) in its
+     * own background thread.
+     *
+     * @param filename the name of the audio file
+     * @throws IllegalArgumentException if {@code filename} is {@code null}
+     * @deprecated to be removed in a future update, as it doesn't interact
+     *             well with {@link #playInBackground(String filename)} or
+     *             {@link #stopInBackground()}.
+     */
+    @Deprecated
+    public static synchronized void loopInBackground(String filename) {
+        if (filename == null) throw new IllegalArgumentException();
+
+        final AudioInputStream ais = getAudioInputStreamFromFile(filename);
+
+        try {
+            Clip clip = AudioSystem.getClip();
+            // Clip clip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
+            clip.open(ais);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+
+        // keep JVM open
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * Turns on audio recording.
+     */
+    public static void startRecording() {
+        if (!isRecording) {
+            recordedSamples = new QueueOfDoubles();
+            isRecording = true;
+        } else {
+            throw new IllegalStateException("startRecording() must not be called twice in a row");
+        }
+    }
+
+    /**
+     * Turns off audio recording and returns the recorded samples.
+     * @return the array of recorded samples
+     */
+    public static double[] stopRecording() {
+        if (isRecording) {
+            double[] results = recordedSamples.toArray();
+            isRecording = false;
+            recordedSamples = null;
+            return results;
+        } else {
+            throw new IllegalStateException("stopRecording() must be called after calling startRecording()");
+        }
+    }
+
+    /**
+     * Test client - plays some sound files and concert A.
+     *
+     * @param args the command-line arguments (none should be specified)
+     */
+    public static void main(String[] args) {
+        // 440 Hz for 1 sec
+        double freq = 440.0;
+        for (int i = 0; i <= StdAudio.SAMPLE_RATE; i++) {
+            StdAudio.play(0.5 * Math.sin(2 * Math.PI * freq * i / StdAudio.SAMPLE_RATE));
+        }
+
+
+        String base = "https://introcs.cs.princeton.edu/java/stdlib/";
+
+        // play some sound files
+        StdAudio.play(base + "test.wav");          // helicopter
+        StdAudio.play(base + "test-22050.wav");    // twenty-four
+        StdAudio.play(base + "test.midi");         // a Mozart measure
+
+        // a sound loop
+        for (int i = 0; i < 10; i++) {
+            StdAudio.play(base + "BaseDrum.wav");
+            StdAudio.play(base + "SnareDrum.wav");
+        }
+
+        // need to call this in non-interactive stuff so the program doesn't terminate
+        // until all the sound leaves the speaker.
+        StdAudio.drain();
+    }
+
     private static class BackgroundRunnable implements Runnable {
-        private volatile boolean exit = false;
         private final String filename;
+        private volatile boolean exit = false;
 
         public BackgroundRunnable(String filename) {
             this.filename = filename;
@@ -601,16 +677,13 @@ public final class StdAudio {
                 while (!exit && (count = ais.read(samples, 0, BUFFER_SIZE)) != -1) {
                     line.write(samples, 0, count);
                 }
-            }
-            catch (IOException | LineUnavailableException e) {
-                System.out.println(e);
-            }
-            finally {
+            } catch (IOException | LineUnavailableException e) {
+                e.printStackTrace();
+            } finally {
                 if (line != null) {
                     line.drain();
                     line.close();
                 }
-                backgroundRunnables.remove(this);
             }
         }
 
@@ -619,82 +692,9 @@ public final class StdAudio {
         }
     }
 
-
-    /**
-     * Loops an audio file (in WAVE, AU, AIFF, or MIDI format) in its
-     * own background thread.
-     *
-     * @param filename the name of the audio file
-     * @throws IllegalArgumentException if {@code filename} is {@code null}
-     * @deprecated to be removed in a future update, as it doesn't interact
-     *             well with {@link #playInBackground(String filename)} or
-     *             {@link #stopInBackground()}.
-     */
-    @Deprecated
-    public static synchronized void loopInBackground(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
-
-        final AudioInputStream ais = getAudioInputStreamFromFile(filename);
-
-        try {
-            Clip clip = AudioSystem.getClip();
-            // Clip clip = (Clip) AudioSystem.getLine(new Line.Info(Clip.class));
-            clip.open(ais);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
-        catch (IOException | LineUnavailableException e) {
-            System.out.println(e);
-        }
-
-        // keep JVM open
-        new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                       Thread.sleep(1000);
-                    }
-                    catch (InterruptedException e) {
-                        System.out.println(e);
-                    }
-                }
-            }
-        }).start();
-    }
-
-
-    /**
-     * Turns on audio recording.
-     */
-    public static void startRecording() {
-        if (!isRecording) {
-            recordedSamples = new QueueOfDoubles();
-            isRecording = true;
-         }
-         else {
-             throw new IllegalStateException("startRecording() must not be called twice in a row");
-         }
-    }
-
-    /**
-     * Turns off audio recording and returns the recorded samples.
-     * @return the array of recorded samples
-     */
-    public static double[] stopRecording() {
-        if (isRecording) {
-            double[] results = recordedSamples.toArray();
-            isRecording = false;
-            recordedSamples = null;
-            return results;
-        }
-        else {
-            throw new IllegalStateException("stopRecording() must be called after calling startRecording()");
-        }
-    }
-
-
-   /***************************************************************************
-    * Helper class for reading and recording audio.
-    ***************************************************************************/
+    /***************************************************************************
+     * Helper class for reading and recording audio.
+     ***************************************************************************/
     private static class QueueOfDoubles {
         private static final int INIT_CAPACITY = 16;
         private double[] a;   // array of doubles
@@ -710,14 +710,13 @@ public final class StdAudio {
         private void resize(int capacity) {
             assert capacity >= n;
             double[] temp = new double[capacity];
-            for (int i = 0; i < n; i++)
-                temp[i] = a[i];
+            if (n >= 0) System.arraycopy(a, 0, temp, 0, n);
             a = temp;
         }
 
         // enqueue item onto the queue
         public void enqueue(double item) {
-            if (n == a.length) resize(2*a.length);    // double length of array if necessary
+            if (n == a.length) resize(2 * a.length);    // double length of array if necessary
             a[n++] = item;                            // add item
         }
 
@@ -730,42 +729,33 @@ public final class StdAudio {
         // return the items as an array of length n
         public double[] toArray() {
             double[] result = new double[n];
-            for (int i = 0; i < n; i++)
-                result[i] = a[i];
+            System.arraycopy(a, 0, result, 0, n);
             return result;
         }
 
     }
-
-
-    /**
-     * Test client - plays some sound files and concert A.
-     *
-     * @param args the command-line arguments (none should be specified)
-     */
-    public static void main(String[] args) {
-        // 440 Hz for 1 sec
-        double freq = 440.0;
-        for (int i = 0; i <= StdAudio.SAMPLE_RATE; i++) {
-            StdAudio.play(0.5 * Math.sin(2*Math.PI * freq * i / StdAudio.SAMPLE_RATE));
-        }
-
-
-        String base = "https://introcs.cs.princeton.edu/java/stdlib/";
-
-        // play some sound files
-        StdAudio.play(base + "test.wav");          // helicopter
-        StdAudio.play(base + "test-22050.wav");    // twenty-four
-        StdAudio.play(base + "test.midi");         // a Mozart measure
-
-        // a sound loop
-        for (int i = 0; i < 10; i++) {
-            StdAudio.play(base + "BaseDrum.wav");
-            StdAudio.play(base + "SnareDrum.wav");
-        }
-
-        // need to call this in non-interactive stuff so the program doesn't terminate
-        // until all the sound leaves the speaker.
-        StdAudio.drain();
-    }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

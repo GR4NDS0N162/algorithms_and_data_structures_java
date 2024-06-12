@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac StdRandom.java
  *  Execution:    java StdRandom
  *  Dependencies: StdOut.java
@@ -45,6 +45,8 @@ package edu.princeton.cs.algs4; /***********************************************
  *
  ******************************************************************************/
 
+package edu.princeton.cs.algs4;
+
 import java.util.Random;
 
 /**
@@ -90,19 +92,7 @@ public final class StdRandom {
     }
 
     // don't instantiate
-    private StdRandom() { }
-
-    /**
-     * Sets the seed of the pseudo-random number generator.
-     * This method enables you to produce the same sequence of "random"
-     * number for each execution of the program.
-     * Ordinarily, you should call this method at most once per program.
-     *
-     * @param s the seed
-     */
-    public static void setSeed(long s) {
-        seed   = s;
-        random = new Random(seed);
+    private StdRandom() {
     }
 
     /**
@@ -115,12 +105,25 @@ public final class StdRandom {
     }
 
     /**
+     * Sets the seed of the pseudo-random number generator.
+     * This method enables you to produce the same sequence of "random"
+     * number for each execution of the program.
+     * Ordinarily, you should call this method at most once per program.
+     *
+     * @param s the seed
+     */
+    public static void setSeed(long s) {
+        seed = s;
+        random = new Random(seed);
+    }
+
+    /**
      * Returns a random real number uniformly in [0, 1).
      *
      * @return a random real number uniformly in [0, 1)
      * @deprecated Replaced by {@link #uniformDouble()}.
      */
-     @Deprecated
+    @Deprecated
     public static double uniform() {
         return uniformDouble();
     }
@@ -142,7 +145,7 @@ public final class StdRandom {
      * @throws IllegalArgumentException if {@code n <= 0}
      * @deprecated Replaced by {@link #uniformInt(int n)}.
      */
-     @Deprecated
+    @Deprecated
     public static int uniform(int n) {
         return uniformInt(n);
     }
@@ -207,7 +210,7 @@ public final class StdRandom {
     /**
      * Returns a random real number uniformly in [0, 1).
      *
-     * @return     a random real number uniformly in [0, 1)
+     * @return a random real number uniformly in [0, 1)
      * @deprecated Replaced by {@link #uniformDouble()}.
      */
     @Deprecated
@@ -272,7 +275,7 @@ public final class StdRandom {
         if (!(a < b)) {
             throw new IllegalArgumentException("invalid range: [" + a + ", " + b + ")");
         }
-        return a + uniform() * (b-a);
+        return a + uniform() * (b - a);
     }
 
     /**
@@ -313,7 +316,7 @@ public final class StdRandom {
         do {
             x = uniformDouble(-1.0, 1.0);
             y = uniformDouble(-1.0, 1.0);
-            r = x*x + y*y;
+            r = x * x + y * y;
         } while (r >= 1 || r == 0);
         return x * Math.sqrt(-2 * Math.log(r) / r);
 
@@ -378,7 +381,7 @@ public final class StdRandom {
             k++;
             p *= uniformDouble();
         } while (p >= expLambda);
-        return k-1;
+        return k - 1;
     }
 
     /**
@@ -510,7 +513,7 @@ public final class StdRandom {
      * @throws IllegalArgumentException unless {@code lambda > 0.0}
      * @deprecated Replaced by {@link #exponential(double)}.
      */
-     @Deprecated
+    @Deprecated
     public static double exp(double lambda) {
         return exponential(lambda);
     }
@@ -525,7 +528,7 @@ public final class StdRandom {
         validateNotNull(a);
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = i + uniformInt(n-i);     // between i and n-1
+            int r = i + uniformInt(n - i);     // between i and n-1
             Object temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -542,7 +545,7 @@ public final class StdRandom {
         validateNotNull(a);
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = i + uniformInt(n-i);     // between i and n-1
+            int r = i + uniformInt(n - i);     // between i and n-1
             double temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -559,7 +562,7 @@ public final class StdRandom {
         validateNotNull(a);
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = i + uniformInt(n-i);     // between i and n-1
+            int r = i + uniformInt(n - i);     // between i and n-1
             int temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -576,7 +579,7 @@ public final class StdRandom {
         validateNotNull(a);
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = i + uniformInt(n-i);     // between i and n-1
+            int r = i + uniformInt(n - i);     // between i and n-1
             char temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -598,7 +601,7 @@ public final class StdRandom {
         validateSubarrayIndices(lo, hi, a.length);
 
         for (int i = lo; i < hi; i++) {
-            int r = i + uniformInt(hi-i);     // between i and hi-1
+            int r = i + uniformInt(hi - i);     // between i and hi-1
             Object temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -619,7 +622,7 @@ public final class StdRandom {
         validateSubarrayIndices(lo, hi, a.length);
 
         for (int i = lo; i < hi; i++) {
-            int r = i + uniformInt(hi-i);     // between i and hi-1
+            int r = i + uniformInt(hi - i);     // between i and hi-1
             double temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -640,7 +643,7 @@ public final class StdRandom {
         validateSubarrayIndices(lo, hi, a.length);
 
         for (int i = lo; i < hi; i++) {
-            int r = i + uniformInt(hi-i);     // between i and hi-1
+            int r = i + uniformInt(hi - i);     // between i and hi-1
             int temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -679,12 +682,12 @@ public final class StdRandom {
         if (k < 0 || k > n) throw new IllegalArgumentException("k must be between 0 and n: " + k);
         int[] perm = new int[k];
         for (int i = 0; i < k; i++) {
-            int r = uniformInt(i+1);    // between 0 and i
+            int r = uniformInt(i + 1);    // between 0 and i
             perm[i] = perm[r];
             perm[r] = i;
         }
         for (int i = k; i < n; i++) {
-            int r = uniformInt(i+1);    // between 0 and i
+            int r = uniformInt(i + 1);    // between 0 and i
             if (r < k) perm[r] = i;
         }
         return perm;
@@ -713,19 +716,19 @@ public final class StdRandom {
     public static void main(String[] args) {
         int n = Integer.parseInt(args[0]);
         if (args.length == 2) StdRandom.setSeed(Long.parseLong(args[1]));
-        double[] probabilities = { 0.5, 0.3, 0.1, 0.1 };
-        int[] frequencies = { 5, 3, 1, 1 };
+        double[] probabilities = {0.5, 0.3, 0.1, 0.1};
+        int[] frequencies = {5, 3, 1, 1};
         String[] a = "A B C D E F G".split(" ");
 
         StdOut.println("seed = " + StdRandom.getSeed());
         for (int i = 0; i < n; i++) {
-            StdOut.printf("%2d ",   uniformInt(100));
+            StdOut.printf("%2d ", uniformInt(100));
             StdOut.printf("%8.5f ", uniformDouble(10.0, 99.0));
-            StdOut.printf("%5b ",   bernoulli(0.5));
+            StdOut.printf("%5b ", bernoulli(0.5));
             StdOut.printf("%7.5f ", gaussian(9.0, 0.2));
-            StdOut.printf("%1d ",   discrete(probabilities));
-            StdOut.printf("%1d ",   discrete(frequencies));
-            StdOut.printf("%11d ",  uniformLong(100000000000L));
+            StdOut.printf("%1d ", discrete(probabilities));
+            StdOut.printf("%1d ", discrete(frequencies));
+            StdOut.printf("%11d ", uniformLong(100000000000L));
             StdRandom.shuffle(a);
             for (String s : a)
                 StdOut.print(s);
@@ -734,3 +737,27 @@ public final class StdRandom {
     }
 
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

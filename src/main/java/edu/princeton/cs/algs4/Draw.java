@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac Draw.java
  *  Execution:    java Draw
  *  Dependencies: none
@@ -23,57 +23,20 @@ package edu.princeton.cs.algs4; /***********************************************
  *
  ******************************************************************************/
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FileDialog;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-import java.awt.geom.Arc2D;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
-
-import java.awt.image.BufferedImage;
-
-import java.io.File;
-import java.io.IOException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.TreeSet;
+package edu.princeton.cs.algs4;
 
 import javax.imageio.ImageIO;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Timer;
+import java.util.*;
 
 /**
  *  The <code>Draw</code> data type provides a basic capability for
@@ -93,148 +56,97 @@ import javax.swing.KeyStroke;
 public final class Draw implements ActionListener, MouseListener, MouseMotionListener, KeyListener {
 
     /**
-     *  The color aqua (0, 255, 255).
-     */
-    public static final Color AQUA = new Color(0, 255, 255);
-
-    /**
-     *  The color black (0, 0, 0).
+     *  The color black.
      */
     public static final Color BLACK = Color.BLACK;
 
     /**
-     *  The color blue (0, 0, 255).
+     *  The color blue.
      */
     public static final Color BLUE = Color.BLUE;
 
     /**
-     *  The color cyan (0, 255, 255).
+     *  The color cyan.
      */
     public static final Color CYAN = Color.CYAN;
 
     /**
-     *  The color fuscia (255, 0, 255).
-     */
-    public static final Color FUSCIA = new Color(255, 0, 255);
-
-    /**
-     *  The color dark gray (64, 64, 64).
+     *  The color dark gray.
      */
     public static final Color DARK_GRAY = Color.DARK_GRAY;
 
     /**
-     *  The color gray (128, 128, 128).
+     *  The color gray.
      */
     public static final Color GRAY = Color.GRAY;
 
     /**
-     *  The color green (0, 128, 0).
+     *  The color green.
      */
-    public static final Color GREEN = new Color(0, 128, 0);
+    public static final Color GREEN = Color.GREEN;
 
     /**
-     *  The color light gray (192, 192, 192).
+     *  The color light gray.
      */
     public static final Color LIGHT_GRAY = Color.LIGHT_GRAY;
 
     /**
-     *  The color lime (0, 255, 0).
-     */
-    public static final Color LIME = new Color(0, 255, 0);
-
-    /**
-     *  The color magenta (255, 0, 255).
+     *  The color magenta.
      */
     public static final Color MAGENTA = Color.MAGENTA;
 
     /**
-     *  The color maroon (128, 0, 0).
-     */
-    public static final Color MAROON = new Color(128, 0, 0);
-
-    /**
-     *  The color navy (0, 0, 128).
-     */
-    public static final Color NAVY = new Color(0, 0, 128);
-
-    /**
-     *  The color olive (128, 128, 0).
-     */
-    public static final Color OLIVE = new Color(128, 128, 0);
-
-    /**
-     *  The color orange (255, 200, 0).
+     *  The color orange.
      */
     public static final Color ORANGE = Color.ORANGE;
 
     /**
-     *  The color pink (255, 175, 175).
+     *  The color pink.
      */
     public static final Color PINK = Color.PINK;
 
     /**
-     *  The color purple (128, 0, 128).
-     */
-    public static final Color PURPLE = new Color(128, 0, 128);
-
-    /**
-     *  The color red (255, 0, 0).
+     *  The color red.
      */
     public static final Color RED = Color.RED;
 
     /**
-     *  The color silver (192, 192, 192).
-     */
-    public static final Color SILVER = new Color(192, 192, 192);
-
-    /**
-     *  The color teal (0, 128, 128).
-     */
-    public static final Color TEAL = new Color(0, 128, 128);
-
-    /**
-     *  The color white (255, 255, 255).
+     *  The color white.
      */
     public static final Color WHITE = Color.WHITE;
 
     /**
-     *  The color yellow (255, 255, 0).
+     *  The color yellow.
      */
     public static final Color YELLOW = Color.YELLOW;
 
     /**
-     *  A 100% transparent color, for a transparent background.
-     */
-    public static final Color TRANSPARENT = new Color(0, 0, 0, 0);
-
-    /**
-     * The shade of blue used in <em>Introduction to Programming in Java</em>.
+     * Shade of blue used in Introduction to Programming in Java.
      * It is Pantone 300U. The RGB values are approximately (9, 90, 166).
      */
     public static final Color BOOK_BLUE = new Color(9, 90, 166);
 
     /**
-     * The shade of light blue used in <em>Introduction to Programming in Java</em>.
+     * Shade of light blue used in Introduction to Programming in Java.
      * The RGB values are approximately (103, 198, 243).
      */
     public static final Color BOOK_LIGHT_BLUE = new Color(103, 198, 243);
 
     /**
-     * The shade of red used in <em>Algorithms, 4th edition</em>.
+     * Shade of red used in <em>Algorithms, 4th edition</em>.
      * It is Pantone 1805U. The RGB values are approximately (150, 35, 31).
      */
     public static final Color BOOK_RED = new Color(150, 35, 31);
 
     /**
-     * The shade of orange used in Princeton University's identity.
+     * Shade of orange used in Princeton's identity.
      * It is PMS 158. The RGB values are approximately (245, 128, 37).
      */
     public static final Color PRINCETON_ORANGE = new Color(245, 128, 37);
 
     // default colors
     private static final Color DEFAULT_PEN_COLOR = BLACK;
-    private static final Color DEFAULT_BACKGROUND_COLOR = WHITE;
-
+    private static final Color DEFAULT_CLEAR_COLOR = WHITE;
 
     // boundary of drawing canvas, 0% border
     private static final double BORDER = 0.0;
@@ -254,63 +166,39 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
     // default title of drawing window
     private static final String DEFAULT_WINDOW_TITLE = "Draw";
-
-    // current pen color
-    private Color penColor = DEFAULT_PEN_COLOR;
-
-    // background color
-    private Color backgroundColor = DEFAULT_BACKGROUND_COLOR;
-
-    // current title of drawing window
-    private String windowTitle = DEFAULT_WINDOW_TITLE;
-
-    // canvas size
-    private int width  = DEFAULT_SIZE;
-    private int height = DEFAULT_SIZE;
-
-    // current pen radius
-    private double penRadius = DEFAULT_PEN_RADIUS;
-
-    // show we draw immediately or wait until next show?
-    private boolean defer = false;
-
-    private double xmin = DEFAULT_XMIN;
-    private double xmax = DEFAULT_XMAX;
-    private double ymin = DEFAULT_YMIN;
-    private double ymax = DEFAULT_YMAX;
-
     // for synchronization
     private final Object mouseLock = new Object();
     private final Object keyLock = new Object();
-
+    // keyboard state
+    private final LinkedList<Character> keysTyped = new LinkedList<Character>();
+    private final TreeSet<Integer> keysDown = new TreeSet<Integer>();
+    // event-based listeners
+    private final ArrayList<DrawListener> listeners = new ArrayList<DrawListener>();
+    // current pen color
+    private Color penColor;
+    // current title of drawing window
+    private String windowTitle = DEFAULT_WINDOW_TITLE;
+    // canvas size
+    private int width = DEFAULT_SIZE;
+    private int height = DEFAULT_SIZE;
+    // current pen radius
+    private double penRadius;
+    // show we draw immediately or wait until next show?
+    private boolean defer = false;
+    private double xmin, ymin, xmax, ymax;
     // current font
-    private Font font = DEFAULT_FONT;
-
+    private Font font;
     // the JLabel for drawing
     private JLabel draw;
-
     // double buffered graphics
     private BufferedImage offscreenImage, onscreenImage;
     private Graphics2D offscreen, onscreen;
-
     // the frame for drawing to the screen
     private JFrame frame;
-
-    // is the JFrame visible (upon calling draw())?
-    private static boolean isJFrameVisible = true;
-
     // mouse state
     private boolean isMousePressed = false;
     private double mouseX = 0;
     private double mouseY = 0;
-
-    // keyboard state
-    private final LinkedList<Character> keysTyped = new LinkedList<Character>();
-    private final TreeSet<Integer> keysDown = new TreeSet<Integer>();
-
-    // event-based listeners
-    private final ArrayList<DrawListener> listeners = new ArrayList<DrawListener>();
-
     // timer
     private Timer timer;
 
@@ -318,40 +206,105 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * Initializes an empty drawing object.
      */
     public Draw() {
-        initCanvas();
-        initGUI();
+        init();
     }
 
-    // initialize the drawing canvas
-    private void initCanvas() {
+    /***************************************************************************
+     *  Input validation helper methods.
+     ***************************************************************************/
 
-        // BufferedImage stuff
-        offscreenImage = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
-        onscreenImage  = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
-        offscreen = offscreenImage.createGraphics();
-        onscreen  = onscreenImage.createGraphics();
-        offscreen.scale(2.0, 2.0);  // since we made it 2x as big
-
-        // initialize drawing window
-        offscreen.setBackground(DEFAULT_BACKGROUND_COLOR);
-        offscreen.clearRect(0, 0, width, height);
-        onscreen.setBackground(DEFAULT_BACKGROUND_COLOR);
-        onscreen.clearRect(0, 0, 2*width, 2*height);
-
-        // set the pen color
-        offscreen.setColor(penColor);
-
-        // add antialiasing
-        RenderingHints hints = new RenderingHints(null);
-        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        offscreen.addRenderingHints(hints);
+    // throw an IllegalArgumentException if x is NaN or infinite
+    private static void validate(double x, String name) {
+        if (Double.isNaN(x)) throw new IllegalArgumentException(name + " is NaN");
+        if (Double.isInfinite(x)) throw new IllegalArgumentException(name + " is infinite");
     }
 
-    // initialize the GUI
-    private void initGUI() {
+    // throw an IllegalArgumentException if s is null
+    private static void validateNonnegative(double x, String name) {
+        if (x < 0) throw new IllegalArgumentException(name + " negative");
+    }
 
-        // create the JFrame (if necessary)
+    // throw an IllegalArgumentException if s is null
+    private static void validateNotNull(Object x, String name) {
+        if (x == null) throw new IllegalArgumentException(name + " is null");
+    }
+
+    /***************************************************************************
+     *  Drawing images.
+     ***************************************************************************/
+
+    // get an image from the given filename
+    private static Image getImage(String filename) {
+        if (filename == null) throw new IllegalArgumentException();
+
+        // to read from file
+        ImageIcon icon = new ImageIcon(filename);
+
+        // try to read from URL
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            try {
+                URL url = new URL(filename);
+                icon = new ImageIcon(url);
+            } catch (MalformedURLException e) {
+                /* not a url */
+            }
+        }
+
+        // in case file is inside a .jar (classpath relative to Draw)
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            URL url = Draw.class.getResource(filename);
+            if (url != null)
+                icon = new ImageIcon(url);
+        }
+
+        // in case file is inside a .jar (classpath relative to root of jar)
+        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+            URL url = Draw.class.getResource("/" + filename);
+            if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
+            icon = new ImageIcon(url);
+        }
+
+        return icon.getImage();
+    }
+
+    /**
+     * Test client.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+
+        // create one drawing window
+        Draw draw1 = new Draw();
+        draw1.setTitle("Test client 1");
+        draw1.square(0.2, 0.8, 0.1);
+        draw1.filledSquare(0.8, 0.8, 0.2);
+        draw1.circle(0.8, 0.2, 0.2);
+        draw1.setPenColor(Draw.MAGENTA);
+        draw1.setPenRadius(0.02);
+        draw1.arc(0.8, 0.2, 0.1, 200, 45);
+
+
+        // create another one
+        Draw draw2 = new Draw();
+        draw2.setCanvasSize(900, 200);
+        draw2.setTitle("Test client 2");
+        // draw a blue diamond
+        draw2.setPenRadius();
+        draw2.setPenColor(Draw.BLUE);
+        double[] x = {0.1, 0.2, 0.3, 0.2};
+        double[] y = {0.2, 0.3, 0.2, 0.1};
+        draw2.filledPolygon(x, y);
+
+        // text
+        draw2.setPenColor(Draw.BLACK);
+        draw2.text(0.2, 0.5, "bdfdfdfdlack text");
+        draw2.setPenColor(Draw.WHITE);
+        draw2.text(0.8, 0.8, "white text");
+    }
+
+    private void init() {
+        // JFrame stuff
         if (frame == null) {
             frame = new JFrame();
             frame.addKeyListener(this);    // JLabel cannot get keyboard focus
@@ -363,19 +316,42 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             frame.setJMenuBar(createMenuBar());
         }
 
-        // create the ImageIcon
+        // BufferedImage stuff
+        offscreenImage = new BufferedImage(2 * width, 2 * height, BufferedImage.TYPE_INT_ARGB);
+        onscreenImage = new BufferedImage(2 * width, 2 * height, BufferedImage.TYPE_INT_ARGB);
+        offscreen = offscreenImage.createGraphics();
+        onscreen = onscreenImage.createGraphics();
+        offscreen.scale(2.0, 2.0);  // since we made it 2x as big
+
+        // initialize drawing window
+        setXscale();
+        setYscale();
+        offscreen.setColor(DEFAULT_CLEAR_COLOR);
+        offscreen.fillRect(0, 0, width, height);
+        onscreen.setColor(DEFAULT_CLEAR_COLOR);
+        onscreen.fillRect(0, 0, 2 * width, 2 * height);
+        setPenColor();
+        setPenRadius();
+        setFont();
+
+        // add antialiasing
+        RenderingHints hints = new RenderingHints(null);
+        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        offscreen.addRenderingHints(hints);
+
+        // ImageIcon stuff
         RetinaImageIcon icon = new RetinaImageIcon(onscreenImage);
         draw = new JLabel(icon);
         draw.addMouseListener(this);
         draw.addMouseMotionListener(this);
 
-        // finish up the JFrame
+        // JFrame stuff
         frame.setContentPane(draw);
         frame.pack();
         frame.requestFocusInWindow();
-        frame.setVisible(false);
+        frame.setVisible(true);
     }
-
 
     /**
      * Makes the drawing window visible or invisible.
@@ -384,13 +360,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *         otherwise hides the drawing window.
      */
     public void setVisible(boolean isVisible) {
-        isJFrameVisible = isVisible;
         frame.setVisible(isVisible);
     }
 
     /**
-     * Sets the upper-left hand corner of the drawing window to be (x, y),
-     * where (0, 0) is upper left.
+     * Sets the upper-left hand corner of the drawing window to be (x, y), where (0, 0) is upper left.
      *
      * @param  x the number of pixels from the left
      * @param  y the number of pixels from the top
@@ -412,18 +386,15 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         frame.setDefaultCloseOperation(value);
     }
 
-    /**
-     * Sets the canvas (drawing area) to be 512-by-512 pixels.
-     * This also clears the current drawing using the default background color (white).
-     * Ordinarily, this method is called once, at the very beginning of a program.
-     */
-    public void setCanvasSize() {
-        setCanvasSize(DEFAULT_SIZE, DEFAULT_SIZE);
-    }
+
+    /***************************************************************************
+     *  Set the title of the drawing window.
+     ***************************************************************************/
 
     /**
      * Sets the canvas (drawing area) to be <em>width</em>-by-<em>height</em> pixels.
-     * This also clears the current drawing using the default background color (white).
+     * This also erases the current drawing and resets the coordinate system, pen radius,
+     * pen color, and font back to their default values.
      * Ordinarily, this method is called once, at the very beginning of a program.
      *
      * @param  canvasWidth the width as a number of pixels
@@ -437,10 +408,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
         width = canvasWidth;
         height = canvasHeight;
-        initCanvas();
-        initGUI();
+        init();
     }
 
+    /***************************************************************************
+     *  User and screen coordinate systems.
+     ***************************************************************************/
 
     // create the menu bar
     private JMenuBar createMenuBar() {
@@ -452,45 +425,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         // Java 11: use getMenuShortcutKeyMaskEx()
         // Java 8:  use getMenuShortcutKeyMask()
         menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+                Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
         menu.add(menuItem1);
         return menuBar;
     }
-
-    /**
-     * Closes the drawing window.
-     * This allows the client program to terminate instead of requiring
-     * the user to close the drawing window manually.
-     * Drawing after calling this method will restore the previous window state.
-     */
-    public void close() {
-        frame.dispose();
-    }
-
-   /***************************************************************************
-    *  Input validation helper methods.
-    ***************************************************************************/
-
-    // throw an IllegalArgumentException if x is NaN or infinite
-    private static void validate(double x, String name) {
-        if (Double.isNaN(x)) throw new IllegalArgumentException(name + " is NaN");
-        if (Double.isInfinite(x)) throw new IllegalArgumentException(name + " is infinite");
-    }
-
-    // throw an IllegalArgumentException if s is null
-    private static void validateNonnegative(double x, String name) {
-        if (x < 0) throw new IllegalArgumentException(name + " negative");
-    }
-
-    // throw an IllegalArgumentException if s is null
-    private static void validateNotNull(Object x, String name) {
-        if (x == null) throw new IllegalArgumentException(name + " is null");
-    }
-
-
-   /***************************************************************************
-    *  Set the title of the drawing window.
-    ***************************************************************************/
 
     /**
      * Sets the title of the drawing window to the specified string.
@@ -503,10 +441,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         this.windowTitle = windowTitle;
         frame.setTitle(windowTitle);
     }
-
-   /***************************************************************************
-    *  User and screen coordinate systems.
-    ***************************************************************************/
 
     /**
      * Sets the x-scale to the default range (between 0.0 and 1.0).
@@ -576,54 +510,59 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         setYscale(min, max);
     }
 
-
     // helper functions that scale from user coordinates to screen coordinates and back
-    private double  scaleX(double x) { return width  * (x - xmin) / (xmax - xmin); }
-    private double  scaleY(double y) { return height * (ymax - y) / (ymax - ymin); }
-    private double factorX(double w) { return w * width  / Math.abs(xmax - xmin);  }
-    private double factorY(double h) { return h * height / Math.abs(ymax - ymin);  }
-    private double   userX(double x) { return xmin + x * (xmax - xmin) / width;    }
-    private double   userY(double y) { return ymax - y * (ymax - ymin) / height;   }
+    private double scaleX(double x) {
+        return width * (x - xmin) / (xmax - xmin);
+    }
 
+    private double scaleY(double y) {
+        return height * (ymax - y) / (ymax - ymin);
+    }
 
-    /**
-     * Clears the screen using the default background color (white).
-     */
-    public void clear() {
-        clear(DEFAULT_BACKGROUND_COLOR);
+    private double factorX(double w) {
+        return w * width / Math.abs(xmax - xmin);
+    }
+
+    private double factorY(double h) {
+        return h * height / Math.abs(ymax - ymin);
+    }
+
+    private double userX(double x) {
+        return xmin + x * (xmax - xmin) / width;
+    }
+
+    private double userY(double y) {
+        return ymax - y * (ymax - ymin) / height;
     }
 
     /**
-     * Clears the screen using the specified background color.
-     * To make the background transparent, use {@code Draw.TRANSPARENT}.
+     * Clears the screen to the default color (white).
+     */
+    public void clear() {
+        clear(DEFAULT_CLEAR_COLOR);
+    }
+
+    /**
+     * Clears the screen to the given color.
      *
      * @param color the color to make the background
      * @throws IllegalArgumentException if {@code color} is {@code null}
      */
     public void clear(Color color) {
         validateNotNull(color, "color");
-
-        backgroundColor = color;
-        offscreen.setBackground(backgroundColor);
-        offscreen.clearRect(0, 0, width, height);
-
+        offscreen.setColor(color);
+        offscreen.fillRect(0, 0, width, height);
+        offscreen.setColor(penColor);
         draw();
     }
 
     /**
-     * Returns the current pen radius.
+     * Gets the current pen radius.
      *
      * @return the current pen radius
      */
     public double getPenRadius() {
         return penRadius;
-    }
-
-    /**
-     * Sets the pen radius to the default (0.002).
-     */
-    public void setPenRadius() {
-        setPenRadius(DEFAULT_PEN_RADIUS);
     }
 
     /**
@@ -643,28 +582,19 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * Returns the current pen color.
+     * Sets the pen radius to the default (0.002).
+     */
+    public void setPenRadius() {
+        setPenRadius(DEFAULT_PEN_RADIUS);
+    }
+
+    /**
+     * Gets the current pen color.
      *
      * @return the current pen color
      */
     public Color getPenColor() {
         return penColor;
-    }
-
-    /**
-     * Returns the current background color.
-     *
-     * @return the current background color
-     */
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    /**
-     * Sets the pen color to the default color (black).
-     */
-    public void setPenColor() {
-        setPenColor(DEFAULT_PEN_COLOR);
     }
 
     /**
@@ -680,6 +610,13 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     /**
+     * Sets the pen color to the default color (black).
+     */
+    public void setPenColor() {
+        setPenColor(DEFAULT_PEN_COLOR);
+    }
+
+    /**
      * Sets the pen color to the given RGB color.
      *
      * @param  red the amount of red (between 0 and 255)
@@ -689,18 +626,17 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *         or {@code blue} is outside its prescribed range
      */
     public void setPenColor(int red, int green, int blue) {
-        if (red   < 0 || red   >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
+        if (red < 0 || red >= 256) throw new IllegalArgumentException("red must be between 0 and 255");
         if (green < 0 || green >= 256) throw new IllegalArgumentException("green must be between 0 and 255");
-        if (blue  < 0 || blue  >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
+        if (blue < 0 || blue >= 256) throw new IllegalArgumentException("blue must be between 0 and 255");
         setPenColor(new Color(red, green, blue));
     }
-
 
     /**
      * Turns on xor mode.
      */
     public void xorOn() {
-        offscreen.setXORMode(backgroundColor);
+        offscreen.setXORMode(DEFAULT_CLEAR_COLOR);
     }
 
     /**
@@ -711,7 +647,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * Returns the current {@code JLabel} for use in some other GUI.
+     * Gets the current {@code JLabel} for use in some other GUI.
      *
      * @return the current {@code JLabel}
      */
@@ -720,7 +656,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * Returns the current font.
+     * Gets the current font.
      *
      * @return the current font
      */
@@ -728,12 +664,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         return font;
     }
 
-    /**
-     * Sets the font to the default font (sans serif, 16 point).
-     */
-    public void setFont() {
-        setFont(DEFAULT_FONT);
-    }
+
+    /***************************************************************************
+     *  Drawing geometric shapes.
+     ***************************************************************************/
 
     /**
      * Sets the font to the given value.
@@ -746,10 +680,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         this.font = font;
     }
 
-
-   /***************************************************************************
-    *  Drawing geometric shapes.
-    ***************************************************************************/
+    /**
+     * Sets the font to the default font (sans serif, 16 point).
+     */
+    public void setFont() {
+        setFont(DEFAULT_FONT);
+    }
 
     /**
      * Draws a line from (x0, y0) to (x1, y1).
@@ -800,7 +736,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         // double hs = factorY(2*r);
         // if (ws <= 1 && hs <= 1) pixel(x, y);
         if (r <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - r/2, ys - r/2, r, r));
+        else offscreen.fill(new Ellipse2D.Double(xs - r / 2, ys - r / 2, r, r));
         draw();
     }
 
@@ -821,10 +757,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*radius);
-        double hs = factorY(2*radius);
+        double ws = factorX(2 * radius);
+        double hs = factorY(2 * radius);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -845,13 +781,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*radius);
-        double hs = factorY(2*radius);
+        double ws = factorX(2 * radius);
+        double hs = factorY(2 * radius);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
-
 
     /**
      * Draws an ellipse with the specified semimajor and semiminor axes,
@@ -875,10 +810,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*semiMajorAxis);
-        double hs = factorY(2*semiMinorAxis);
+        double ws = factorX(2 * semiMajorAxis);
+        double hs = factorY(2 * semiMinorAxis);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -904,10 +839,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*semiMajorAxis);
-        double hs = factorY(2*semiMinorAxis);
+        double ws = factorX(2 * semiMajorAxis);
+        double hs = factorY(2 * semiMinorAxis);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Ellipse2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -935,10 +870,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         while (angle2 < angle1) angle2 += 360;
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*radius);
-        double hs = factorY(2*radius);
+        double ws = factorX(2 * radius);
+        double hs = factorY(2 * radius);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Arc2D.Double(xs - ws/2, ys - hs/2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+        else offscreen.draw(new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
         draw();
     }
 
@@ -959,10 +894,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfLength);
-        double hs = factorY(2*halfLength);
+        double ws = factorX(2 * halfLength);
+        double hs = factorY(2 * halfLength);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -983,13 +918,12 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfLength);
-        double hs = factorY(2*halfLength);
+        double ws = factorX(2 * halfLength);
+        double hs = factorY(2 * halfLength);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
-
 
     /**
      * Draws a rectangle of the specified size, centered at (<em>x</em>, <em>y</em>).
@@ -1011,10 +945,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfWidth);
-        double hs = factorY(2*halfHeight);
+        double ws = factorX(2 * halfWidth);
+        double hs = factorY(2 * halfHeight);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.draw(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -1038,10 +972,10 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         double xs = scaleX(x);
         double ys = scaleY(y);
-        double ws = factorX(2*halfWidth);
-        double hs = factorY(2*halfHeight);
+        double ws = factorX(2 * halfWidth);
+        double hs = factorY(2 * halfHeight);
         if (ws <= 1 && hs <= 1) pixel(x, y);
-        else offscreen.fill(new Rectangle2D.Double(xs - ws/2, ys - hs/2, ws, hs));
+        else offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
         draw();
     }
 
@@ -1113,47 +1047,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         draw();
     }
 
-
-
-   /***************************************************************************
-    *  Drawing images.
-    ***************************************************************************/
-
-    // get an image from the given filename
-    private static Image getImage(String filename) {
-        if (filename == null) throw new IllegalArgumentException();
-
-        // to read from file
-        ImageIcon icon = new ImageIcon(filename);
-
-        // try to read from URL
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-            try {
-                URL url = new URL(filename);
-                icon = new ImageIcon(url);
-            }
-            catch (MalformedURLException e) {
-                /* not a url */
-            }
-        }
-
-        // in case file is inside a .jar (classpath relative to Draw)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-            URL url = Draw.class.getResource(filename);
-            if (url != null)
-                icon = new ImageIcon(url);
-        }
-
-        // in case file is inside a .jar (classpath relative to root of jar)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
-            URL url = Draw.class.getResource("/" + filename);
-            if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
-            icon = new ImageIcon(url);
-        }
-
-        return icon.getImage();
-    }
-
     /**
      * Draws the specified image centered at (<em>x</em>, <em>y</em>).
      * The supported image formats are typically JPEG, PNG, GIF, TIFF, and BMP.
@@ -1180,7 +1073,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         int hs = image.getHeight(null);
         if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
 
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
         draw();
     }
 
@@ -1211,7 +1104,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0), (int) Math.round(ys - hs/2.0), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
         draw();
@@ -1250,14 +1143,18 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         if (ws < 0 || hs < 0) throw new IllegalArgumentException("image " + filename + " is corrupt");
         if (ws <= 1 && hs <= 1) pixel(x, y);
         else {
-            offscreen.drawImage(image, (int) Math.round(xs - ws/2.0),
-                                       (int) Math.round(ys - hs/2.0),
-                                       (int) Math.round(ws),
-                                       (int) Math.round(hs), null);
+            offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
+                    (int) Math.round(ys - hs / 2.0),
+                    (int) Math.round(ws),
+                    (int) Math.round(hs), null);
         }
         draw();
     }
 
+
+    /***************************************************************************
+     *  Drawing text.
+     ***************************************************************************/
 
     /**
      * Draws the specified image centered at (<em>x</em>, <em>y</em>), rotated
@@ -1293,19 +1190,14 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         if (ws <= 1 && hs <= 1) pixel(x, y);
 
         offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-        offscreen.drawImage(image, (int) Math.round(xs - ws/2.0),
-                                   (int) Math.round(ys - hs/2.0),
-                                   (int) Math.round(ws),
-                                   (int) Math.round(hs), null);
+        offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0),
+                (int) Math.round(ys - hs / 2.0),
+                (int) Math.round(ws),
+                (int) Math.round(hs), null);
         offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
         draw();
     }
-
-
-   /***************************************************************************
-    *  Drawing text.
-    ***************************************************************************/
 
     /**
      * Writes the given text string in the current font, centered at (<em>x</em>, <em>y</em>).
@@ -1327,7 +1219,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         double ys = scaleY(y);
         int ws = metrics.stringWidth(text);
         int hs = metrics.getDescent();
-        offscreen.drawString(text, (float) (xs - ws/2.0), (float) (ys + hs));
+        offscreen.drawString(text, (float) (xs - ws / 2.0), (float) (ys + hs));
         draw();
     }
 
@@ -1423,8 +1315,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     public void pause(int t) {
         try {
             Thread.sleep(t);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Error sleeping");
         }
     }
@@ -1434,15 +1325,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * this method unless double buffering is enabled.
      */
     public void show() {
-        onscreen.setBackground(backgroundColor);
-        onscreen.clearRect(0, 0, 2*width, 2*height);
         onscreen.drawImage(offscreenImage, 0, 0, null);
-
-        // make frame visible upon first call to show()
-        if (frame.isVisible() != isJFrameVisible) {
-            frame.setVisible(isJFrameVisible);
-        }
-
         frame.repaint();
     }
 
@@ -1479,20 +1362,16 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      *
      * @param  filename the name of the file
      * @throws IllegalArgumentException if {@code filename} is {@code null}
-     * @throws IllegalArgumentException if {@code filename} is the empty string
-     * @throws IllegalArgumentException if {@code filename} has invalid filetype extension
-     * @throws IllegalArgumentException if cannot write the file {@code filename}
      */
     public void save(String filename) {
         validateNotNull(filename, "filename");
-        if (filename.length() == 0) {
-            throw new IllegalArgumentException("argument to save() is the empty string");
-        }
-
+        if (filename.length() == 0) throw new IllegalArgumentException("argument to save() is the empty string");
         File file = new File(filename);
+
         String suffix = filename.substring(filename.lastIndexOf('.') + 1);
         if (!filename.contains(".") || suffix.length() == 0) {
-            throw new IllegalArgumentException("the filename '" + filename + "' has no file extension, such as .jpg or .png");
+            System.out.printf("Error: the filename '%s' has no file extension, such as .jpg or .png\n", filename);
+            return;
         }
 
         try {
@@ -1500,42 +1379,40 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             if (ImageIO.write(onscreenImage, suffix, file)) return;
 
             // if the file format does not support transparency (such as JPEG or BMP)
-            BufferedImage saveImage = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_RGB);
+            BufferedImage saveImage = new BufferedImage(2 * width, 2 * height, BufferedImage.TYPE_INT_RGB);
             saveImage.createGraphics().drawImage(onscreenImage, 0, 0, Color.WHITE, null);
             if (ImageIO.write(saveImage, suffix, file)) return;
 
             // failed to save the file; probably wrong format
-            throw new IllegalArgumentException("the filetype '" + suffix + "' is not supported");
-        }
-        catch (IOException e) {
-            throw new IllegalArgumentException("could not write the file + " + filename, e);
+            System.out.printf("Error: the filetype '%s' is not supported\n", suffix);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+
+    /***************************************************************************
+     *  Event-based interactions.
+     ***************************************************************************/
 
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(ActionEvent e) {
         FileDialog chooser = new FileDialog(frame, "Use a .png or .jpg extension", FileDialog.SAVE);
         chooser.setVisible(true);
         String selectedDirectory = chooser.getDirectory();
         String selectedFilename = chooser.getFile();
         if (selectedDirectory != null && selectedFilename != null) {
-            try {
-                save(selectedDirectory + selectedFilename);
-            }
-            catch (IllegalArgumentException e) {
-                System.err.println(e.getMessage());
-            }
+            save(selectedDirectory + selectedFilename);
         }
     }
 
 
-
-   /***************************************************************************
-    *  Event-based interactions.
-    ***************************************************************************/
+    /***************************************************************************
+     *  Mouse interactions.
+     ***************************************************************************/
 
     /**
      * Adds a {@link DrawListener} to listen to keyboard and mouse events.
@@ -1547,13 +1424,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         show();
         listeners.add(listener);
     }
-
-
-
-
-   /***************************************************************************
-    *  Mouse interactions.
-    ***************************************************************************/
 
     /**
      * Returns true if the mouse is being pressed.
@@ -1602,13 +1472,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
     }
 
-
-
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void mouseEntered(MouseEvent event) {
+    public void mouseEntered(MouseEvent e) {
         // this body is intentionally left empty
     }
 
@@ -1616,7 +1484,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * This method cannot be called directly.
      */
     @Override
-    public void mouseExited(MouseEvent event) {
+    public void mouseExited(MouseEvent e) {
         // this body is intentionally left empty
     }
 
@@ -1624,15 +1492,15 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * This method cannot be called directly.
      */
     @Override
-    public void mousePressed(MouseEvent event) {
+    public void mousePressed(MouseEvent e) {
         synchronized (mouseLock) {
-            mouseX = userX(event.getX());
-            mouseY = userY(event.getY());
+            mouseX = userX(e.getX());
+            mouseY = userY(e.getY());
             isMousePressed = true;
         }
-        if (event.getButton() == MouseEvent.BUTTON1) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
             for (DrawListener listener : listeners)
-                listener.mousePressed(userX(event.getX()), userY(event.getY()));
+                listener.mousePressed(userX(e.getX()), userY(e.getY()));
         }
 
     }
@@ -1641,13 +1509,13 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * This method cannot be called directly.
      */
     @Override
-    public void mouseReleased(MouseEvent event) {
+    public void mouseReleased(MouseEvent e) {
         synchronized (mouseLock) {
             isMousePressed = false;
         }
-        if (event.getButton() == MouseEvent.BUTTON1) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
             for (DrawListener listener : listeners)
-                listener.mouseReleased(userX(event.getX()), userY(event.getY()));
+                listener.mouseReleased(userX(e.getX()), userY(e.getY()));
         }
     }
 
@@ -1655,43 +1523,42 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * This method cannot be called directly.
      */
     @Override
-    public void mouseClicked(MouseEvent event) {
-        if (event.getButton() == MouseEvent.BUTTON1) {
+    public void mouseClicked(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
             for (DrawListener listener : listeners)
-                listener.mouseClicked(userX(event.getX()), userY(event.getY()));
+                listener.mouseClicked(userX(e.getX()), userY(e.getY()));
         }
     }
-
 
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void mouseDragged(MouseEvent event)  {
+    public void mouseDragged(MouseEvent e) {
         synchronized (mouseLock) {
-            mouseX = userX(event.getX());
-            mouseY = userY(event.getY());
+            mouseX = userX(e.getX());
+            mouseY = userY(e.getY());
         }
         // doesn't seem to work if a button is specified
         for (DrawListener listener : listeners)
-            listener.mouseDragged(userX(event.getX()), userY(event.getY()));
+            listener.mouseDragged(userX(e.getX()), userY(e.getY()));
     }
+
+
+    /***************************************************************************
+     *  Keyboard interactions.
+     ***************************************************************************/
 
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void mouseMoved(MouseEvent event) {
+    public void mouseMoved(MouseEvent e) {
         synchronized (mouseLock) {
-            mouseX = userX(event.getX());
-            mouseY = userY(event.getY());
+            mouseX = userX(e.getX());
+            mouseY = userY(e.getY());
         }
     }
-
-
-   /***************************************************************************
-    *  Keyboard interactions.
-    ***************************************************************************/
 
     /**
      * Returns true if the user has typed a key.
@@ -1715,7 +1582,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
     }
 
-   /**
+    /**
      * Returns true if the keycode is being pressed.
      * <p>
      * This method takes as an argument the keycode (corresponding to a physical key).
@@ -1737,49 +1604,49 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * This method cannot be called directly.
      */
     @Override
-    public void keyTyped(KeyEvent event) {
+    public void keyTyped(KeyEvent e) {
         synchronized (keyLock) {
-            keysTyped.addFirst(event.getKeyChar());
+            keysTyped.addFirst(e.getKeyChar());
         }
 
         // notify all listeners
         for (DrawListener listener : listeners)
-            listener.keyTyped(event.getKeyChar());
+            listener.keyTyped(e.getKeyChar());
     }
 
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void keyPressed(KeyEvent event) {
+    public void keyPressed(KeyEvent e) {
         synchronized (keyLock) {
-            keysDown.add(event.getKeyCode());
+            keysDown.add(e.getKeyCode());
         }
 
         // notify all listeners
         for (DrawListener listener : listeners)
-            listener.keyPressed(event.getKeyCode());
+            listener.keyPressed(e.getKeyCode());
     }
+
+    /***************************************************************************
+     *  Timer events.
+     ***************************************************************************/
 
     /**
      * This method cannot be called directly.
      */
     @Override
-    public void keyReleased(KeyEvent event) {
+    public void keyReleased(KeyEvent e) {
         synchronized (keyLock) {
-            keysDown.remove(event.getKeyCode());
+            keysDown.remove(e.getKeyCode());
         }
 
         // notify all listeners
         for (DrawListener listener : listeners)
-            listener.keyReleased(event.getKeyCode());
+            listener.keyReleased(e.getKeyCode());
     }
 
-   /***************************************************************************
-    *  Timer events.
-    ***************************************************************************/
-
-   /**
+    /**
      * Sets a timer that calls update() method a specified number of times
      * per second.
      * <p>
@@ -1795,16 +1662,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         if (timer != null) timer.cancel();
     }
 
-    private class MyTimerTask extends TimerTask {
-        public void run() {
-            for (DrawListener listener : listeners)
-                listener.update();
-        }
-    }
-
-   /***************************************************************************
-    *  For improved resolution on Mac Retina displays.
-    ***************************************************************************/
+    /***************************************************************************
+     *  For improved resolution on Mac Retina displays.
+     ***************************************************************************/
 
     private static class RetinaImageIcon extends ImageIcon {
 
@@ -1817,7 +1677,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
 
         /**
-         * Returns the height of the icon.
+         * Gets the height of the icon.
          *
          * @return the height in pixels of this icon
          */
@@ -1828,48 +1688,43 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,     RenderingHints.VALUE_RENDER_QUALITY);
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2.scale(0.5, 0.5);
             super.paintIcon(c, g2, x * 2, y * 2);
             g2.dispose();
         }
     }
 
-    /**
-     * Test client.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-
-        // create one drawing window
-        Draw draw1 = new Draw();
-        draw1.setTitle("Test client 1");
-        draw1.square(0.2, 0.8, 0.1);
-        draw1.filledSquare(0.8, 0.8, 0.2);
-        draw1.circle(0.8, 0.2, 0.2);
-        draw1.setPenColor(Draw.MAGENTA);
-        draw1.setPenRadius(0.02);
-        draw1.arc(0.8, 0.2, 0.1, 200, 45);
-
-
-        // create another one
-        Draw draw2 = new Draw();
-        draw2.setCanvasSize(900, 200);
-        draw2.setTitle("Test client 2");
-        // draw a blue diamond
-        draw2.setPenRadius();
-        draw2.setPenColor(Draw.BLUE);
-        double[] x = { 0.1, 0.2, 0.3, 0.2 };
-        double[] y = { 0.2, 0.3, 0.2, 0.1 };
-        draw2.filledPolygon(x, y);
-
-        // text
-        draw2.setPenColor(Draw.BLACK);
-        draw2.text(0.2, 0.5, "bdfdfdfdlack text");
-        draw2.setPenColor(Draw.WHITE);
-        draw2.text(0.8, 0.8, "white text");
+    private class MyTimerTask extends TimerTask {
+        public void run() {
+            for (DrawListener listener : listeners)
+                listener.update();
+        }
     }
 
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

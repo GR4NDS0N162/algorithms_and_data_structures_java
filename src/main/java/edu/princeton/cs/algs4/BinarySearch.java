@@ -6,12 +6,12 @@
  *                https://algs4.cs.princeton.edu/11model/tinyText.txt
  *                https://algs4.cs.princeton.edu/11model/largeAllowlist.txt
  *                https://algs4.cs.princeton.edu/11model/largeText.txt
- * <p>
+ *
  *  % java BinarySearch tinyAllowlist.txt < tinyText.txt
  *  50
  *  99
  *  13
- * <p>
+ *
  *  % java BinarySearch largeAllowlist.txt < largeText.txt | more
  *  499569
  *  984875
@@ -40,6 +40,7 @@ import java.util.Arrays;
  *  @author Kevin Wayne
  */
 public class BinarySearch {
+
     /**
      * This class should not be instantiated.
      */
@@ -57,7 +58,7 @@ public class BinarySearch {
         int lo = 0;
         int hi = a.length - 1;
         while (lo <= hi) {
-            // Key is in a[lo...hi] or not present.
+            // Key is in a[lo..hi] or not present.
             int mid = lo + (hi - lo) / 2;
             if (key < a[mid]) hi = mid - 1;
             else if (key > a[mid]) lo = mid + 1;
@@ -89,6 +90,7 @@ public class BinarySearch {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+
         // read the integers from a file
         In in = new In(args[0]);
         int[] allowlist = in.readAllInts();
@@ -104,3 +106,27 @@ public class BinarySearch {
         }
     }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

@@ -2,7 +2,7 @@
  *  Compilation:  javac Interval2D.java
  *  Execution:    java Interval2D
  *  Dependencies: StdOut.java Interval1D.java StdDraw.java
- * <p>
+ *
  *  2-dimensional interval data type.
  *
  ******************************************************************************/
@@ -41,6 +41,37 @@ public class Interval2D {
     }
 
     /**
+     * Unit tests the {@code Interval2D} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        double xmin = Double.parseDouble(args[0]);
+        double xmax = Double.parseDouble(args[1]);
+        double ymin = Double.parseDouble(args[2]);
+        double ymax = Double.parseDouble(args[3]);
+        int trials = Integer.parseInt(args[4]);
+
+        Interval1D xInterval = new Interval1D(xmin, xmax);
+        Interval1D yInterval = new Interval1D(ymin, ymax);
+        Interval2D box = new Interval2D(xInterval, yInterval);
+        box.draw();
+
+        Counter counter = new Counter("hits");
+        for (int t = 0; t < trials; t++) {
+            double x = StdRandom.uniformDouble(0.0, 1.0);
+            double y = StdRandom.uniformDouble(0.0, 1.0);
+            Point2D point = new Point2D(x, y);
+
+            if (box.contains(point)) counter.increment();
+            else point.draw();
+        }
+
+        StdOut.println(counter);
+        StdOut.printf("box area = %.2f\n", box.area());
+    }
+
+    /**
      * Does this two-dimensional interval intersect that two-dimensional interval?
      * @param that the other two-dimensional interval
      * @return true if this two-dimensional interval intersects
@@ -48,8 +79,7 @@ public class Interval2D {
      */
     public boolean intersects(Interval2D that) {
         if (!this.x.intersects(that.x)) return false;
-        if (!this.y.intersects(that.y)) return false;
-        return true;
+        return this.y.intersects(that.y);
     }
 
     /**
@@ -91,7 +121,6 @@ public class Interval2D {
         return this.x.equals(that.x) && this.y.equals(that.y);
     }
 
-
     /**
      * Returns an integer hash code for this interval.
      * @return an integer hash code for this interval
@@ -110,35 +139,28 @@ public class Interval2D {
         double yc = (y.min() + y.max()) / 2.0;
         StdDraw.rectangle(xc, yc, x.length() / 2.0, y.length() / 2.0);
     }
-
-    /**
-     * Unit tests the {@code Interval2D} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        double xMin = Double.parseDouble(args[0]);
-        double xMax = Double.parseDouble(args[1]);
-        double yMin = Double.parseDouble(args[2]);
-        double yMax = Double.parseDouble(args[3]);
-        int trials = Integer.parseInt(args[4]);
-
-        Interval1D xInterval = new Interval1D(xMin, xMax);
-        Interval1D yInterval = new Interval1D(yMin, yMax);
-        Interval2D box = new Interval2D(xInterval, yInterval);
-        box.draw();
-
-        Counter counter = new Counter("hits");
-        for (int t = 0; t < trials; t++) {
-            double x = StdRandom.uniformDouble(0.0, 1.0);
-            double y = StdRandom.uniformDouble(0.0, 1.0);
-            Point2D point = new Point2D(x, y);
-
-            if (box.contains(point)) counter.increment();
-            else point.draw();
-        }
-
-        StdOut.println(counter);
-        StdOut.printf("box area = %.2f\n", box.area());
-    }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

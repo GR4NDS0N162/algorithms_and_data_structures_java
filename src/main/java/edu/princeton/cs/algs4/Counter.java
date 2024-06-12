@@ -2,12 +2,12 @@
  *  Compilation:  javac Counter.java
  *  Execution:    java Counter n trials
  *  Dependencies: StdRandom.java StdOut.java
- * <p>
+ *
  *  A mutable data type for an integer counter.
- * <p>
+ *
  *  The test clients create n counters and performs trials increment
  *  operations on random counters.
- * <p>
+ *
  * java Counter 6 600000
  *  100140 counter0
  *  100273 counter1
@@ -31,6 +31,7 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class Counter implements Comparable<Counter> {
+
     private final String name;     // counter name
     private int count = 0;         // current value
 
@@ -41,6 +42,33 @@ public class Counter implements Comparable<Counter> {
      */
     public Counter(String id) {
         name = id;
+    }
+
+    /**
+     * Reads two command-line integers n and trials; creates n counters;
+     * increments trials counters at random; and prints results.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        int n = Integer.parseInt(args[0]);
+        int trials = Integer.parseInt(args[1]);
+
+        // create n counters
+        Counter[] hits = new Counter[n];
+        for (int i = 0; i < n; i++) {
+            hits[i] = new Counter("counter" + i);
+        }
+
+        // increment trials counters at random
+        for (int t = 0; t < trials; t++) {
+            hits[StdRandom.uniformInt(n)].increment();
+        }
+
+        // print results
+        for (int i = 0; i < n; i++) {
+            StdOut.println(hits[i]);
+        }
     }
 
     /**
@@ -83,32 +111,28 @@ public class Counter implements Comparable<Counter> {
     public int compareTo(Counter that) {
         return Integer.compare(this.count, that.count);
     }
-
-
-    /**
-     * Reads two command-line integers n and trials; creates n counters;
-     * increments trials counters at random; and prints results.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        int n = Integer.parseInt(args[0]);
-        int trials = Integer.parseInt(args[1]);
-
-        // create n counters
-        Counter[] hits = new Counter[n];
-        for (int i = 0; i < n; i++) {
-            hits[i] = new Counter("counter" + i);
-        }
-
-        // increment trials counters at random
-        for (int t = 0; t < trials; t++) {
-            hits[StdRandom.uniformInt(n)].increment();
-        }
-
-        // print results
-        for (int i = 0; i < n; i++) {
-            StdOut.println(hits[i]);
-        }
-    }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

@@ -2,7 +2,7 @@
  *  Compilation:  javac Interval1D.java
  *  Execution:    java Interval1D
  *  Dependencies: StdOut.java
- * <p>
+ *
  *  1-dimensional interval data type.
  *
  ******************************************************************************/
@@ -74,6 +74,42 @@ public class Interval1D {
     }
 
     /**
+     * Unit tests the {@code Interval1D} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        Interval1D[] intervals = new Interval1D[4];
+        intervals[0] = new Interval1D(15.0, 33.0);
+        intervals[1] = new Interval1D(45.0, 60.0);
+        intervals[2] = new Interval1D(20.0, 70.0);
+        intervals[3] = new Interval1D(46.0, 55.0);
+
+        StdOut.println("Unsorted");
+        for (int i = 0; i < intervals.length; i++)
+            StdOut.println(intervals[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by min endpoint");
+        Arrays.sort(intervals, Interval1D.MIN_ENDPOINT_ORDER);
+        for (int i = 0; i < intervals.length; i++)
+            StdOut.println(intervals[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by max endpoint");
+        Arrays.sort(intervals, Interval1D.MAX_ENDPOINT_ORDER);
+        for (int i = 0; i < intervals.length; i++)
+            StdOut.println(intervals[i]);
+        StdOut.println();
+
+        StdOut.println("Sort by length");
+        Arrays.sort(intervals, Interval1D.LENGTH_ORDER);
+        for (int i = 0; i < intervals.length; i++)
+            StdOut.println(intervals[i]);
+        StdOut.println();
+    }
+
+    /**
      * Returns the left endpoint of this interval.
      *
      * @return the left endpoint of this interval
@@ -121,8 +157,7 @@ public class Interval1D {
      */
     public boolean intersects(Interval1D that) {
         if (this.max < that.min) return false;
-        if (that.max < this.min) return false;
-        return true;
+        return !(that.max < this.min);
     }
 
     /**
@@ -212,41 +247,28 @@ public class Interval1D {
             else return 0;
         }
     }
-
-
-    /**
-     * Unit tests the {@code Interval1D} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        Interval1D[] intervals = new Interval1D[4];
-        intervals[0] = new Interval1D(15.0, 33.0);
-        intervals[1] = new Interval1D(45.0, 60.0);
-        intervals[2] = new Interval1D(20.0, 70.0);
-        intervals[3] = new Interval1D(46.0, 55.0);
-
-        StdOut.println("Unsorted");
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by min endpoint");
-        Arrays.sort(intervals, Interval1D.MIN_ENDPOINT_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by max endpoint");
-        Arrays.sort(intervals, Interval1D.MAX_ENDPOINT_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
-        StdOut.println();
-
-        StdOut.println("Sort by length");
-        Arrays.sort(intervals, Interval1D.LENGTH_ORDER);
-        for (int i = 0; i < intervals.length; i++)
-            StdOut.println(intervals[i]);
-        StdOut.println();
-    }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

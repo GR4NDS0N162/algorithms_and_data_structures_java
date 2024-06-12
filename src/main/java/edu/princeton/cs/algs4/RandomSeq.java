@@ -2,9 +2,9 @@
  *  Compilation:  javac RandomSeq.java
  *  Execution:    java RandomSeq n lo hi
  *  Dependencies: StdOut.java
- * <p>
+ *
  *  Prints N numbers between lo and hi.
- * <p>
+ *
  *  % java RandomSeq 5 100.0 200.0
  *  123.43
  *  153.13
@@ -17,7 +17,7 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@link  RandomSeq} class is a client that prints out a pseudorandom
+ *  The {@code RandomSeq} class is a client that prints out a pseudorandom
  *  sequence of real numbers in a given range.
  *  <p>
  *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/11model">Section 1.1</a> of
@@ -27,9 +27,11 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class RandomSeq {
+
     // this class should not be instantiated
     private RandomSeq() {
     }
+
 
     /**
      * Reads in two command-line arguments lo and hi and prints n uniformly
@@ -38,6 +40,7 @@ public class RandomSeq {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
+
         // command-line arguments
         int n = Integer.parseInt(args[0]);
 
@@ -62,3 +65,27 @@ public class RandomSeq {
         }
     }
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/

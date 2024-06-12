@@ -1,4 +1,4 @@
-package edu.princeton.cs.algs4; /******************************************************************************
+/******************************************************************************
  *  Compilation:  javac GrayscalePicture.java
  *  Execution:    java GrayscalePicture filename
  *  Dependencies: none
@@ -18,9 +18,11 @@ package edu.princeton.cs.algs4; /***********************************************
  *
  ******************************************************************************/
 
-import java.awt.Color;
-import java.awt.FileDialog;
-import java.awt.Toolkit;
+package edu.princeton.cs.algs4;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,15 +30,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
 
 
 /**
@@ -50,7 +43,7 @@ import javax.swing.KeyStroke;
  *  Pixel (<em>col</em>, <em>row</em>) is column <em>col</em> and row <em>row</em>.
  *  By default, the origin (0, 0) is the pixel in the top-left corner.
  *  These are common conventions in image processing and consistent with Java's
- *  {@link BufferedImage} data type.
+ *  {@link java.awt.image.BufferedImage} data type.
  *  The method {@link #setOriginLowerLeft()} change the origin to the lower left.
  *  <p>
  *  The {@code get()} and {@code set()} methods use {@link Color} objects to get
@@ -74,14 +67,14 @@ import javax.swing.KeyStroke;
  *  @author Kevin Wayne
  */
 public final class GrayscalePicture implements ActionListener {
-    private BufferedImage image;               // the rasterized image
+    private final int width, height;           // width and height
+    private final BufferedImage image;               // the rasterized image
     private JFrame frame;                      // on-screen view
-    private String title;                      // name of file
+    private String filename;                   // name of file
     private boolean isOriginUpperLeft = true;  // location of origin
     private boolean isVisible = false;         // is the frame visible?
-    private final int width, height;           // width and height
 
-   /**
+    /**
      * Creates a {@code width}-by-{@code height} picture, with {@code width} columns
      * and {@code height} rows, where each pixel is black.
      *
@@ -91,14 +84,14 @@ public final class GrayscalePicture implements ActionListener {
      * @throws IllegalArgumentException if {@code height} is negative
      */
     public GrayscalePicture(int width, int height) {
-        if (width  < 0) throw new IllegalArgumentException("width must be non-negative");
+        if (width < 0) throw new IllegalArgumentException("width must be non-negative");
         if (height < 0) throw new IllegalArgumentException("height must be non-negative");
-        this.width  = width;
+        this.width = width;
         this.height = height;
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     }
 
-   /**
+    /**
      * Creates a new grayscale picture that is a deep copy of the argument picture.
      *
      * @param  picture the picture to copy
@@ -107,56 +100,54 @@ public final class GrayscalePicture implements ActionListener {
     public GrayscalePicture(GrayscalePicture picture) {
         if (picture == null) throw new IllegalArgumentException("constructor argument is null");
 
-        width  = picture.width();
+        width = picture.width();
         height = picture.height();
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        title = picture.title;
+        filename = picture.filename;
         isOriginUpperLeft = picture.isOriginUpperLeft;
         for (int col = 0; col < width(); col++)
             for (int row = 0; row < height(); row++)
                 image.setRGB(col, row, picture.image.getRGB(col, row));
     }
 
-   /**
+    /**
      * Creates a grayscale picture by reading an image from a file or URL.
      *
-     * @param  filename the name of the file (.png, .gif, or .jpg) or URL.
-     * @throws IllegalArgumentException if {@code filename} is {@code null}
-     * @throws IllegalArgumentException if cannot read image from file or URL
+     * @param  name the name of the file (.png, .gif, or .jpg) or URL.
+     * @throws IllegalArgumentException if cannot read image
+     * @throws IllegalArgumentException if {@code name} is {@code null}
      */
-    public GrayscalePicture(String filename) {
-        if (filename == null) throw new IllegalArgumentException("constructor argument is null");
-        title = filename;
+    public GrayscalePicture(String name) {
+        if (name == null) throw new IllegalArgumentException("constructor argument is null");
+        this.filename = name;
         try {
             // try to read from file in working directory
-            File file = new File(filename);
+            File file = new File(name);
             if (file.isFile()) {
                 image = ImageIO.read(file);
-            }
-
-            else {
+            } else {
 
                 // resource relative to .class file
-                URL url = getClass().getResource(filename);
+                URL url = getClass().getResource(name);
 
                 // resource relative to classloader root
                 if (url == null) {
-                    url = getClass().getClassLoader().getResource(filename);
+                    url = getClass().getClassLoader().getResource(name);
                 }
 
                 // or URL from web
                 if (url == null) {
-                    url = new URL(filename);
+                    url = new URL(name);
                 }
 
                 image = ImageIO.read(url);
             }
 
             if (image == null) {
-                throw new IllegalArgumentException("could not read image: " + filename);
+                throw new IllegalArgumentException("could not read image: " + name);
             }
 
-            width  = image.getWidth(null);
+            width = image.getWidth(null);
             height = image.getHeight(null);
 
             // convert to grayscale in-place
@@ -167,9 +158,8 @@ public final class GrayscalePicture implements ActionListener {
                     image.setRGB(col, row, gray.getRGB());
                 }
             }
-        }
-        catch (IOException ioe) {
-            throw new IllegalArgumentException("could not open image: " + filename, ioe);
+        } catch (IOException ioe) {
+            throw new IllegalArgumentException("could not open image: " + name, ioe);
         }
     }
 
@@ -178,11 +168,34 @@ public final class GrayscalePicture implements ActionListener {
         int r = color.getRed();
         int g = color.getGreen();
         int b = color.getBlue();
-        int y = (int) (Math.round(0.299*r + 0.587*g + 0.114*b));
+        int y = (int) (Math.round(0.299 * r + 0.587 * g + 0.114 * b));
         return new Color(y, y, y);
     }
 
-   /**
+    /**
+     * Unit tests this {@code Picture} data type.
+     * Reads a picture specified by the command-line argument,
+     * and shows it in a window on the screen.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        GrayscalePicture picture = new GrayscalePicture(args[0]);
+        StdOut.printf("%d-by-%d\n", picture.width(), picture.height());
+        GrayscalePicture copy = new GrayscalePicture(picture);
+        picture.show();
+        copy.show();
+        while (!StdIn.isEmpty()) {
+            int row = StdIn.readInt();
+            int col = StdIn.readInt();
+            int gray = StdIn.readInt();
+            picture.setGrayscale(row, col, gray);
+            StdOut.println(picture.get(row, col));
+            StdOut.println(picture.getGrayscale(row, col));
+        }
+    }
+
+    /**
      * Returns a {@link JLabel} containing this picture, for embedding in a {@link JPanel},
      * {@link JFrame} or other GUI widget.
      *
@@ -194,21 +207,21 @@ public final class GrayscalePicture implements ActionListener {
         return new JLabel(icon);
     }
 
-   /**
+    /**
      * Sets the origin to be the upper left pixel. This is the default.
      */
     public void setOriginUpperLeft() {
         isOriginUpperLeft = true;
     }
 
-   /**
+    /**
      * Sets the origin to be the lower left pixel.
      */
     public void setOriginLowerLeft() {
         isOriginUpperLeft = false;
     }
 
-   /**
+    /**
      * Displays the picture in a window on the screen.
      */
     public void show() {
@@ -225,17 +238,16 @@ public final class GrayscalePicture implements ActionListener {
             // Java 11: use getMenuShortcutKeyMaskEx()
             // Java 8:  use getMenuShortcutKeyMask()
             menuItem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-                                     Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+                    Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
             menu.add(menuItem1);
             frame.setJMenuBar(menuBar);
-
 
 
             frame.setContentPane(getJLabel());
             // f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            if (title == null) frame.setTitle(width + "-by-" + height);
-            else               frame.setTitle(title);
+            if (filename == null) frame.setTitle(width + "-by-" + height);
+            else frame.setTitle(filename);
             frame.setResizable(false);
             frame.pack();
         }
@@ -246,7 +258,7 @@ public final class GrayscalePicture implements ActionListener {
         frame.repaint();
     }
 
-   /**
+    /**
      * Hides the window on the screen.
      */
     public void hide() {
@@ -256,7 +268,7 @@ public final class GrayscalePicture implements ActionListener {
         }
     }
 
-   /**
+    /**
      * Is the window containing the picture visible?
      * @return {@code true} if the picture is visible, and {@code false} otherwise
      */
@@ -264,7 +276,7 @@ public final class GrayscalePicture implements ActionListener {
         return isVisible;
     }
 
-   /**
+    /**
      * Returns the height of the picture.
      *
      * @return the height of the picture (in pixels)
@@ -273,7 +285,7 @@ public final class GrayscalePicture implements ActionListener {
         return height;
     }
 
-   /**
+    /**
      * Returns the width of the picture.
      *
      * @return the width of the picture (in pixels)
@@ -297,8 +309,8 @@ public final class GrayscalePicture implements ActionListener {
             throw new IllegalArgumentException("grayscale value must be between 0 and 255");
     }
 
-   /**
-     * Returns the grayscale value of pixel ({@code col}, {@code row}) as a {@link Color}.
+    /**
+     * Returns the grayscale value of pixel ({@code col}, {@code row}) as a {@link java.awt.Color}.
      *
      * @param col the column index
      * @param row the row index
@@ -312,7 +324,7 @@ public final class GrayscalePicture implements ActionListener {
         return toGray(color);
     }
 
-   /**
+    /**
      * Returns the grayscale value of pixel ({@code col}, {@code row}) as an {@code int}
      * between 0 and 255.
      * Using this method can be more efficient than {@link #get(int, int)} because
@@ -327,10 +339,10 @@ public final class GrayscalePicture implements ActionListener {
         validateColumnIndex(col);
         validateRowIndex(row);
         if (isOriginUpperLeft) return image.getRGB(col, row) & 0xFF;
-        else                   return image.getRGB(col, height - row - 1) & 0xFF;
+        else return image.getRGB(col, height - row - 1) & 0xFF;
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to the given grayscale value.
      *
      * @param col the column index
@@ -347,7 +359,7 @@ public final class GrayscalePicture implements ActionListener {
         image.setRGB(col, row, gray.getRGB());
     }
 
-   /**
+    /**
      * Sets the color of pixel ({@code col}, {@code row}) to the given grayscale value
      * between 0 and 255.
      *
@@ -362,10 +374,10 @@ public final class GrayscalePicture implements ActionListener {
         validateGrayscaleValue(gray);
         int rgb = gray | (gray << 8) | (gray << 16);
         if (isOriginUpperLeft) image.setRGB(col, row, rgb);
-        else                   image.setRGB(col, height - row - 1, rgb);
+        else image.setRGB(col, height - row - 1, rgb);
     }
 
-   /**
+    /**
      * Returns true if this picture is equal to the argument picture.
      *
      * @param other the other picture
@@ -377,7 +389,7 @@ public final class GrayscalePicture implements ActionListener {
         if (other == null) return false;
         if (other.getClass() != this.getClass()) return false;
         GrayscalePicture that = (GrayscalePicture) other;
-        if (this.width()  != that.width())  return false;
+        if (this.width() != that.width()) return false;
         if (this.height() != that.height()) return false;
         for (int col = 0; col < width(); col++)
             for (int row = 0; row < height(); row++)
@@ -385,7 +397,7 @@ public final class GrayscalePicture implements ActionListener {
         return true;
     }
 
-   /**
+    /**
      * Returns a string representation of this picture.
      * The result is a <code>width</code>-by-<code>height</code> matrix of pixels,
      * where the grayscale value of a pixel is an integer between 0 and 255.
@@ -394,12 +406,12 @@ public final class GrayscalePicture implements ActionListener {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(width +"-by-" + height + " grayscale picture (grayscale values given in hex)\n");
+        sb.append(width + "-by-" + height + " grayscale picture (grayscale values given in hex)\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
                 int gray;
                 if (isOriginUpperLeft) gray = 0xFF & image.getRGB(col, row);
-                else                   gray = 0xFF & image.getRGB(col, height - row - 1);
+                else gray = 0xFF & image.getRGB(col, height - row - 1);
                 sb.append(String.format("%3d ", gray));
             }
             sb.append("\n");
@@ -417,23 +429,20 @@ public final class GrayscalePicture implements ActionListener {
         throw new UnsupportedOperationException("hashCode() is not supported because pictures are mutable");
     }
 
-   /**
+    /**
      * Saves the picture to a file in either PNG or JPEG format.
      * The filetype extension must be either .png or .jpg.
      *
-     * @param  filename the name of the file
-     * @throws IllegalArgumentException if {@code filename} is {@code null}
-     * @throws IllegalArgumentException if {@code filename} is the empty string
-     * @throws IllegalArgumentException if {@code filename} has invalid filetype extension
-     * @throws IllegalArgumentException if cannot write the file {@code filename}
+     * @param name the name of the file
+     * @throws IllegalArgumentException if {@code name} is {@code null}
      */
-    public void save(String filename) {
-        if (filename == null) throw new IllegalArgumentException("argument to save() is null");
-        save(new File(filename));
-        title = filename;
+    public void save(String name) {
+        if (name == null) throw new IllegalArgumentException("argument to save() is null");
+        save(new File(name));
+        filename = name;
     }
 
-   /**
+    /**
      * Saves the picture to a file in a PNG or JPEG image format.
      *
      * @param  file the file
@@ -441,74 +450,63 @@ public final class GrayscalePicture implements ActionListener {
      */
     public void save(File file) {
         if (file == null) throw new IllegalArgumentException("argument to save() is null");
-        title = file.getName();
-        if (frame != null) frame.setTitle(title);
+        filename = file.getName();
+        if (frame != null) frame.setTitle(filename);
 
-        String suffix = title.substring(title.lastIndexOf('.') + 1);
-        if (!title.contains(".") || suffix.length() == 0) {
-            System.out.printf("Error: the filename '%s' has no file extension, such as .jpg or .png\n", title);
+        String suffix = filename.substring(filename.lastIndexOf('.') + 1);
+        if (!filename.contains(".") || suffix.length() == 0) {
+            System.out.printf("Error: the filename '%s' has no file extension, such as .jpg or .png\n", filename);
             return;
         }
 
-        try {
-            // for formats that support transparency (e.g., PNG and GIF)
-            if (ImageIO.write(image, suffix, file)) return;
-
-            // for formats that don't support transparency (e.g., JPG and BMP)
-            // create BufferedImage in RGB format and use white background
-            BufferedImage imageRGB = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            imageRGB.createGraphics().drawImage(image, 0, 0, Color.WHITE, null);
-            if (ImageIO.write(imageRGB, suffix, file)) return;
-
-            // failed to save the file; probably wrong format
-            throw new IllegalArgumentException("The filetype '" + suffix + "' is not supported");
-        }
-        catch (IOException e) {
-            throw new IllegalArgumentException("could not write file '" + title + "'", e);
+        if ("jpg".equalsIgnoreCase(suffix) || "png".equalsIgnoreCase(suffix)) {
+            try {
+                ImageIO.write(image, suffix, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error: filename must end in .jpg or .png");
         }
     }
 
-   /**
+    /**
      * Opens a save dialog box when the user selects "Save As" from the menu.
      */
     @Override
-    public void actionPerformed(ActionEvent event) {
+    public void actionPerformed(ActionEvent e) {
         FileDialog chooser = new FileDialog(frame,
-                             "Use a .png or .jpg extension", FileDialog.SAVE);
+                "Use a .png or .jpg extension", FileDialog.SAVE);
         chooser.setVisible(true);
         String selectedDirectory = chooser.getDirectory();
         String selectedFilename = chooser.getFile();
         if (selectedDirectory != null && selectedFilename != null) {
-            try {
-                save(selectedDirectory + selectedFilename);
-            }
-            catch (IllegalArgumentException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-   /**
-     * Unit tests this {@code Picture} data type.
-     * Reads a picture specified by the command-line argument,
-     * and shows it in a window on the screen.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        GrayscalePicture picture = new GrayscalePicture(args[0]);
-        StdOut.printf("%d-by-%d\n", picture.width(), picture.height());
-        GrayscalePicture copy = new GrayscalePicture(picture);
-        picture.show();
-        copy.show();
-        while (!StdIn.isEmpty()) {
-            int row = StdIn.readInt();
-            int col = StdIn.readInt();
-            int gray = StdIn.readInt();
-            picture.setGrayscale(row, col, gray);
-            StdOut.println(picture.get(row, col));
-            StdOut.println(picture.getGrayscale(row, col));
+            save(selectedDirectory + selectedFilename);
         }
     }
 
 }
+
+/******************************************************************************
+ *  Copyright 2002-2022, Robert Sedgewick and Kevin Wayne.
+ *
+ *  This file is part of algs4.jar, which accompanies the textbook
+ *
+ *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
+ *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
+ *      http://algs4.cs.princeton.edu
+ *
+ *
+ *  algs4.jar is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  algs4.jar is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
+ ******************************************************************************/
