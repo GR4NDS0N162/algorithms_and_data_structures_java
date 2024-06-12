@@ -28,6 +28,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code Quick} class provides static methods for sorting an
  *  array and selecting the ith smallest element in an array using quicksort.

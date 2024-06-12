@@ -45,7 +45,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4;
+package edu.princeton.cs.algs4.inout;
 
 import java.util.Random;
 

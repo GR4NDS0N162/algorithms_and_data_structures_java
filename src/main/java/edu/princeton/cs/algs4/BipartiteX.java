@@ -12,6 +12,9 @@
 package edu.princeton.cs.algs4;
 
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code BipartiteX} class represents a data type for
  *  determining whether an undirected graph is <em>bipartite</em> or whether

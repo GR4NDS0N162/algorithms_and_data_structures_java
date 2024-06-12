@@ -19,6 +19,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code FarthestPair} data type computes the farthest pair of points
  *  in a set of <em>n</em> points in the plane and provides accessor methods

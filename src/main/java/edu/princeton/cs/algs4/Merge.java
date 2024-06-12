@@ -23,6 +23,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Merge} class provides static methods for sorting an
  *  array using a top-down, recursive version of <em>mergesort</em>.

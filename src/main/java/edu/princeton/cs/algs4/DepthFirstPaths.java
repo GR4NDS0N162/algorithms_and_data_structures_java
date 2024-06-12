@@ -30,6 +30,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code DepthFirstPaths} class represents a data type for finding
  *  paths from a source vertex <em>s</em> to every other vertex

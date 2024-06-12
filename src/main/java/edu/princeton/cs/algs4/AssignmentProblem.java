@@ -10,6 +10,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code AssignmentProblem} class represents a data type for computing
  *  an optimal solution to an <em>n</em>-by-<em>n</em> <em>assignment problem</em>.

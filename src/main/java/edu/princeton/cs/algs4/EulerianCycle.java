@@ -15,6 +15,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code EulerianCycle} class represents a data type
  *  for finding an Eulerian cycle or path in a graph.

@@ -14,6 +14,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 

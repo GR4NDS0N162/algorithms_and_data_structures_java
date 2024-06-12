@@ -12,6 +12,9 @@
 package edu.princeton.cs.algs4;
 
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Accumulator} class is a data type for computing the running
  *  mean, sample standard deviation, and sample variance of a stream of real

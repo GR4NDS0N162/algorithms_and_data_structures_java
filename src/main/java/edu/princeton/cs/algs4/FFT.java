@@ -61,6 +61,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code FFT} class provides methods for computing the
  *  FFT (Fast-Fourier Transform), inverse FFT, linear convolution,

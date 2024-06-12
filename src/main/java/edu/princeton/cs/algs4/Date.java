@@ -9,6 +9,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Date} class is an immutable data type to encapsulate a
  *  date (day, month, and year).

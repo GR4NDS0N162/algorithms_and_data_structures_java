@@ -17,6 +17,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.BinaryStdIn;
+import edu.princeton.cs.algs4.inout.BinaryStdOut;
+
 /**
  *  The {@code Genome} class provides static methods for compressing
  *  and expanding a genomic sequence using a 2-bit code.

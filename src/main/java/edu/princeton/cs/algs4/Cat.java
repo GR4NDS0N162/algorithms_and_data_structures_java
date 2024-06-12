@@ -27,6 +27,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.Out;
+
 /**
  *  The {@code Cat} class provides a client for concatenating the results
  *  of several text files.

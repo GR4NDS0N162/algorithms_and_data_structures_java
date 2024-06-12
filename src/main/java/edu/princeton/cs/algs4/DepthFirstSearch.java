@@ -20,6 +20,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code DepthFirstSearch} class represents a data type for
  *  determining the vertices connected to a given source vertex <em>s</em>

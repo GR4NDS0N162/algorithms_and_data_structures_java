@@ -11,6 +11,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 import java.util.Iterator;
 
 /**

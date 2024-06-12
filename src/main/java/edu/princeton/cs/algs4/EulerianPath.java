@@ -9,6 +9,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code EulerianPath} class represents a data type
  *  for finding an Eulerian path in a graph.

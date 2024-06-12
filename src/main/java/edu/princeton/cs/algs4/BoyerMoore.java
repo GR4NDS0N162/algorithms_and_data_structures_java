@@ -32,6 +32,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code BoyerMoore} class finds the first occurrence of a pattern string
  *  in a text string.

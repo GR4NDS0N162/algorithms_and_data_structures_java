@@ -37,6 +37,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code KWIK} class provides a {@link SuffixArray} client for computing
  *  all occurrences of a keyword in a given string, with surrounding context.

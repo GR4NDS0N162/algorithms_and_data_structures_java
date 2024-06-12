@@ -31,6 +31,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code CC} class represents a data type for
  *  determining the connected components in an undirected graph.

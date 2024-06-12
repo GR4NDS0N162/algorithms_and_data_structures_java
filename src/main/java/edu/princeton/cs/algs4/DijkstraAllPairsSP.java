@@ -12,6 +12,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code DijkstraAllPairsSP} class represents a data type for solving the
  *  all-pairs shortest paths problem in edge-weighted digraphs

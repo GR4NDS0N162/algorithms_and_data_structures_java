@@ -9,6 +9,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code DirectedEdge} class represents a weighted edge in an
  *  {@link EdgeWeightedDigraph}. Each edge consists of two integers

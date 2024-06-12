@@ -15,6 +15,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code BTree} class represents an ordered symbol table of generic
  *  key-value pairs.

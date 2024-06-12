@@ -43,6 +43,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code SymbolGraph} class represents an undirected graph, where the
  *  vertex names are arbitrary strings.

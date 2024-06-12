@@ -20,6 +20,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code AcyclicSP} class represents a data type for solving the
  *  single-source shortest paths problem in edge-weighted directed acyclic

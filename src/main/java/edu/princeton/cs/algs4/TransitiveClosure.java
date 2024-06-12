@@ -32,6 +32,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code TransitiveClosure} class represents a data type for
  *  computing the transitive closure of a digraph.

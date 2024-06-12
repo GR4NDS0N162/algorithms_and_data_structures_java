@@ -9,6 +9,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Edge} class represents a weighted edge in an
  *  {@link EdgeWeightedGraph}. Each edge consists of two integers

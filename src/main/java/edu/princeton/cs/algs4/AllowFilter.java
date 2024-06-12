@@ -30,6 +30,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code AllowFilter} class provides a client for reading in an <em>allowlist</em>
  *  of words from a file; then, reading in a sequence of words from standard input,

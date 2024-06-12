@@ -10,6 +10,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code BipartiteMatching} class represents a data type for computing a
  *  <em>maximum (cardinality) matching</em> and a

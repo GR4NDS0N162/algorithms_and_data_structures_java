@@ -38,6 +38,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code PrimMST} class represents a data type for computing a
  *  <em>minimum spanning tree</em> in an edge-weighted graph.

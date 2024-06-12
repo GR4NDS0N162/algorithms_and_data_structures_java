@@ -12,7 +12,7 @@
  *
  ******************************************************************************/
 
-package edu.princeton.cs.algs4;
+package edu.princeton.cs.algs4.inout;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;

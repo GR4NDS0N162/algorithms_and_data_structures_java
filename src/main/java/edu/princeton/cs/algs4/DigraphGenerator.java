@@ -9,6 +9,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code DigraphGenerator} class provides static methods for creating
  *  various digraphs, including Erdos-Renyi random digraphs, random DAGs,

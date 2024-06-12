@@ -29,6 +29,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code DepthFirstDirectedPaths} class represents a data type for
  *  finding directed paths from a source vertex <em>s</em> to every

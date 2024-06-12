@@ -32,6 +32,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code GaussianElimination} data type provides methods
  *  to solve a linear system of equations <em>Ax</em> = <em>b</em>,

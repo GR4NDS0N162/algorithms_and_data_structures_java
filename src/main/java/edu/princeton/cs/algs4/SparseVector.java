@@ -11,6 +11,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code SparseVector} class represents a <em>d</em>-dimensional mathematical vector.
  *  Vectors are mutable: their values can be changed after they are created.

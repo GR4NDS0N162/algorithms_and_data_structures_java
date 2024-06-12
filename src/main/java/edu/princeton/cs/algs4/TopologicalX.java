@@ -10,6 +10,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code TopologicalX} class represents a data type for
  *  determining a topological order of a <em>directed acyclic graph</em> (DAG).

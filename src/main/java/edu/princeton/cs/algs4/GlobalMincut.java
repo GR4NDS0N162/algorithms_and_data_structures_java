@@ -21,6 +21,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code GlobalMincut} class represents a data type for computing a
  *  <em>global minimum cut</em> in a graph with non-negative edge weights.

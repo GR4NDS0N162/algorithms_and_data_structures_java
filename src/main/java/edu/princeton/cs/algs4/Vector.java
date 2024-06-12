@@ -26,6 +26,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Vector} class represents a <em>d</em>-dimensional Euclidean vector.
  *  Vectors are immutable: their values cannot be changed after they are created.

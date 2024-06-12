@@ -28,6 +28,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code Quick3string} class provides static methods for sorting an
  *  array of strings using 3-way radix quicksort.

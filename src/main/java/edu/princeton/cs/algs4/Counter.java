@@ -20,6 +20,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code Counter} class is a mutable data type to encapsulate a counter.
  *  <p>

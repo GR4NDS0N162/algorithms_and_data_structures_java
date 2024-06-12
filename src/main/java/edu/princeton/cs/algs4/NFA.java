@@ -27,6 +27,8 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code NFA} class provides a data type for creating a
  *  <em>nondeterministic finite state automaton</em> (NFA) from a regular

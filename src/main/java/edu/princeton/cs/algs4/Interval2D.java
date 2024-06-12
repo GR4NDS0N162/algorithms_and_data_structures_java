@@ -9,6 +9,10 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdDraw;
+import edu.princeton.cs.algs4.inout.StdOut;
+import edu.princeton.cs.algs4.inout.StdRandom;
+
 /**
  *  The {@code Interval2D} class represents a closed two-dimensional interval,
  *  which represents all points (x, y) with both {@code xmin <= x <= xmax} and

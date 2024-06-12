@@ -64,6 +64,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.In;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code KosarajuSharirSCC} class represents a data type for
  *  determining the strong components in a digraph.

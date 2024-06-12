@@ -17,6 +17,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code QuickBentleyMcIlroy} class provides static methods for sorting
  *  an array using an optimized version of quicksort (using Bentley-McIlroy

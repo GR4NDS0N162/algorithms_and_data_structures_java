@@ -10,6 +10,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code LinearProbingHashST} class represents a symbol table of generic
  *  key-value pairs.

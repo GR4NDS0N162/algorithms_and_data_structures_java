@@ -18,6 +18,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Average} class provides a client for reading in a sequence
  *  of real numbers and printing out their average.

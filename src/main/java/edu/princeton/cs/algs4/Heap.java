@@ -23,6 +23,9 @@
 
 package edu.princeton.cs.algs4;
 
+import edu.princeton.cs.algs4.inout.StdIn;
+import edu.princeton.cs.algs4.inout.StdOut;
+
 /**
  *  The {@code Heap} class provides a static method to sort an array
  *  using <em>heapsort</em>.
